@@ -18,6 +18,9 @@ export default function Home() {
       <Button onClick={handleLogout} variant="contained" sx={{ mt: 3, mb: 2 }}>
         Logout
       </Button>
+      <Button onClick={handleLogout} variant="contained" sx={{ mt: 3, mb: 2 }}>
+        Logout
+      </Button>
     </>
   );
 }
