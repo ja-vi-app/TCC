@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import "./App.css";
 import { PrivateRoute } from "./Components/PrivateRoute";
 import Login from "./Pages/Login";
 import { LOCAL_STORAGE_ITEM, URLS } from "./Utils/Constants";
