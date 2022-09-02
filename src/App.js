@@ -7,7 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import { PrivateRoute } from "./Components/PrivateRoute";
 import Login from "./Pages/Login";
-import { LOCAL_STORAGE_ITEM, URLS } from "./Utils/Constants";
+import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
 import routes from "./Utils/route";
 
 const theme = createTheme();
@@ -31,7 +31,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <>
-        {localStorage.getItem(LOCAL_STORAGE_ITEM.is_logged_in) ? (
+        {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
           <Routes key="privateRoute">
             {getRoutes(routes)}
             <Route path="*" element={<Navigate to={URLS.home} />} />

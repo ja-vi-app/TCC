@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { collection } from "firebase/firestore";
 
 import { Button } from "@mui/material";
-import { LOCAL_STORAGE_ITEM, URLS } from "../Utils/Constants";
+import { SESSION_STORAGE_ITEM, URLS } from "../Utils/Constants";
 
 import { addDB, deleteDB, getDB } from "../Service/Utils/Functions";
 import { db } from "../Service/dbConection";
@@ -27,7 +27,8 @@ export default function Home() {
   }, [userCollectionRef]);
 
   function handleLogout() {
-    localStorage.removeItem(LOCAL_STORAGE_ITEM.is_logged_in);
+    sessionStorage.clear();
+
     navigate(URLS.login);
   }
 
@@ -43,7 +44,7 @@ export default function Home() {
 
   return (
     <>
-      <h1>HOME</h1>
+      <h1>Bem-Vindo {sessionStorage.getItem(SESSION_STORAGE_ITEM.nameUser)}</h1>
       <h5>Exemplo de GET firebase</h5>
       <div>
         <ul>
