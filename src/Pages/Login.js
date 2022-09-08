@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
 import Avatar from "@mui/material/Avatar";
-import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,30 +13,36 @@ import Button from "@mui/material/Button";
 import { HourglassEmpty } from "@mui/icons-material";
 
 import { Copyright } from "../Components/Copyright";
-import { LOCAL_STORAGE_ITEM, MS, TOAST_TYPE, URLS } from "../Utils/Constants";
-import { sleep, toasterModel } from "../Utils/Functions";
+import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../Utils/Constants";
+import { firebaseApp } from "../Service/dbConection";
+import { toasterModel } from "../Utils/Functions";
 
 export default function Login() {
   const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth(firebaseApp);
 
   const [isLogin, setIsLogin] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  async function handleSubmit(event) {
+  async function signInGoolgle(event) {
     event.preventDefault();
-
     setIsLogin(true);
-    console.log("a");
-    if (email === "tcc@javi.com" && password === "123") {
-      localStorage.setItem(LOCAL_STORAGE_ITEM.is_logged_in, true);
-      await sleep(MS["3s"]);
-      navigate(URLS.home);
-    } else {
-      toasterModel("O usuário e/ou senha inválidos", TOAST_TYPE.error);
-    }
-
-    setIsLogin(false);
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        sessionStorage.setItem(SESSION_STORAGE_ITEM.isLoggedIn, true);
+        sessionStorage.setItem(SESSION_STORAGE_ITEM.nameUser, user.displayName);
+        navigate(URLS.home);
+      })
+      .catch(() => {
+        toasterModel(
+          "Falha ao fazer login com o Google. Tente novamente mais tarde!",
+          TOAST_TYPE.error
+        );
+      })
+      .finally(() => {
+        setIsLogin(false);
+      });
   }
 
   return (
@@ -57,28 +63,6 @@ export default function Login() {
             Entrar
           </Typography>
           <Box component="form" role="form" sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Senha"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
             {isLogin ? (
               <Button disabled={true} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 <HourglassEmpty /> Logando...
@@ -86,12 +70,12 @@ export default function Login() {
             ) : (
               <Button
                 type="submit"
-                onClick={handleSubmit}
+                onClick={signInGoolgle}
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Login
+                Login com Google
               </Button>
             )}
             <Grid container>

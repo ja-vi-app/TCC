@@ -1,14 +1,14 @@
-
-export const LOCAL_STORAGE_ITEM = {
-    is_logged_in: 'is_logged_in'
-}
+export const SESSION_STORAGE_ITEM = {
+  isLoggedIn: "isLoggedIn",
+  nameUser: "name",
+};
 export const URLS = {
-    login:'/login-page',
-    home: '/home'
-}
+  login: "/login-page",
+  home: "/home",
+};
 export const MS = {
-    '3s': 3000
-}
-export const TOAST_TYPE ={
-    error: 'error'
-}
+  "3s": 3000,
+};
+export const TOAST_TYPE = {
+  error: "error",
+};

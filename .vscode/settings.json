@@ -1,0 +1,10 @@
+{
+  "editor.fontSize": 15,
+  "editor.accessibilityPageSize": 15,
+  "editor.tabSize": 2,
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.format.enable": true
+}
