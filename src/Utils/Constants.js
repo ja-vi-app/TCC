@@ -1,6 +1,7 @@
 export const SESSION_STORAGE_ITEM = {
   isLoggedIn: "isLoggedIn",
   nameUser: "name",
+  photoUser: "photoUser",
 };
 export const URLS = {
   login: "/login-page",

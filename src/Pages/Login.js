@@ -32,6 +32,7 @@ export default function Login() {
         const user = result.user;
         sessionStorage.setItem(SESSION_STORAGE_ITEM.isLoggedIn, true);
         sessionStorage.setItem(SESSION_STORAGE_ITEM.nameUser, user.displayName);
+        sessionStorage.setItem(SESSION_STORAGE_ITEM.photoUser, user.photoURL);
         navigate(URLS.home);
       })
       .catch(() => {
