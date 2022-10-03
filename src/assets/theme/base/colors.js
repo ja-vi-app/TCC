@@ -4,6 +4,10 @@ const colors = {
     default: "#f0f2f5",
   },
 
+  appBar: {
+    dark: "#181818",
+  },
+
   transparent: {
     main: "transparent",
   },
@@ -13,7 +17,7 @@ const colors = {
   },
 
   black: {
-    light: "#000000",
+    main: "#000000",
   },
 };
 

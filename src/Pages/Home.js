@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 import { collection } from "firebase/firestore";
 
 import { Button, Grid } from "@mui/material";
-import { SESSION_STORAGE_ITEM, URLS } from "../Utils/Constants";
+
+import { SESSION_STORAGE_ITEM } from "../Utils/Constants";
 
 import { addDB, deleteDB, getDB } from "../Service/Utils/Functions";
 import { db } from "../Service/dbConection";
 import { USERS } from "../Service/Utils/Tables";
+
 import CardMovie from "../Components/CardMovie/CardMovie";
+import ResponsiveAppBar from "../Components/AppBar/AppBar";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -18,33 +20,21 @@ export default function Home() {
 
   const userCollectionRef = collection(db, USERS);
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    async function fetchData() {
-      setUsers(await getDB(userCollectionRef));
-    }
-    fetchData();
-  }, [userCollectionRef]);
-
-  function handleLogout() {
-    sessionStorage.clear();
-
-    navigate(URLS.login);
-  }
-
   async function handleSave() {
     await addDB(userCollectionRef, { name, email });
+    setUsers(await getDB(userCollectionRef));
     setEmail("");
     setName("");
   }
 
   async function deleteUser(id) {
     await deleteDB(USERS, id);
+    setUsers(await getDB(userCollectionRef));
   }
 
   return (
     <>
+      <ResponsiveAppBar />
       <h1>Bem-Vindo {sessionStorage.getItem(SESSION_STORAGE_ITEM.nameUser)}</h1>
       <h5>Exemplo de GET firebase</h5>
       <div>
@@ -77,9 +67,6 @@ export default function Home() {
           Salvar Dados
         </Button>
       </div>
-      <Button onClick={handleLogout} variant="contained" sx={{ mt: 3, mb: 2 }}>
-        Logout
-      </Button>
       <Grid container spacing={3} p={3}>
         <Grid item xs={6} md={4} xl={1.6}>
           <CardMovie
