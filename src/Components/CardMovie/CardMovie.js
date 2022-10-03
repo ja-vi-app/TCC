@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
 
 import { Box, Card, CardMedia, Grid } from "@mui/material";
+import minions from "../../assets/img/minions.jpg";
 
-function CardMovie({ image, icon, title, description, value }) {
+function CardMovie({ image, iconOrDate, emoji }) {
   return (
     <Card>
       <div style={{ position: "relative" }}>
@@ -43,17 +44,13 @@ function CardMovie({ image, icon, title, description, value }) {
 }
 
 CardMovie.defaultProps = {
-  color: "info",
-  value: "",
-  description: "",
+  image: minions,
 };
 
 CardMovie.propTypes = {
-  color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
-  icon: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  iconOrDate: PropTypes.node.isRequired,
+  emoji: PropTypes.string.isRequired,
+  image: PropTypes.string,
 };
 
 export default CardMovie;

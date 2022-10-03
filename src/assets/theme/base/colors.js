@@ -8,11 +8,6 @@ const colors = {
     dark: "#181818",
   },
 
-  text: {
-    main: "#5b5b5b",
-    focus: "#5b5b5b",
-  },
-
   transparent: {
     main: "transparent",
   },
