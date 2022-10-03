@@ -2,15 +2,14 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { PrivateRoute } from "./Components/PrivateRoute";
+import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
 import Login from "./Pages/Login";
 import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
 import routes from "./Utils/route";
-
-const theme = createTheme();
+import theme from "./assets/theme";
 
 function App() {
   const getRoutes = (allRoutes) =>

@@ -12,7 +12,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { HourglassEmpty } from "@mui/icons-material";
 
-import { Copyright } from "../Components/Copyright";
+import { Copyright } from "../Components/Footer/Copyright";
 import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../Utils/Constants";
 import { firebaseApp } from "../Service/dbConection";
 import { toasterModel } from "../Utils/Functions";

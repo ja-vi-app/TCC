@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import { collection } from "firebase/firestore";
 
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { SESSION_STORAGE_ITEM, URLS } from "../Utils/Constants";
 
 import { addDB, deleteDB, getDB } from "../Service/Utils/Functions";
 import { db } from "../Service/dbConection";
 import { USERS } from "../Service/Utils/Tables";
+import CardMovie from "../Components/CardMovie/CardMovie";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -79,6 +80,15 @@ export default function Home() {
       <Button onClick={handleLogout} variant="contained" sx={{ mt: 3, mb: 2 }}>
         Logout
       </Button>
+      <Grid container spacing={3} p={3}>
+        <Grid item xs={6} md={4} xl={1.6}>
+          <CardMovie
+          // TODO: link s3, vai ser pego via api
+          // TODO: passar os emoji por params
+          // TODO: passar demais parametros por params
+          />
+        </Grid>
+      </Grid>
     </>
   );
 }
