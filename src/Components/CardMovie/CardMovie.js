@@ -1,64 +1,56 @@
 import PropTypes from "prop-types";
 
-import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
-import Icon from "@mui/material/Icon";
-import { Box, CardMedia, Typography } from "@mui/material";
+import { Box, Card, CardMedia, Grid } from "@mui/material";
 import minions from "../../assets/img/minions.jpg";
 
-function CardMovie({ color, icon, title, description, value }) {
+function CardMovie({ image, iconOrDate, emoji }) {
   return (
     <Card>
-      <CardMedia component="img" height="100%" image={minions} alt="teste" />
-      {/* <Box p={2} mx={4} display="flex" justifyContent="center">
-        <Box
-          display="grid"
-          justifyContent="center"
-          alignItems="center"
-          bgColor={color}
-          style={{ background: "red" }}
-          color="white"
-          width="4rem"
-          height="4rem"
-          shadow="md"
-          borderRadius="lg"
-          variant="gradient"
-        >
-          <Icon fontSize="default">{icon}</Icon>
-        </Box>
-      </Box>
-      <Box pb={2} px={2} textAlign="center" lineHeight={1.25}>
-        <Typography variant="h6" fontWeight="medium" textTransform="capitalize">
-          {title}
-        </Typography>
-        {description && (
-          <Typography variant="caption" color="text" fontWeight="regular">
-            {description}
-          </Typography>
-        )}
-        {description && !value ? null : <Divider />}
-        {value && (
-          <Typography variant="h5" fontWeight="medium">
-            {value}
-          </Typography>
-        )}
-      </Box> */}
+      <div style={{ position: "relative" }}>
+        <Grid container display="flex">
+          <div
+            style={{
+              position: "absolute",
+              left: "0%",
+              right: "0%",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box
+              key="icon_img"
+              width="3rem"
+              height="2rem"
+              borderRadius={"0px 0px 5px 0px"}
+              style={{ background: " #ffffffb3" }}
+            >
+              {/* TODO: aceitar o emoji como parametro */}
+            </Box>
+            <Box
+              key="note_img"
+              width="3rem"
+              height="3rem"
+              borderRadius={"0px 0px 0px 5px"}
+              style={{ background: "#00000073" }}
+            >
+              {/* TODO: aceitar a icone/data como parametro */}
+            </Box>
+          </div>
+        </Grid>
+        <CardMedia component="img" height="100%" image={image} alt="teste" />
+      </div>
     </Card>
   );
 }
 
 CardMovie.defaultProps = {
-  color: "info",
-  value: "",
-  description: "",
+  image: minions,
 };
 
 CardMovie.propTypes = {
-  color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
-  icon: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  iconOrDate: PropTypes.node.isRequired,
+  emoji: PropTypes.string.isRequired,
+  image: PropTypes.string,
 };
 
 export default CardMovie;

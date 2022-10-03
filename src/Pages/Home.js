@@ -83,10 +83,9 @@ export default function Home() {
       <Grid container spacing={3} p={3}>
         <Grid item xs={6} md={4} xl={1.6}>
           <CardMovie
-            icon="ac_unit"
-            title="paypal"
-            description="Freelance Payment"
-            value="$455.00"
+          // TODO: link s3, vai ser pego via api
+          // TODO: passar os emoji por params
+          // TODO: passar demais parametros por params
           />
         </Grid>
       </Grid>
