@@ -32,7 +32,6 @@ export default function Home() {
     setUsers(await getDB(userCollectionRef));
   }
 
-  console.log(users);
   return (
     <>
       <ResponsiveAppBar />
