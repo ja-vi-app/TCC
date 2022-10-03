@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { collection } from "firebase/firestore";
 
@@ -19,23 +19,19 @@ export default function Home() {
 
   const userCollectionRef = collection(db, USERS);
 
-  useEffect(() => {
-    async function fetchData() {
-      setUsers(await getDB(userCollectionRef));
-    }
-    fetchData();
-  }, [userCollectionRef]);
-
   async function handleSave() {
     await addDB(userCollectionRef, { name, email });
+    setUsers(await getDB(userCollectionRef));
     setEmail("");
     setName("");
   }
 
   async function deleteUser(id) {
     await deleteDB(USERS, id);
+    setUsers(await getDB(userCollectionRef));
   }
 
+  console.log(users);
   return (
     <>
       <ResponsiveAppBar />

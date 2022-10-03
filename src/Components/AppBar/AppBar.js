@@ -14,10 +14,10 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import colors from "../../assets/theme/base/colors";
 import { SESSION_STORAGE_ITEM, URLS } from "../../Utils/Constants";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const pages = [
-  { name: "Lista", url: "/lista" },
+  { name: "Lista", url: URLS.list },
   { name: "Alertas", url: "/alertas" },
   { name: "Ajuda", url: "/ajuda" },
 ];
@@ -28,6 +28,8 @@ const settings = [
 
 const ResponsiveAppBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -140,8 +142,12 @@ const ResponsiveAppBar = () => {
               <Button
                 key={page.name}
                 onClick={() => handleCloseNavMenu(page.url)}
-                sx={{ my: 2, color: "white", display: "block", mr: "5px" }}
-                style={{ color: "white" }}
+                sx={{ my: 2, color: "#fff", display: "block", mr: "5px" }}
+                style={
+                  page.url === pathname
+                    ? { textDecoration: "underline", textUnderlineOffset: "3px" }
+                    : null
+                }
               >
                 {page.name}
               </Button>

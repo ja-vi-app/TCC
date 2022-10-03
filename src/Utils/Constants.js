@@ -6,6 +6,7 @@ export const SESSION_STORAGE_ITEM = {
 export const URLS = {
   login: "/login-page",
   home: "/home",
+  list: "/lista",
 };
 export const MS = {
   "3s": 3000,
