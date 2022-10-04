@@ -11,7 +11,7 @@ import { db } from "../Service/dbConection";
 import { USERS } from "../Service/Utils/Tables";
 
 import CardMovie from "../Components/CardMovie/CardMovie";
-import ResponsiveAppBar from "../Components/AppBar/AppBar";
+import List from "./List";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <>
-      <ResponsiveAppBar />
+      <List />
       <h1>Bem-Vindo {sessionStorage.getItem(SESSION_STORAGE_ITEM.nameUser)}</h1>
       <h5>Exemplo de GET firebase</h5>
       <div>
