@@ -13,7 +13,6 @@
 
 #dotenv
 .env
-.env.example
 
 # misc
 .DS_Store

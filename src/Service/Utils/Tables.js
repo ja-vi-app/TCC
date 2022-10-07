@@ -1,1 +1,1 @@
-export const USERS = "users";
+export const RECORDED_MOVIES = "recorded-movies";

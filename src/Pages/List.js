@@ -1,5 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import { collection } from "firebase/firestore";
 
 import {
   Accordion,
@@ -10,11 +13,15 @@ import {
   Fab,
 } from "@mui/material";
 import { Add, AddPhotoAlternate, Remove } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { TOAST_TYPE, URLS } from "../Utils/Constants";
-import { sleep, toasterModel } from "../Utils/Functions";
+
+import CustomDate from "../Components/CustomDate/CustomDate";
 import { CustomTextField } from "../Components/CustomTextField/CustomTextField";
-import axios from "axios";
+import { DEFAULT_MESSAGE, SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../Utils/Constants";
+import { isEmpty, toasterModel } from "../Utils/Functions";
+
+import { addDB } from "../Service/Utils/Functions";
+import { db } from "../Service/dbConection";
+import { RECORDED_MOVIES } from "../Service/Utils/Tables";
 
 const optionsCategory = [
   { id: "movie", descricao: "Filme" },
@@ -22,20 +29,24 @@ const optionsCategory = [
 ];
 
 const initialState = {
-  category: [],
+  category: null,
   title: "",
+  file: null,
 };
 
 export default function List() {
   const navigate = useNavigate();
-  const [{ category, title }, setState] = useState({ ...initialState });
-  const [isOpenAccordion, setIsOpenAccordion] = useState(false);
-  const [file, setFile] = useState(null);
+  const location = useLocation();
+  const { pathname } = location;
 
-  function handleExpandAccordion() {
+  const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
+
+  const [{ category, title, file }, setState] = useState({ ...initialState });
+  const [isOpenAccordion, setIsOpenAccordion] = useState(false);
+
+  async function handleExpandAccordion() {
     if (!isOpenAccordion) {
       navigate(URLS.list);
-      sleep(1000);
       setIsOpenAccordion(true);
       return;
     }
@@ -43,12 +54,36 @@ export default function List() {
     setIsOpenAccordion(false);
   }
 
-  useEffect(() => {}, [isOpenAccordion]);
+  useEffect(() => {
+    if (pathname === URLS.list) {
+      setIsOpenAccordion(true);
+    }
+  }, [isOpenAccordion, setIsOpenAccordion]);
+
+  function getFileExtension(fileName) {
+    var fileExtension;
+    fileExtension = fileName.replace(/^.*\./, "");
+    return fileExtension;
+  }
+  function isIMage(fileName) {
+    var fileExt = getFileExtension(fileName);
+    var imagesExtension = ["png", "jpg", "jpeg"];
+    if (imagesExtension.indexOf(fileExt) !== -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   async function handleUploadClick(event) {
-    setFile(event.target.files[0]);
-    // TODO: verificar se o arquivo realmente é uma imagem
-    // setFile(file);
+    const fileUpload = event.target.files[0];
+
+    if (isIMage(fileUpload.name)) {
+      setState((prevState) => ({ ...prevState, file: fileUpload }));
+      return;
+    }
+
+    toasterModel(DEFAULT_MESSAGE.fileNotImage, TOAST_TYPE.info);
   }
 
   async function handleUploadImage() {
@@ -64,12 +99,11 @@ export default function List() {
     })
       .then((response) => {
         if (response.status === 200) return response.data;
+        return null;
       })
       .catch(() => {
-        toasterModel(
-          "Falha ao fazer upload da imagem, tente novamente mais tarde!",
-          TOAST_TYPE.error
-        );
+        toasterModel(DEFAULT_MESSAGE.failedSaveImage, TOAST_TYPE.error);
+        return null;
       });
   }
 
@@ -77,8 +111,28 @@ export default function List() {
     setState((prevState) => ({ ...prevState, [fieldKey]: value }));
   }
 
-  function handleSaveNewCardMovie() {
-    // TODO: logica para salvar a imagem e os itens no firebase
+  async function handleSaveNewCardMovie() {
+    const infoImage = await handleUploadImage();
+
+    if (infoImage) {
+      await addDB(recordedMoviesCollectionRef, {
+        title,
+        category: category.id,
+        name: sessionStorage.getItem(SESSION_STORAGE_ITEM.nameUser),
+        email: sessionStorage.getItem(SESSION_STORAGE_ITEM.email),
+        upload_date: CustomDate.dateFormatter(new Date()),
+        url_image: infoImage.movie_url,
+        owner: sessionStorage.getItem(SESSION_STORAGE_ITEM.userUid),
+      })
+        .then(() => {
+          toasterModel(DEFAULT_MESSAGE.successSave, TOAST_TYPE.success);
+          setState(initialState);
+          handleExpandAccordion();
+        })
+        .catch(() => {
+          toasterModel(DEFAULT_MESSAGE.failedSave, TOAST_TYPE.error);
+        });
+    }
   }
 
   return (
@@ -96,7 +150,7 @@ export default function List() {
         >
           <AccordionSummary
             expandIcon={
-              <Button style={{ background: "#050505" }}>
+              <Button style={{ background: "#8980E8" }}>
                 {isOpenAccordion ? (
                   <Remove fontSize="large" style={{ color: "#fff" }} />
                 ) : (
@@ -122,7 +176,7 @@ export default function List() {
               id="title"
               multiline={true}
               maxRows="2"
-              label="Título"
+              label="Título*"
             />
             <input
               accept="image/*"
@@ -138,7 +192,6 @@ export default function List() {
               </Fab>
             </label>
             {file ? file.name : null}
-
             <Autocomplete
               disablePortal
               id="category"
@@ -149,13 +202,15 @@ export default function List() {
               value={category}
               getOptionLabel={(prop) => (prop.descricao ? prop.descricao : prop)}
               sx={{ width: 300 }}
-              renderInput={(params) => <CustomTextField {...params} label="Categoria" />}
+              renderInput={(params) => <CustomTextField {...params} label="Categoria*" />}
+              isOptionEqualToValue={(option, value) => option === value}
             />
-
             <Button
               onClick={handleSaveNewCardMovie}
-              style={{ background: "#8980E8", color: "white" }}
+              style={{ color: "white" }}
               size="large"
+              variant="contained"
+              disabled={isEmpty(title) || isEmpty(file) || isEmpty(category)}
             >
               Adicionar
             </Button>
