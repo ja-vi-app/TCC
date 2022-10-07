@@ -35,3 +35,11 @@ export const toasterModel = (message, type = "default", time = 5000) => {
 export async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function isEmpty(value) {
+  return value === "" || value === null || value === undefined;
+}
+
+export function isEmptyArray(array) {
+  return !(Array.isArray(array) && array.length > 0);
+}

@@ -10,6 +10,7 @@ import Login from "./Pages/Login";
 import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
 import routes from "./Utils/route";
 import theme from "./assets/theme";
+import ResponsiveAppBar from "./Components/AppBar/AppBar";
 
 function App() {
   const getRoutes = (allRoutes) =>
@@ -31,10 +32,13 @@ function App() {
       <CssBaseline />
       <>
         {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-          <Routes key="privateRoute">
-            {getRoutes(routes)}
-            <Route path="*" element={<Navigate to={URLS.home} />} />
-          </Routes>
+          <>
+            <ResponsiveAppBar />
+            <Routes key="privateRoute">
+              {getRoutes(routes)}
+              <Route path="*" element={<Navigate to={URLS.home} />} />
+            </Routes>
+          </>
         ) : (
           <Routes key="allRoute">
             {getRoutes(routes)}
