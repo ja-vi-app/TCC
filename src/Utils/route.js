@@ -1,4 +1,4 @@
-import Home from "../Pages/Home";
+import Home from "../Pages/Home/Home";
 import List from "../Pages/List";
 import Login from "../Pages/Login";
 import { URLS } from "./Constants";

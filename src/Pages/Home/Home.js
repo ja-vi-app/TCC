@@ -4,13 +4,13 @@ import { collection } from "firebase/firestore";
 
 import { Grid } from "@mui/material";
 
-import CardMovie from "../Components/CardMovie/CardMovie";
-import List from "./List";
+import CardMovie from "../../Components/CardMovie/CardMovie";
+import List from "../List";
 
-import { getDB } from "../Service/Utils/Functions";
-import { db } from "../Service/dbConection";
-import { RECORDED_MOVIES } from "../Service/Utils/Tables";
-import { isEmptyArray } from "../Utils/Functions";
+import { getDB } from "../../Service/Utils/Functions";
+import { db } from "../../Service/dbConection";
+import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
+import { isEmptyArray } from "../../Utils/Functions";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);

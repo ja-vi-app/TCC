@@ -21,10 +21,9 @@ export const TOAST_TYPE = {
 export const DATE_FORMAT = {
   DEFAULT_DATE: "DD/MM/YYYY",
 };
-
 export const DEFAULT_MESSAGE = {
   successSave: "Filme salvo com sucesso!",
   failedSave: "Falha ao adicionar o filme. Tente novamente mais tarde!",
   failedSaveImage: "Falha ao fazer upload da imagem, tente novamente mais tarde!",
-  fileNotImage: '"O arquivo selecionado deve ser uma imagem!',
+  fileNotImage: "O arquivo selecionado deve ser uma imagem!",
 };
