@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
 
 import { Box, Card, CardMedia, Grid } from "@mui/material";
-import minions from "../../assets/img/minions.jpg";
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
 
-function CardMovie({ image, iconOrDate, emoji, data }) {
+function CardMovie({ data }) {
   const changeCardDetail = useCardDetailUpdate();
   const cardDetail = useCardDetail();
 
@@ -46,20 +45,21 @@ function CardMovie({ image, iconOrDate, emoji, data }) {
             </Box>
           </div>
         </Grid>
-        <CardMedia component="img" height="100%" image={image} alt="teste" />
+        <CardMedia component="img" height="100%" image={data?.url_image} alt="teste" />
       </div>
     </Card>
   );
 }
 
 CardMovie.defaultProps = {
-  image: minions,
+  data: {
+    name: "",
+    image: "",
+  },
 };
 
 CardMovie.propTypes = {
-  iconOrDate: PropTypes.node.isRequired,
-  emoji: PropTypes.string.isRequired,
-  image: PropTypes.string,
+  data: PropTypes.object.isRequired,
 };
 
 export default CardMovie;
