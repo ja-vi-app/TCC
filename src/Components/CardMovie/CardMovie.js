@@ -2,10 +2,19 @@ import PropTypes from "prop-types";
 
 import { Box, Card, CardMedia, Grid } from "@mui/material";
 import minions from "../../assets/img/minions.jpg";
+import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
 
-function CardMovie({ image, iconOrDate, emoji }) {
+function CardMovie({ image, iconOrDate, emoji, data }) {
+  const changeCardDetail = useCardDetailUpdate();
+  const cardDetail = useCardDetail();
+
+  const handleCardDetail = () => {
+    if (cardDetail === data) changeCardDetail(null);
+    else changeCardDetail(data);
+  };
+
   return (
-    <Card>
+    <Card onClick={handleCardDetail}>
       <div style={{ position: "relative" }}>
         <Grid container display="flex">
           <div

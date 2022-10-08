@@ -11,6 +11,7 @@ import { getDB } from "../../Service/Utils/Functions";
 import { db } from "../../Service/dbConection";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
 import { isEmptyArray } from "../../Utils/Functions";
+import { useCardDetail } from "../../Context/CardDetailContext";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);
@@ -24,18 +25,27 @@ export default function Home() {
     fetchData();
   }, []);
 
+  const cardDetail = useCardDetail();
+
   return (
     <>
       <List />
       {isEmptyArray(registeredMovies) ? null : (
         <Grid container spacing={3} p={3}>
-          {registeredMovies.map((item) => (
-            <Grid item xs={6} md={4} xl={1.6}>
-              <CardMovie image={item.url_image} />
+          {registeredMovies.map((item, index) => (
+            <Grid item xs={6} md={4} xl={1.6} key={index}>
+              <CardMovie image={item.url_image} data={item} />
             </Grid>
           ))}
         </Grid>
       )}
+      {cardDetail ? (
+        <>
+          <div>
+            <span>testando {JSON.stringify(cardDetail)}</span>
+          </div>
+        </>
+      ) : null}
     </>
   );
 }

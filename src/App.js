@@ -11,6 +11,7 @@ import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
 import routes from "./Utils/route";
 import theme from "./assets/theme";
 import ResponsiveAppBar from "./Components/AppBar/AppBar";
+import { CardDetailProvider } from "./Context/CardDetailContext";
 
 function App() {
   const getRoutes = (allRoutes) =>
@@ -29,25 +30,27 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <>
-        {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-          <>
-            <ResponsiveAppBar />
-            <Routes key="privateRoute">
+      <CardDetailProvider>
+        <CssBaseline />
+        <>
+          {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
+            <>
+              <ResponsiveAppBar />
+              <Routes key="privateRoute">
+                {getRoutes(routes)}
+                <Route path="*" element={<Navigate to={URLS.home} />} />
+              </Routes>
+            </>
+          ) : (
+            <Routes key="allRoute">
               {getRoutes(routes)}
-              <Route path="*" element={<Navigate to={URLS.home} />} />
+              <Route path={"login-page"} element={<Login />} />
+              <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
             </Routes>
-          </>
-        ) : (
-          <Routes key="allRoute">
-            {getRoutes(routes)}
-            <Route path={"login-page"} element={<Login />} />
-            <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
-          </Routes>
-        )}
-        <ToastContainer pauseOnFocusLoss={false} />
-      </>
+          )}
+          <ToastContainer pauseOnFocusLoss={false} />
+        </>
+      </CardDetailProvider>
     </ThemeProvider>
   );
 }

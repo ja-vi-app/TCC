@@ -1,7 +1,7 @@
 const colors = {
   background: {
-    default: "#0D0D0D",
-    // default: "#f0f2f5",
+    // default: "#0D0D0D",
+    default: "#f0f2f5",
   },
 
   appBar: {
