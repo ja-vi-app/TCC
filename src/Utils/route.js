@@ -1,5 +1,5 @@
 import Home from "../Pages/Home/Home";
-import List from "../Pages/List";
+import List from "../Pages/List/List";
 import Login from "../Pages/Login";
 import { URLS } from "./Constants";
 

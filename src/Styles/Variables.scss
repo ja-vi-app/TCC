@@ -1,0 +1,44 @@
+$accent: #8980E8;
+
+:root,
+html[data-theme='light'] {
+  --foreground: #ffffff;
+  --background: #ffffff80;
+  --selected: #f9f9f9;
+  --text: #000;
+}
+
+html[data-theme='dark'] {
+  --foreground: #181818;
+  --background: #262626;
+  --selected: #0f0f0f;
+  --text: #fff;
+}
+
+a,button,span {
+  color: var(--text) !important;
+}
+
+.color-white {
+  color: #fff !important;
+}
+
+.color-accent {
+  color: $accent !important;
+}
+
+.bg-accent {
+  background-color: $accent !important;
+}
+
+.bg-foreground {
+  background-color: var(--foreground) !important;
+}
+
+.bg-background {
+  background-color: var(--background) !important;
+}
+
+.svg-default-stroke {
+  stroke: var(--text) !important;
+}

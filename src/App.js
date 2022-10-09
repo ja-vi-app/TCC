@@ -12,6 +12,8 @@ import routes from "./Utils/route";
 import theme from "./assets/theme";
 import ResponsiveAppBar from "./Components/AppBar/AppBar";
 import { CardDetailProvider } from "./Context/CardDetailContext";
+import { ThemeScssProvider } from "./Context/ThemeContext";
+import "./Styles/GlobalStyles.scss";
 
 function App() {
   const getRoutes = (allRoutes) =>
@@ -30,27 +32,29 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CardDetailProvider>
-        <CssBaseline />
-        <>
-          {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-            <>
-              <ResponsiveAppBar />
-              <Routes key="privateRoute">
+      <ThemeScssProvider>
+        <CardDetailProvider>
+          <CssBaseline />
+          <div className=" bg-background h100" style={{ height: "100vh" }}>
+            {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
+              <>
+                <ResponsiveAppBar />
+                <Routes key="privateRoute">
+                  {getRoutes(routes)}
+                  <Route path="*" element={<Navigate to={URLS.home} />} />
+                </Routes>
+              </>
+            ) : (
+              <Routes key="allRoute">
                 {getRoutes(routes)}
-                <Route path="*" element={<Navigate to={URLS.home} />} />
+                <Route path={"login-page"} element={<Login />} />
+                <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
               </Routes>
-            </>
-          ) : (
-            <Routes key="allRoute">
-              {getRoutes(routes)}
-              <Route path={"login-page"} element={<Login />} />
-              <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
-            </Routes>
-          )}
-          <ToastContainer pauseOnFocusLoss={false} />
-        </>
-      </CardDetailProvider>
+            )}
+            <ToastContainer pauseOnFocusLoss={false} />
+          </div>
+        </CardDetailProvider>
+      </ThemeScssProvider>
     </ThemeProvider>
   );
 }

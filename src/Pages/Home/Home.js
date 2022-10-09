@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { collection } from "firebase/firestore";
 import "./Home.scss";
 
-import { Grid, Box, Card, Container } from "@mui/material";
+import { Grid, Card, Container } from "@mui/material";
 
 import CardMovie from "../../Components/CardMovie/CardMovie";
-import List from "../List";
+import List from "../List/List";
 
 import { getDB } from "../../Service/Utils/Functions";
 import { db } from "../../Service/dbConection";
@@ -31,12 +31,12 @@ export default function Home() {
   return (
     <div className="wrapper">
       <List />
-      <Container maxWidth={false} style={{ "margin-top": "1rem" }}>
+      <Container maxWidth={false} style={{ paddingTop: "1rem" }}>
         <Grid container spacing={2}>
           <Grid item xs={cardDetail ? 12 : 12} lg={cardDetail ? 6 : 12}>
             <Card>
               {isEmptyArray(registeredMovies) ? null : (
-                <Grid container p={3} spacing={3}>
+                <Grid container p={3} spacing={3} className="bg-foreground">
                   {registeredMovies.map((item, index) => (
                     <Grid item xs={12} sm={3} lg={6} xl={3} key={index}>
                       <CardMovie image={item.url_image} data={item} />
@@ -47,7 +47,7 @@ export default function Home() {
             </Card>
           </Grid>
           <Grid item xs={12} lg={6}>
-            <Card>
+            <Card className="bg-foreground">
               {cardDetail ? (
                 <>
                   <div>

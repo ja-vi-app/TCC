@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import "../../Styles/GlobalStyles.scss";
 
 import { Box, Card, CardMedia, Grid } from "@mui/material";
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
@@ -13,7 +14,7 @@ function CardMovie({ data }) {
   };
 
   return (
-    <Card onClick={handleCardDetail}>
+    <Card onClick={handleCardDetail} className="bg-foreground">
       <div style={{ position: "relative" }}>
         <Grid container display="flex">
           <div

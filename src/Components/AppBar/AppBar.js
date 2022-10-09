@@ -16,9 +16,9 @@ import {
 } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
 import MenuIcon from "@mui/icons-material/Menu";
-
-import colors from "../../assets/theme/base/colors";
 import { SESSION_STORAGE_ITEM, URLS } from "../../Utils/Constants";
+import { useThemeUpdate } from "../../Context/ThemeContext";
+import "./AppBar.scss";
 
 const pages = [
   { name: "Lista", url: URLS.list },
@@ -61,10 +61,12 @@ const ResponsiveAppBar = () => {
     navigate(url);
   };
 
+  const changeTheme = useThemeUpdate();
+
   useEffect(() => {}, [photoUser]);
 
   return (
-    <AppBar position="static" style={{ background: colors.appBar.dark }}>
+    <AppBar position="static" className="bg-foreground">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -159,6 +161,7 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
+          <button onClick={changeTheme}>+</button>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Configurações">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
