@@ -1,0 +1,78 @@
+import { createTheme } from "@mui/material/styles";
+
+const darkColors = {
+  background: "#262626",
+  foreground: "#181818",
+  text: "#ffffff",
+  textSubtitle: "#ffffff99",
+};
+
+// Dark theme
+const theme = createTheme({
+  palette: {
+    textColor: darkColors.text,
+    textSubtitleColor: darkColors.textSubtitle,
+    type: "dark",
+    primary: {
+      main: "#8980E8",
+      light: "rgb(81, 91, 95)",
+      dark: "rgb(26, 35, 39)",
+      contrastText: "#ffffff",
+    },
+
+    background: {
+      default: "#262626",
+    },
+    text: {
+      secondary: darkColors.textSubtitle,
+    },
+    action: {
+      active: "#fff",
+    },
+  },
+  components: {
+    MuiAppBar: {
+      variants: [
+        {
+          props: { variant: "menu" },
+          style: {
+            backgroundColor: darkColors.foreground,
+            color: darkColors.text,
+          },
+        },
+      ],
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          color: darkColors.text,
+          backgroundColor: darkColors.foreground,
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          color: darkColors.text,
+          backgroundColor: darkColors.foreground,
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          color: darkColors.textSubtitle,
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          color: darkColors.text,
+        },
+      },
+    },
+  },
+});
+
+export default theme;

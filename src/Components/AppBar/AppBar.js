@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import {
@@ -18,7 +18,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SESSION_STORAGE_ITEM, URLS } from "../../Utils/Constants";
 import { useThemeUpdate } from "../../Context/ThemeContext";
-import "./AppBar.scss";
+import { CustomThemeContext } from "../../Context/ThemeMUI";
 
 const pages = [
   { name: "Lista", url: URLS.list },
@@ -61,12 +61,22 @@ const ResponsiveAppBar = () => {
     navigate(url);
   };
 
-  const changeTheme = useThemeUpdate();
-
   useEffect(() => {}, [photoUser]);
 
+  // const classes = useStyles();
+  const { currentTheme, setTheme } = useContext(CustomThemeContext);
+
+  const handleThemeChange = () => {
+    console.log(currentTheme);
+    if (currentTheme === "normal") {
+      setTheme("dark");
+    } else {
+      setTheme("normal");
+    }
+  };
+
   return (
-    <AppBar position="static" className="bg-foreground">
+    <AppBar variant="menu" position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -148,9 +158,10 @@ const ResponsiveAppBar = () => {
           >
             {pages.map((page) => (
               <Button
+                variant="menu-button"
                 key={page.name}
                 onClick={() => handleCloseNavMenu(page.url)}
-                sx={{ my: 2, color: "#fff", display: "block", mr: "5px" }}
+                sx={{ my: 2, display: "block", mr: "5px" }}
                 style={
                   page.url === pathname
                     ? { textDecoration: "underline", textUnderlineOffset: "3px" }
@@ -161,7 +172,7 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
-          <button onClick={changeTheme}>+</button>
+          <button onClick={handleThemeChange}>+</button>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Configurações">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
