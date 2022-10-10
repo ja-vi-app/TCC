@@ -14,6 +14,8 @@ import {
   Tooltip,
   MenuItem,
 } from "@mui/material";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import AdbIcon from "@mui/icons-material/Adb";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SESSION_STORAGE_ITEM, URLS } from "../../Utils/Constants";
@@ -67,12 +69,8 @@ const ResponsiveAppBar = () => {
   const { currentTheme, setTheme } = useContext(CustomThemeContext);
 
   const handleThemeChange = () => {
-    console.log(currentTheme);
-    if (currentTheme === "normal") {
-      setTheme("dark");
-    } else {
-      setTheme("normal");
-    }
+    if (currentTheme === "normal") setTheme("dark");
+    else setTheme("normal");
   };
 
   return (
@@ -172,7 +170,15 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
-          <button onClick={handleThemeChange}>+</button>
+
+          <IconButton onClick={handleThemeChange} style={{ marginRight: "12px" }}>
+            {currentTheme === "dark" ? (
+              <DarkModeIcon></DarkModeIcon>
+            ) : (
+              <LightModeIcon style={{ color: "black" }}></LightModeIcon>
+            )}
+          </IconButton>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Configurações">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
