@@ -1,44 +1,23 @@
-name: Firebase Deploy
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+name: Create envfile
+
+on: [ push ]
+
 jobs:
-  build:
-    name: Build
+
+  create-envfile:
+ 
     runs-on: ubuntu-latest
+ 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2.3.2
-      - name: Install Dependencies
-        run: npm install
-      - name: Run Tests
-        env:
-          CI: true
-        run: npm test
-      - name: Build
-        run: npm run build
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: build
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2.3.2
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        REACT_APP_FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
+        REACT_APP_FIREBASE_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_DOMAIN }}
+        REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+        REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+        REACT_APP_FIREBASE_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_SENDER_ID }}
+        REACT_APP_MESSAGING_APP_ID: ${{ secrets.REACT_APP_MESSAGING_APP_ID }}
+        directory: <directory_name>
+        file_name: .env
+        fail_on_empty: false
