@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { ThemeProvider } from "@mui/material/styles";
@@ -28,27 +28,29 @@ function App() {
     });
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <>
-        {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-          <>
-            <ResponsiveAppBar />
-            <Routes key="privateRoute">
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <>
+          {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
+            <>
+              <ResponsiveAppBar />
+              <Routes key="privateRoute">
+                {getRoutes(routes)}
+                <Route path="*" element={<Navigate to={URLS.home} />} />
+              </Routes>
+            </>
+          ) : (
+            <Routes key="allRoute">
               {getRoutes(routes)}
-              <Route path="*" element={<Navigate to={URLS.home} />} />
+              <Route path={"login-page"} element={<Login />} />
+              <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
             </Routes>
-          </>
-        ) : (
-          <Routes key="allRoute">
-            {getRoutes(routes)}
-            <Route path={"login-page"} element={<Login />} />
-            <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
-          </Routes>
-        )}
-        <ToastContainer pauseOnFocusLoss={false} />
-      </>
-    </ThemeProvider>
+          )}
+          <ToastContainer pauseOnFocusLoss={false} />
+        </>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
