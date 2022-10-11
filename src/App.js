@@ -15,6 +15,7 @@ import { CardDetailProvider } from "./Context/CardDetailContext";
 import { ThemeScssProvider, useTheme } from "./Context/ThemeContext";
 import "./Styles/GlobalStyles.scss";
 import CustomThemeProvider from "./Context/ThemeMUI";
+import { FormCreateCardProvider } from "./Context/FormCreateCardContext";
 
 function App() {
   const themeContext = useTheme();
@@ -35,31 +36,33 @@ function App() {
 
   return (
     <CustomThemeProvider>
-      {/* <ThemeProvider theme={themeContext === "dark" ? themeLight : themeDark}>
+      <FormCreateCardProvider>
+        {/* <ThemeProvider theme={themeContext === "dark" ? themeLight : themeDark}>
         <ThemeScssProvider> */}
-      <CardDetailProvider>
-        <CssBaseline />
-        <div className=" bg-background">
-          {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-            <>
-              <ResponsiveAppBar />
-              <Routes key="privateRoute">
+        <CardDetailProvider>
+          <CssBaseline />
+          <div className=" bg-background">
+            {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
+              <>
+                <ResponsiveAppBar />
+                <Routes key="privateRoute">
+                  {getRoutes(routes)}
+                  <Route path="*" element={<Navigate to={URLS.home} />} />
+                </Routes>
+              </>
+            ) : (
+              <Routes key="allRoute">
                 {getRoutes(routes)}
-                <Route path="*" element={<Navigate to={URLS.home} />} />
+                <Route path={"login-page"} element={<Login />} />
+                <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
               </Routes>
-            </>
-          ) : (
-            <Routes key="allRoute">
-              {getRoutes(routes)}
-              <Route path={"login-page"} element={<Login />} />
-              <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
-            </Routes>
-          )}
-          <ToastContainer pauseOnFocusLoss={false} />
-        </div>
-      </CardDetailProvider>
-      {/* </ThemeScssProvider>
+            )}
+            <ToastContainer pauseOnFocusLoss={false} />
+          </div>
+        </CardDetailProvider>
+        {/* </ThemeScssProvider>
       </ThemeProvider> */}
+      </FormCreateCardProvider>
     </CustomThemeProvider>
   );
 }

@@ -2,6 +2,7 @@ import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
+import { useFormCreateCardUpdate } from "../../../Context/FormCreateCardContext";
 
 const labels = {
   0.5: "Useless",
@@ -33,6 +34,12 @@ function getLabelText(value) {
 export default function RatingCustom() {
   const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
+
+  const changeFormCreateCard = useFormCreateCardUpdate();
+
+  React.useEffect(() => {
+    changeFormCreateCard((prevState) => ({ ...prevState, rating: value }));
+  }, [value, changeFormCreateCard]);
 
   return (
     <Box

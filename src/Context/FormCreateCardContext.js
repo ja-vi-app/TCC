@@ -19,7 +19,7 @@ export function useFormCreateCardUpdate() {
 }
 
 export function FormCreateCardProvider({ children }) {
-  const [FormCreateCard, setFormCreateCard] = useState({ ...initialState });
+  const [formCreateCard, setFormCreateCard] = useState(null);
 
   function changeFormCreateCard(newValue) {
     setFormCreateCard(newValue);
@@ -27,7 +27,7 @@ export function FormCreateCardProvider({ children }) {
   }
 
   return (
-    <FormCreateCardContext.Provider value={FormCreateCard}>
+    <FormCreateCardContext.Provider value={formCreateCard}>
       <FormCreateCardUpdateContext.Provider value={changeFormCreateCard}>
         {children}
       </FormCreateCardUpdateContext.Provider>

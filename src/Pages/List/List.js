@@ -64,8 +64,8 @@ export default function List() {
   const [formType, setFormType] = useState("rating");
   const [value, setValue] = React.useState(dayjs("2014-08-18T21:11:54"));
 
-  const formData = useFormCreateCard();
-  const setFormData = useFormCreateCardUpdate();
+  const formCreateCard = useFormCreateCard();
+  const changeFormCreateCard = useFormCreateCardUpdate();
 
   async function handleExpandAccordion() {
     if (!isOpenAccordion) {
@@ -82,9 +82,9 @@ export default function List() {
     }
   }, [isOpenAccordion, setIsOpenAccordion]);
 
-  const prevFile = usePrevious(formData?.file);
+  const prevFile = usePrevious(formCreateCard?.file);
   useEffect(() => {
-    if (prevFile !== formData?.file) {
+    if (formCreateCard?.file && prevFile !== formCreateCard?.file) {
       const fetchData = async () => {
         const data = await handleUploadImage();
         if (data) {
@@ -94,7 +94,7 @@ export default function List() {
 
       fetchData().catch((error) => console.log(error));
     }
-  }, [formData?.file]);
+  }, [formCreateCard?.file]);
 
   function usePrevious(value) {
     const ref = useRef(null);
@@ -122,7 +122,7 @@ export default function List() {
   async function handleUploadClick(event) {
     const fileUpload = event.target.files[0];
     if (isIMage(fileUpload.name)) {
-      setFormData((prevState) => ({ ...prevState, file: fileUpload }));
+      changeFormCreateCard((prevState) => ({ ...prevState, file: fileUpload }));
 
       return;
     } else {
@@ -136,7 +136,7 @@ export default function List() {
 
   async function handleUploadImage() {
     const formData = new FormData();
-    formData.set("file", formData?.file);
+    formData.set("file", formCreateCard?.file);
     setIsLoadingImage(true);
     return axios({
       method: "post",
@@ -159,14 +159,14 @@ export default function List() {
   }
 
   function onChange(fieldKey, value) {
-    setFormData((prevState) => ({ ...prevState, [fieldKey]: value }));
+    changeFormCreateCard((prevState) => ({ ...prevState, [fieldKey]: value }));
   }
 
   async function handleSaveNewCardMovie() {
     if (image) {
       await addDB(recordedMoviesCollectionRef, {
-        title: formData?.title,
-        category: formData?.category?.id,
+        title: formCreateCard?.title,
+        category: formCreateCard?.category?.id,
         name: sessionStorage.getItem(SESSION_STORAGE_ITEM.nameUser),
         email: sessionStorage.getItem(SESSION_STORAGE_ITEM.email),
         upload_date: CustomDate.dateFormatter(new Date()),
@@ -175,7 +175,7 @@ export default function List() {
       })
         .then(() => {
           toasterModel(DEFAULT_MESSAGE.successSave, TOAST_TYPE.success);
-          setFormData(initialState);
+          changeFormCreateCard(initialState);
           handleExpandAccordion();
         })
         .catch(() => {
@@ -186,134 +186,132 @@ export default function List() {
 
   return (
     <>
-      <FormCreateCardProvider>
-        <Container
-          maxWidth="xl"
-          className="p1 text"
-          // style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop: "2%" }}
+      <Container
+        maxWidth="xl"
+        className="p1 text"
+        // style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop: "2%" }}
+      >
+        <Accordion
+          expanded={isOpenAccordion}
+          onChange={handleExpandAccordion}
+          style={{
+            borderRadius: "15px",
+          }}
         >
-          <Accordion
-            expanded={isOpenAccordion}
-            onChange={handleExpandAccordion}
-            style={{
-              borderRadius: "15px",
-            }}
+          <AccordionSummary
+            expandIcon={
+              <Button className="bg-accent">
+                {isOpenAccordion ? (
+                  <Remove fontSize="large" className="color-white" />
+                ) : (
+                  <Add fontSize="large" className="color-white" />
+                )}
+              </Button>
+            }
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            style={{ height: "100px" }}
           >
-            <AccordionSummary
-              expandIcon={
-                <Button className="bg-accent">
-                  {isOpenAccordion ? (
-                    <Remove fontSize="large" className="color-white" />
-                  ) : (
-                    <Add fontSize="large" className="color-white" />
-                  )}
-                </Button>
-              }
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-              style={{ height: "100px" }}
-            >
-              <div style={{ display: "grid" }}>
-                <span style={{ fontSize: "20px", fontWeight: "bold" }}>CRIAR </span>
-                <Typography color="textSubtitleColor" style={{ fontSize: "13px" }}>
-                  Crie um card pra se lembrar de seu filme favorito!
-                </Typography>
-              </div>
-            </AccordionSummary>
-            <AccordionDetails>
-              <FormControlLabel
-                control={<Switch defaultChecked />}
-                label="Label"
-                onClick={() => setFormType(formType === "date" ? "rating" : "date")}
-                variant="standard"
-              />
-              {formType === "rating" ? (
-                <RatingCustom></RatingCustom>
-              ) : (
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DesktopDatePicker
-                    color="text"
-                    label="Date desktop"
-                    inputFormat="MM/DD/YYYY"
-                    value={value}
-                    onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              )}
+            <div style={{ display: "grid" }}>
+              <span style={{ fontSize: "20px", fontWeight: "bold" }}>CRIAR </span>
+              <Typography color="textSubtitleColor" style={{ fontSize: "13px" }}>
+                Crie um card pra se lembrar de seu filme favorito!
+              </Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FormControlLabel
+              control={<Switch defaultChecked />}
+              label="Label"
+              onClick={() => setFormType(formType === "date" ? "rating" : "date")}
+              variant="standard"
+            />
+            {formType === "rating" ? (
+              <RatingCustom></RatingCustom>
+            ) : (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  color="text"
+                  label="Date desktop"
+                  inputFormat="MM/DD/YYYY"
+                  value={value}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            )}
 
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6} md={3}>
-                  <TextField
-                    value={formData?.title}
-                    onChange={(e) => onChange("title", e.target.value)}
-                    id="title"
-                    className="w100"
-                    multiline={true}
-                    label="Título*"
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <Autocomplete
-                    disablePortal
-                    id="category"
-                    key="category"
-                    options={optionsCategory}
-                    multiple={false}
-                    onChange={(e, newValue) => onChange("category", newValue)}
-                    value={formData?.category}
-                    getOptionLabel={(prop) => (prop.descricao ? prop.descricao : prop)}
-                    renderInput={(params) => (
-                      <CustomTextField variant="standard" {...params} label="Categoria*" />
-                    )}
-                    isOptionEqualToValue={(option, value) => option === value}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4}>
-                  {!isLoadingImage ? (
-                    <div>
-                      <input
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        id="contained-button-file"
-                        multiple={false}
-                        type="file"
-                        onChange={handleUploadClick}
-                      />
-                      <label htmlFor="contained-button-file">
-                        <Fab component="span">
-                          <AddPhotoAlternate />
-                        </Fab>
-                      </label>
-                      {formData?.file ? formData?.file.name : null}
-                    </div>
-                  ) : (
-                    <CircularProgress></CircularProgress>
-                  )}
-                </Grid>
-                <Grid item xs={12} sm={6} md={2} justifyContent="flex-end">
-                  <div className="flex justify-end">
-                    <Button
-                      onClick={handleSaveNewCardMovie}
-                      size="large"
-                      variant="contained"
-                      disabled={
-                        isEmpty(formData?.title) ||
-                        isEmpty(formData?.file) ||
-                        isEmpty(formData?.category) ||
-                        isEmpty(formData?.aditional)
-                      }
-                    >
-                      Adicionar
-                    </Button>
-                  </div>
-                </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6} md={3}>
+                <TextField
+                  value={formCreateCard?.title}
+                  onChange={(e) => onChange("title", e.target.value)}
+                  id="title"
+                  className="w100"
+                  multiline={true}
+                  label="Título*"
+                  variant="standard"
+                />
               </Grid>
-            </AccordionDetails>
-          </Accordion>
-        </Container>
-      </FormCreateCardProvider>
+              <Grid item xs={12} sm={6} md={3}>
+                <Autocomplete
+                  disablePortal
+                  id="category"
+                  key="category"
+                  options={optionsCategory}
+                  multiple={false}
+                  onChange={(e, newValue) => onChange("category", newValue)}
+                  value={formCreateCard?.category}
+                  getOptionLabel={(prop) => (prop.descricao ? prop.descricao : prop)}
+                  renderInput={(params) => (
+                    <CustomTextField variant="standard" {...params} label="Categoria*" />
+                  )}
+                  isOptionEqualToValue={(option, value) => option === value}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                {!isLoadingImage ? (
+                  <div>
+                    <input
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      id="contained-button-file"
+                      multiple={false}
+                      type="file"
+                      onChange={handleUploadClick}
+                    />
+                    <label htmlFor="contained-button-file">
+                      <Fab component="span">
+                        <AddPhotoAlternate />
+                      </Fab>
+                    </label>
+                    {formCreateCard?.file ? formCreateCard?.file.name : null}
+                  </div>
+                ) : (
+                  <CircularProgress></CircularProgress>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={6} md={2} justifyContent="flex-end">
+                <div className="flex justify-end">
+                  <Button
+                    onClick={handleSaveNewCardMovie}
+                    size="large"
+                    variant="contained"
+                    disabled={
+                      isEmpty(formCreateCard?.title) ||
+                      isEmpty(formCreateCard?.file) ||
+                      isEmpty(formCreateCard?.category) ||
+                      (isEmpty(formCreateCard?.rating) && isEmpty(formCreateCard?.date))
+                    }
+                  >
+                    Adicionar
+                  </Button>
+                </div>
+              </Grid>
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
+      </Container>
     </>
   );
 }
