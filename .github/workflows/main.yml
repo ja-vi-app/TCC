@@ -9,10 +9,13 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-    - name: Make envfile
-      uses: SpicyPizza/create-envfile@v1.3
-      with:
-        envkey_SECRET_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
-        directory: <directory_name>
-        file_name: .env
-        fail_on_empty: false
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo REACT_APP_FIREBASE_KEY=${{ secrets.REACT_APP_FIREBASE_KEY }} >> .env
+          echo REACT_APP_FIREBASE_DOMAIN=${{ secrets.REACT_APP_FIREBASE_DOMAIN }} >> .env
+          echo REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }} >> .env
+          echo REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }} >> .env
+          echo REACT_APP_FIREBASE_SENDER_ID=${{ secrets.REACT_APP_FIREBASE_SENDER_ID }} >> .env
+          echo REACT_APP_MESSAGING_APP_ID=${{ secrets.REACT_APP_MESSAGING_APP_ID }} >> .env
+          cat .env
