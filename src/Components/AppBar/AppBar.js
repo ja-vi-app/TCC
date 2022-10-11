@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import {
@@ -14,11 +14,13 @@ import {
   Tooltip,
   MenuItem,
 } from "@mui/material";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import AdbIcon from "@mui/icons-material/Adb";
 import MenuIcon from "@mui/icons-material/Menu";
-
-import colors from "../../assets/theme/base/colors";
 import { SESSION_STORAGE_ITEM, URLS } from "../../Utils/Constants";
+import { useThemeUpdate } from "../../Context/ThemeContext";
+import { CustomThemeContext } from "../../Context/ThemeMUI";
 
 const pages = [
   { name: "Lista", url: URLS.list },
@@ -63,8 +65,16 @@ const ResponsiveAppBar = () => {
 
   useEffect(() => {}, [photoUser]);
 
+  // const classes = useStyles();
+  const { currentTheme, setTheme } = useContext(CustomThemeContext);
+
+  const handleThemeChange = () => {
+    if (currentTheme === "normal") setTheme("dark");
+    else setTheme("normal");
+  };
+
   return (
-    <AppBar position="static" style={{ background: colors.appBar.dark }}>
+    <AppBar variant="menu" position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -146,9 +156,10 @@ const ResponsiveAppBar = () => {
           >
             {pages.map((page) => (
               <Button
+                variant="menu-button"
                 key={page.name}
                 onClick={() => handleCloseNavMenu(page.url)}
-                sx={{ my: 2, color: "#fff", display: "block", mr: "5px" }}
+                sx={{ my: 2, display: "block", mr: "5px" }}
                 style={
                   page.url === pathname
                     ? { textDecoration: "underline", textUnderlineOffset: "3px" }
@@ -159,6 +170,15 @@ const ResponsiveAppBar = () => {
               </Button>
             ))}
           </Box>
+
+          <IconButton onClick={handleThemeChange} style={{ marginRight: "12px" }}>
+            {currentTheme === "dark" ? (
+              <DarkModeIcon></DarkModeIcon>
+            ) : (
+              <LightModeIcon style={{ color: "black" }}></LightModeIcon>
+            )}
+          </IconButton>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Configurações">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

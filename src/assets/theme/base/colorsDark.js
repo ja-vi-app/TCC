@@ -1,6 +1,6 @@
-const colors = {
+const colorsDark = {
   background: {
-    default: "#f0f2f5",
+    default: "#0D0D0D",
   },
 
   appBar: {
@@ -20,4 +20,4 @@ const colors = {
   },
 };
 
-export default colors;
+export default colorsDark;
