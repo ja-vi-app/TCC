@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/TCC/static/css/main.3d10672c.css",
+    "main.js": "/TCC/static/js/main.67d1bacc.js",
+    "static/media/minions.jpg": "/TCC/static/media/minions.30381d2f870608669460.jpg",
+    "index.html": "/TCC/index.html",
+    "main.3d10672c.css.map": "/TCC/static/css/main.3d10672c.css.map",
+    "main.67d1bacc.js.map": "/TCC/static/js/main.67d1bacc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3d10672c.css",
+    "static/js/main.67d1bacc.js"
+  ]
+}
