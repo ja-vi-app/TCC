@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { ThemeProvider } from "@mui/material/styles";
@@ -35,35 +35,37 @@ function App() {
     });
 
   return (
-    <CustomThemeProvider>
-      <FormCreateCardProvider>
-        {/* <ThemeProvider theme={themeContext === "dark" ? themeLight : themeDark}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <CustomThemeProvider>
+        <FormCreateCardProvider>
+          {/* <ThemeProvider theme={themeContext === "dark" ? themeLight : themeDark}>
         <ThemeScssProvider> */}
-        <CardDetailProvider>
-          <CssBaseline />
-          <div className=" bg-background">
-            {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-              <>
-                <ResponsiveAppBar />
-                <Routes key="privateRoute">
+          <CardDetailProvider>
+            <CssBaseline />
+            <div className=" bg-background">
+              {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
+                <>
+                  <ResponsiveAppBar />
+                  <Routes key="privateRoute">
+                    {getRoutes(routes)}
+                    <Route path="*" element={<Navigate to={URLS.home} />} />
+                  </Routes>
+                </>
+              ) : (
+                <Routes key="allRoute">
                   {getRoutes(routes)}
-                  <Route path="*" element={<Navigate to={URLS.home} />} />
+                  <Route path={"login-page"} element={<Login />} />
+                  <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
                 </Routes>
-              </>
-            ) : (
-              <Routes key="allRoute">
-                {getRoutes(routes)}
-                <Route path={"login-page"} element={<Login />} />
-                <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
-              </Routes>
-            )}
-            <ToastContainer pauseOnFocusLoss={false} />
-          </div>
-        </CardDetailProvider>
-        {/* </ThemeScssProvider>
+              )}
+              <ToastContainer pauseOnFocusLoss={false} />
+            </div>
+          </CardDetailProvider>
+          {/* </ThemeScssProvider>
       </ThemeProvider> */}
-      </FormCreateCardProvider>
-    </CustomThemeProvider>
+        </FormCreateCardProvider>
+      </CustomThemeProvider>
+    </BrowserRouter>
   );
 }
 
