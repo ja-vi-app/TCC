@@ -8,7 +8,7 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter basename={"https://ja-vi-app.github.io/TCC/"}>
+  <BrowserRouter>
     <React.StrictMode>
       <App />
     </React.StrictMode>
