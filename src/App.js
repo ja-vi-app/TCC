@@ -35,37 +35,35 @@ function App() {
     });
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <CustomThemeProvider>
-        <FormCreateCardProvider>
-          {/* <ThemeProvider theme={themeContext === "dark" ? themeLight : themeDark}>
+    <CustomThemeProvider>
+      <FormCreateCardProvider>
+        {/* <ThemeProvider theme={themeContext === "dark" ? themeLight : themeDark}>
         <ThemeScssProvider> */}
-          <CardDetailProvider>
-            <CssBaseline />
-            <div className=" bg-background">
-              {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-                <>
-                  <ResponsiveAppBar />
-                  <Routes key="privateRoute">
-                    {getRoutes(routes)}
-                    <Route path="*" element={<Navigate to={URLS.home} />} />
-                  </Routes>
-                </>
-              ) : (
-                <Routes key="allRoute">
+        <CardDetailProvider>
+          <CssBaseline />
+          <div className=" bg-background">
+            {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
+              <>
+                <ResponsiveAppBar />
+                <Routes key="privateRoute">
                   {getRoutes(routes)}
-                  <Route path={"login-page"} element={<Login />} />
-                  <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
+                  <Route path="*" element={<Navigate to={URLS.home} />} />
                 </Routes>
-              )}
-              <ToastContainer pauseOnFocusLoss={false} />
-            </div>
-          </CardDetailProvider>
-          {/* </ThemeScssProvider>
+              </>
+            ) : (
+              <Routes key="allRoute">
+                {getRoutes(routes)}
+                <Route path={"login-page"} element={<Login />} />
+                <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
+              </Routes>
+            )}
+            <ToastContainer pauseOnFocusLoss={false} />
+          </div>
+        </CardDetailProvider>
+        {/* </ThemeScssProvider>
       </ThemeProvider> */}
-        </FormCreateCardProvider>
-      </CustomThemeProvider>
-    </BrowserRouter>
+      </FormCreateCardProvider>
+    </CustomThemeProvider>
   );
 }
 
