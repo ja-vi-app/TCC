@@ -20,7 +20,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8"
   },
-  "homepage": "https://ja-vi-app.github.io/TCC",
+  "homepage": "https://ja-vi-app.github.io/TCC/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
