@@ -100,7 +100,7 @@ export default function List() {
     const ref = useRef(null);
     useEffect(() => {
       ref.current = value;
-    });
+    }, [ref.current]);
     return ref.current;
   }
 
@@ -167,6 +167,8 @@ export default function List() {
       await addDB(recordedMoviesCollectionRef, {
         title: formCreateCard?.title,
         category: formCreateCard?.category?.id,
+        rating: formCreateCard?.rating ?? null,
+        alertDate: formCreateCard?.alertDate ?? null,
         name: sessionStorage.getItem(SESSION_STORAGE_ITEM.nameUser),
         email: sessionStorage.getItem(SESSION_STORAGE_ITEM.email),
         upload_date: CustomDate.dateFormatter(new Date()),
@@ -222,7 +224,7 @@ export default function List() {
           <AccordionDetails>
             <FormControlLabel
               control={<Switch defaultChecked />}
-              label="Label"
+              label={formType === "rating" ? "Avaliação" : "Alerta"}
               onClick={() => setFormType(formType === "date" ? "rating" : "date")}
               variant="standard"
             />

@@ -1,0 +1,20 @@
+.container {
+  width: 125px;
+  height: 176px;
+  overflow: hidden;
+}
+
+
+.blur {
+  filter: blur(7px);
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  top: 2px;
+  right: 7px;
+  color: #383838;
+  font-size: 12px;
+  margin: 0 auto;
+}
