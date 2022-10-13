@@ -2,3 +2,9 @@
   max-width: 1500px;
   margin: auto;
 }
+
+@media (max-width: 576px) {
+  .sm-center {
+    justify-content: center;
+  }
+}

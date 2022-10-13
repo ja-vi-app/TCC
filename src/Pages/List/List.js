@@ -17,11 +17,11 @@ import {
   Grid,
   Typography,
   CircularProgress,
+  Popover,
 } from "@mui/material";
 import { Add, AddPhotoAlternate, Remove } from "@mui/icons-material";
-
+import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 import CustomDate from "../../Components/CustomDate/CustomDate";
-import { CustomTextField } from "../../Components/CustomTextField/CustomTextField";
 import { DEFAULT_MESSAGE, SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../../Utils/Constants";
 import { isEmpty, toasterModel } from "../../Utils/Functions";
 
@@ -100,7 +100,7 @@ export default function List() {
     const ref = useRef(null);
     useEffect(() => {
       ref.current = value;
-    });
+    }, [ref.current]);
     return ref.current;
   }
 
@@ -166,7 +166,9 @@ export default function List() {
     if (image) {
       await addDB(recordedMoviesCollectionRef, {
         title: formCreateCard?.title,
-        category: formCreateCard?.category?.id,
+        category: formCreateCard?.category?.emoji,
+        rating: formCreateCard?.rating ?? null,
+        alertDate: formCreateCard?.alertDate ?? null,
         name: sessionStorage.getItem(SESSION_STORAGE_ITEM.nameUser),
         email: sessionStorage.getItem(SESSION_STORAGE_ITEM.email),
         upload_date: CustomDate.dateFormatter(new Date()),
@@ -184,6 +186,25 @@ export default function List() {
     }
   }
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [selectedEmoji, setSelectedEmoji] = useState("");
+
+  function onClickSaveEmoji(emojiData, event) {
+    setSelectedEmoji(emojiData.unified);
+    onChange("category", emojiData);
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
   return (
     <>
       <Container
@@ -222,7 +243,7 @@ export default function List() {
           <AccordionDetails>
             <FormControlLabel
               control={<Switch defaultChecked />}
-              label="Label"
+              label={formType === "rating" ? "Avaliação" : "Alerta"}
               onClick={() => setFormType(formType === "date" ? "rating" : "date")}
               variant="standard"
             />
@@ -254,20 +275,24 @@ export default function List() {
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <Autocomplete
-                  disablePortal
-                  id="category"
-                  key="category"
-                  options={optionsCategory}
-                  multiple={false}
-                  onChange={(e, newValue) => onChange("category", newValue)}
-                  value={formCreateCard?.category}
-                  getOptionLabel={(prop) => (prop.descricao ? prop.descricao : prop)}
-                  renderInput={(params) => (
-                    <CustomTextField variant="standard" {...params} label="Categoria*" />
-                  )}
-                  isOptionEqualToValue={(option, value) => option === value}
-                />
+                <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+                  Escolher categoria
+                </Button>
+                {selectedEmoji ? (
+                  <Emoji unified={selectedEmoji} emojiStyle={EmojiStyle.APPLE} size={12} />
+                ) : null}
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                >
+                  <EmojiPicker onEmojiClick={onClickSaveEmoji} />
+                </Popover>
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
                 {!isLoadingImage ? (

@@ -36,9 +36,9 @@ export default function Home() {
           <Grid item xs={cardDetail ? 12 : 12} lg={cardDetail ? 6 : 12}>
             <Card>
               {isEmptyArray(registeredMovies) ? null : (
-                <Grid container p={3} spacing={3} className="bg-foreground">
+                <Grid container p={3} spacing={3} className="bg-foreground sm-center">
                   {registeredMovies.map((item, index) => (
-                    <Grid item xs={12} sm={3} lg={6} xl={3} key={index}>
+                    <Grid item key={index}>
                       <CardMovie image={item.url_image} data={item} />
                     </Grid>
                   ))}
