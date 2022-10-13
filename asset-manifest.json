@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/TCC/static/css/main.711f6673.css",
-    "main.js": "/TCC/static/js/main.535a8108.js",
+    "main.css": "/TCC/static/css/main.7d176592.css",
+    "main.js": "/TCC/static/js/main.7f8eb1af.js",
     "index.html": "/TCC/index.html",
-    "main.711f6673.css.map": "/TCC/static/css/main.711f6673.css.map",
-    "main.535a8108.js.map": "/TCC/static/js/main.535a8108.js.map"
+    "main.7d176592.css.map": "/TCC/static/css/main.7d176592.css.map",
+    "main.7f8eb1af.js.map": "/TCC/static/js/main.7f8eb1af.js.map"
   },
   "entrypoints": [
-    "static/css/main.711f6673.css",
-    "static/js/main.535a8108.js"
+    "static/css/main.7d176592.css",
+    "static/js/main.7f8eb1af.js"
   ]
 }
