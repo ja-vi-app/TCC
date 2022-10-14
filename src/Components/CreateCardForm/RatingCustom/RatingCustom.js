@@ -2,29 +2,31 @@ import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
-import { useFormCreateCardUpdate } from "../../../Context/FormCreateCardContext";
+import { useFormCreateCard, useFormCreateCardUpdate } from "../../../Context/FormCreateCardContext";
+import { Typography } from "@mui/material";
 
 const labels = {
-  0.5: "Useless",
-  1: "Useless+",
-  1.5: "Useless",
-  2: "Useless+",
-  2.5: "Poor",
-  3: "Poor+",
-  3.5: "Poor",
-  4: "Poor+",
-  4.5: "Ok",
-  5: "Ok+",
-  5.5: "Ok",
-  6: "Ok+",
-  6.5: "Good",
-  7: "Good+",
-  7.5: "Good",
-  8: "Good+",
-  8.5: "Excellent",
-  9: "Excellent+",
-  9.5: "Excellent",
-  10: "Excellent+",
+  0: "Insuportável (0)",
+  0.5: "Menos Insuportável (0.5)",
+  1: "Péssimo (1)",
+  1.5: "Menos péssimo (1.5)",
+  2: "Horroroso (2)",
+  2.5: "Menos horroroso (2.5)",
+  3: "Desagradável (3)",
+  3.5: "Menos desagradável (3.5)",
+  4: "Fraco (4)",
+  4.5: "Menos fraco (4.5)",
+  5: "Assistível (5)",
+  5.5: "Mais assistível (5.5)",
+  6: "Ok (6)",
+  6.5: "Mais Ok (6.5)",
+  7: "Bom (7) ",
+  7.5: "Muito bom (7.5)",
+  8: "Sensacional (8)",
+  8.5: "Muito Sensacional (8.5)",
+  9: "Exelente (9)",
+  9.5: "Brilhante (9.5)",
+  10: "Obra prima (10)",
 };
 
 function getLabelText(value) {
@@ -32,38 +34,44 @@ function getLabelText(value) {
 }
 
 export default function RatingCustom() {
-  const [value, setValue] = React.useState(0);
   const [hover, setHover] = React.useState(-1);
 
+  const formCreateCard = useFormCreateCard();
   const changeFormCreateCard = useFormCreateCardUpdate();
 
-  React.useEffect(() => {
-    changeFormCreateCard((prevState) => ({ ...prevState, rating: value }));
-  }, [value, changeFormCreateCard]);
+  function changeForm(newValue) {
+    changeFormCreateCard((prevState) => ({ ...prevState, rating: newValue }));
+  }
 
   return (
     <Box
       sx={{
         width: 200,
         display: "flex",
-        alignItems: "center",
+        flexDirection: "column",
+        gap: "0.25rem",
+        flexWrap: "nowrap",
       }}
     >
+      <Typography sx={{ whiteSpace: "nowrap" }}>Nota:</Typography>
       <Rating
         name="hover-feedback"
-        value={value}
         max={10}
         precision={0.5}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          changeForm(newValue);
         }}
         onChangeActive={(event, newHover) => {
           setHover(newHover);
         }}
         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
       />
-      {value !== null && <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>}
+      {formCreateCard?.rating !== null && (
+        <Typography sx={{ whiteSpace: "nowrap" }}>
+          {labels[hover !== -1 ? hover : formCreateCard?.rating ?? 0]}
+        </Typography>
+      )}
     </Box>
   );
 }

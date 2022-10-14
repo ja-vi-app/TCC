@@ -72,6 +72,22 @@ const theme = createTheme({
         },
       },
     },
+    MuiRating: {
+      styleOverrides: {
+        iconEmpty: {
+          color: darkColors.textSubtitle,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&.Mui-disabled": {
+            color: darkColors.textSubtitle,
+          },
+        },
+      },
+    },
   },
 });
 

@@ -12,9 +12,10 @@
 
 .star {
   position: absolute;
-  top: 2px;
-  right: 7px;
   color: #383838;
   font-size: 12px;
-  margin: 0 auto;
+}
+
+.svg-star {
+  transform: scale(1.5);
 }

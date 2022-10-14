@@ -7,7 +7,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Autocomplete,
   Button,
   Fab,
   Container,
@@ -33,16 +32,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import {
-  FormCreateCardProvider,
-  useFormCreateCard,
-  useFormCreateCardUpdate,
-} from "../../Context/FormCreateCardContext";
-
-const optionsCategory = [
-  { id: "movie", descricao: "Filme" },
-  { id: "series", descricao: "Séries" },
-];
+import { useFormCreateCard, useFormCreateCardUpdate } from "../../Context/FormCreateCardContext";
 
 const initialState = {
   category: null,
@@ -166,7 +156,7 @@ export default function List() {
     if (image) {
       await addDB(recordedMoviesCollectionRef, {
         title: formCreateCard?.title,
-        category: formCreateCard?.category?.emoji,
+        category: formCreateCard?.category?.unifiedWithoutSkinTone,
         rating: formCreateCard?.rating ?? null,
         alertDate: formCreateCard?.alertDate ?? null,
         name: sessionStorage.getItem(SESSION_STORAGE_ITEM.nameUser),
@@ -199,7 +189,8 @@ export default function List() {
   const [selectedEmoji, setSelectedEmoji] = useState("");
 
   function onClickSaveEmoji(emojiData, event) {
-    setSelectedEmoji(emojiData.unified);
+    console.log(emojiData, event);
+    setSelectedEmoji(emojiData.unifiedWithoutSkinTone);
     onChange("category", emojiData);
   }
 
@@ -241,28 +232,35 @@ export default function List() {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <FormControlLabel
-              control={<Switch defaultChecked />}
-              label={formType === "rating" ? "Avaliação" : "Alerta"}
-              onClick={() => setFormType(formType === "date" ? "rating" : "date")}
-              variant="standard"
-            />
-            {formType === "rating" ? (
-              <RatingCustom></RatingCustom>
-            ) : (
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DesktopDatePicker
-                  color="text"
-                  label="Date desktop"
-                  inputFormat="MM/DD/YYYY"
-                  value={value}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
+            <Grid container sx={{ marginBottom: "2rem" }}>
+              <Grid item xs={12} sm={12} md={6}>
+                <FormControlLabel
+                  control={<Switch defaultChecked />}
+                  label={formType === "rating" ? "Avaliação" : "Alerta"}
+                  onClick={() => setFormType(formType === "date" ? "rating" : "date")}
+                  variant="standard"
+                  sx={{ marginBottom: "1rem" }}
                 />
-              </LocalizationProvider>
-            )}
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                {formType === "rating" ? (
+                  <RatingCustom></RatingCustom>
+                ) : (
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      color="text"
+                      label="Date desktop"
+                      inputFormat="MM/DD/YYYY"
+                      value={value}
+                      onChange={handleChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
+                )}
+              </Grid>
+            </Grid>
 
-            <Grid container spacing={3}>
+            <Grid container spacing={3} style={{ alignItems: "center" }}>
               <Grid item xs={12} sm={6} md={3}>
                 <TextField
                   value={formCreateCard?.title}
