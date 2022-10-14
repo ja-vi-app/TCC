@@ -1,24 +1,23 @@
-import React from "react";
-import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
+import "./Styles/GlobalStyles.scss";
 import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
-import Login from "./Pages/Login";
-import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
-import routes from "./Utils/route";
-import { themeDark, themeLight } from "./assets/theme";
 import ResponsiveAppBar from "./Components/AppBar/AppBar";
 import { CardDetailProvider } from "./Context/CardDetailContext";
-import { ThemeScssProvider, useTheme } from "./Context/ThemeContext";
-import "./Styles/GlobalStyles.scss";
 import CustomThemeProvider from "./Context/ThemeMUI";
 import { FormCreateCardProvider } from "./Context/FormCreateCardContext";
+import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
+import routes from "./Utils/route";
+import Login from "./Pages/Login";
 
 function App() {
-  const themeContext = useTheme();
+  const { pathname } = useLocation();
+
+  useEffect(() => {}, [pathname]);
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route, key) => {
@@ -37,11 +36,9 @@ function App() {
   return (
     <CustomThemeProvider>
       <FormCreateCardProvider>
-        {/* <ThemeProvider theme={themeContext === "dark" ? themeLight : themeDark}>
-        <ThemeScssProvider> */}
         <CardDetailProvider>
           <CssBaseline />
-          <div className=" bg-background">
+          <div className="bg-background">
             {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
               <>
                 <ResponsiveAppBar />
@@ -60,8 +57,6 @@ function App() {
             <ToastContainer pauseOnFocusLoss={false} />
           </div>
         </CardDetailProvider>
-        {/* </ThemeScssProvider>
-      </ThemeProvider> */}
       </FormCreateCardProvider>
     </CustomThemeProvider>
   );
