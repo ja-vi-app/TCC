@@ -232,13 +232,14 @@ export default function List() {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <Grid container>
+            <Grid container sx={{ marginBottom: "2rem" }}>
               <Grid item xs={12} sm={12} md={6}>
                 <FormControlLabel
                   control={<Switch defaultChecked />}
                   label={formType === "rating" ? "Avaliação" : "Alerta"}
                   onClick={() => setFormType(formType === "date" ? "rating" : "date")}
                   variant="standard"
+                  sx={{ marginBottom: "1rem" }}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6}>

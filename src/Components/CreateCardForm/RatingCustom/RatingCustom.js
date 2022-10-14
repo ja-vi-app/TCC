@@ -48,10 +48,12 @@ export default function RatingCustom() {
       sx={{
         width: 200,
         display: "flex",
-        alignItems: "center",
+        flexDirection: "column",
+        gap: "0.25rem",
         flexWrap: "nowrap",
       }}
     >
+      <Typography sx={{ whiteSpace: "nowrap" }}>Nota:</Typography>
       <Rating
         name="hover-feedback"
         max={10}
@@ -67,7 +69,7 @@ export default function RatingCustom() {
       />
       {formCreateCard?.rating !== null && (
         <Typography sx={{ whiteSpace: "nowrap" }}>
-          {labels[hover !== -1 ? hover : formCreateCard?.rating]}
+          {labels[hover !== -1 ? hover : formCreateCard?.rating ?? 0]}
         </Typography>
       )}
     </Box>
