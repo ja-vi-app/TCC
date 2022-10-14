@@ -4,6 +4,7 @@ import "./CardMovie.scss";
 import { Box, Card, CardMedia, Grid } from "@mui/material";
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
 import Star from "./star";
+import { Emoji } from "emoji-picker-react";
 
 function CardMovie({ data }) {
   const changeCardDetail = useCardDetailUpdate();
@@ -12,11 +13,12 @@ function CardMovie({ data }) {
   const handleCardDetail = () => {
     if (cardDetail === data) changeCardDetail(null);
     else changeCardDetail(data);
+    console.log(data);
   };
 
   return (
     <div onClick={handleCardDetail}>
-      <Card className="container">
+      <Card className="container ">
         <div className="relative">
           <Grid container display="flex">
             <div
@@ -31,9 +33,14 @@ function CardMovie({ data }) {
               <Box
                 key="icon_img"
                 borderRadius={"0px 0px 5px 0px"}
-                style={{ background: " #ffffffb3", padding: "0.12rem" }}
+                style={{
+                  background: " #ffffffb3",
+                  padding: "0.12rem",
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
-                {/* TODO: aceitar o emoji como parametro */}
+                <Emoji unified={data?.category} size={22}></Emoji>
               </Box>
               <Box
                 key="note_img"
@@ -41,7 +48,6 @@ function CardMovie({ data }) {
                 style={{ background: "#00000073", padding: "0.12rem" }}
               >
                 <Star data={data?.rating}></Star>
-                {/* TODO: aceitar a icone/data como parametro */}
               </Box>
             </div>
           </Grid>
