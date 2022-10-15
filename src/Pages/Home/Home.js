@@ -13,6 +13,7 @@ import { db } from "../../Service/dbConection";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
 import { isEmptyArray } from "../../Utils/Functions";
 import { useCardDetail } from "../../Context/CardDetailContext";
+import CardDetail from "../../Components/CardDetail/CardDetail";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);
@@ -47,15 +48,7 @@ export default function Home() {
             </Card>
           </Grid>
           <Grid item xs={12} lg={6}>
-            <Card className="bg-foreground">
-              {cardDetail ? (
-                <>
-                  <div>
-                    <span>testando {JSON.stringify(cardDetail)}</span>
-                  </div>
-                </>
-              ) : null}
-            </Card>
+            {cardDetail ? <CardDetail></CardDetail> : null}
           </Grid>
         </Grid>
       </Container>

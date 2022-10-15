@@ -1,0 +1,22 @@
+.video-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.no-video {
+  left: 0;
+  top: 0;
+  margin: auto 0 ;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  svg {
+    font-size: 60rem;
+  }
+}
+
