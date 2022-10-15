@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { collection } from "firebase/firestore";
+import { collection, doc } from "firebase/firestore";
 import {
   Accordion,
   AccordionDetails,
@@ -154,7 +154,10 @@ export default function List() {
 
   async function handleSaveNewCardMovie() {
     if (image) {
-      await addDB(recordedMoviesCollectionRef, {
+      const docRef = doc(recordedMoviesCollectionRef);
+
+      await addDB(docRef, {
+        id: docRef.id,
         title: formCreateCard?.title,
         category: formCreateCard?.category?.unifiedWithoutSkinTone,
         rating: formCreateCard?.rating ?? null,
@@ -165,7 +168,7 @@ export default function List() {
         url_image: image.movie_url,
         owner: sessionStorage.getItem(SESSION_STORAGE_ITEM.userUid),
       })
-        .then(() => {
+        .then((a) => {
           toasterModel(DEFAULT_MESSAGE.successSave, TOAST_TYPE.success);
           changeFormCreateCard(initialState);
           handleExpandAccordion();

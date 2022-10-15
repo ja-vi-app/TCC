@@ -13,7 +13,6 @@ function CardMovie({ data }) {
   const handleCardDetail = () => {
     if (cardDetail === data) changeCardDetail(null);
     else changeCardDetail(data);
-    console.log(data);
   };
 
   return (
