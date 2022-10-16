@@ -22,6 +22,7 @@ const theme = createTheme({
 
     background: {
       default: "#262626",
+      foreground: darkColors.foreground,
     },
     text: {
       secondary: darkColors.textSubtitle,
@@ -87,6 +88,39 @@ const theme = createTheme({
           },
         },
       },
+      variants: [
+        {
+          props: { variant: "outlined-cancel" },
+          style: {
+            border: "1px solid " + darkColors.textSubtitle,
+            color: darkColors.textSubtitle,
+          },
+        },
+      ],
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: darkColors.foreground,
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          color: darkColors.text,
+        },
+      },
+    },
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: "text-placeholder" },
+          style: {
+            color: darkColors.textSubtitle,
+          },
+        },
+      ],
     },
   },
 });

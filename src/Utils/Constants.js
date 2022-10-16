@@ -23,6 +23,8 @@ export const DATE_FORMAT = {
 };
 export const DEFAULT_MESSAGE = {
   successSave: "Filme salvo com sucesso!",
+  updatedSuccessSave: "Atualização feita com sucesso!",
+  failedUpdatedSuccessSave: "Falha na Atualização. Corrija os dados e tente novamente!",
   failedSave: "Falha ao adicionar o filme. Tente novamente mais tarde!",
   failedSaveImage: "Falha ao fazer upload da imagem, tente novamente mais tarde!",
   fileNotImage: "O arquivo selecionado deve ser uma imagem!",
