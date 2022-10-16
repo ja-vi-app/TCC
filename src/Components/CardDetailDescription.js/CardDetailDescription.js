@@ -104,7 +104,11 @@ function CardDetailDescription() {
           className="textarea"
           style={textareaStyle}
           aria-label="empty textarea"
-          placeholder="Edite a descrição da mídia e clique no botão salvar"
+          placeholder={
+            enableEditLocalData
+              ? "Edite a descrição da mídia e clique no botão salvar"
+              : "Sem descrição cadastrada. Clique no botão de editar ao lado de 'Descrição'"
+          }
         />
 
         {enableEditLocalData ? (
@@ -117,7 +121,7 @@ function CardDetailDescription() {
                   Cancelar
                 </Button>
                 <Button variant="contained" onClick={onChangeLocalData}>
-                  Adicionar
+                  Salvar
                 </Button>
               </Grid>
             )}{" "}

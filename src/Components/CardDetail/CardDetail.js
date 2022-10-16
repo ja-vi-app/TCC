@@ -1,13 +1,20 @@
-import React from "react";
-import { Card, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Card, Grid, IconButton, Typography, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import { Emoji } from "emoji-picker-react";
 
 import "./CardDetail.scss";
 import CardDetailDescription from "../CardDetailDescription.js/CardDetailDescription";
 import CardDetailYoutubeVideo from "../CardDetailYoutubeVideo/CardDetailYoutubeVideo";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useCardDetail } from "../../Context/CardDetailContext";
 
 function CardDetail() {
+  const CardDetail = useCardDetail();
+
+  const [isFavorite, setIsFavorited] = useState();
+  const theme = useTheme();
+
   return (
     <Card
       sx={{
@@ -18,8 +25,6 @@ function CardDetail() {
         gap: "0.5rem",
       }}
     >
-      <Typography>{JSON.stringify(CardDetail)}</Typography>
-
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
           <img
@@ -30,7 +35,9 @@ function CardDetail() {
         </Grid>
         <Grid item container direction="column" xs={12} sm={8} spacing={2}>
           <Grid item>
-            <Typography sx={{ textTransform: "uppercase" }}>{CardDetail?.title}</Typography>
+            <Typography textAlign="center" sx={{ textTransform: "uppercase" }}>
+              {CardDetail?.title}
+            </Typography>
           </Grid>
           <Grid item container spacing={2} justifyContent="center" alignItems="center">
             <Grid item xs={4} display="flex" justifyContent="center">
@@ -48,7 +55,11 @@ function CardDetail() {
             <Grid item xs={4} display="flex" justifyContent="center">
               <Box style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <Typography>FAVORITO</Typography>
-                <Emoji unified={CardDetail?.category}></Emoji>
+                <IconButton onClick={() => setIsFavorited(!isFavorite)}>
+                  <FavoriteIcon
+                    sx={{ color: isFavorite ? "#D0000B" : theme.palette.textSubtitleColor }}
+                  ></FavoriteIcon>
+                </IconButton>
               </Box>
             </Grid>
           </Grid>

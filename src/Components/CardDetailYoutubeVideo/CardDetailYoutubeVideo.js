@@ -12,6 +12,7 @@ import {
   Stack,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { toasterModel } from "../../Utils/Functions";
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
@@ -35,6 +36,7 @@ function CardDetailYoutubeVideo() {
   const CardDetail = useCardDetail();
   const changeCardDetail = useCardDetailUpdate();
   const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
+  const theme = useTheme();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -154,7 +156,8 @@ function CardDetailYoutubeVideo() {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: "1rem",
-                backgroundColor: "#262626",
+                border: "1px solid " + theme.palette.background.default,
+                borderRadius: "5px",
               }}
               className="video-responsive"
             >
@@ -180,7 +183,7 @@ function CardDetailYoutubeVideo() {
               <Button
                 variant="contained"
                 onClick={onChangeFormVideo}
-                disabled={loadingVideoUrlForm}
+                disabled={loadingVideoUrlForm || !videoUrlForm}
               >
                 Adicionar trailer
               </Button>
