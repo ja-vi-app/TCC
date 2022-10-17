@@ -14,12 +14,16 @@ const theme = createTheme({
     textSubtitleColor: lightColors.textSubtitle,
     primary: {
       main: "#8980E8",
+      light: "rgb(81, 91, 95)",
+      dark: "rgb(26, 35, 39)",
+      contrastText: "#ffffff",
     },
     secondary: {
       main: "#cc4444",
     },
     background: {
       default: "#EBEBEB",
+      foreground: lightColors.foreground,
     },
     text: {
       secondary: lightColors.textSubtitle,
@@ -73,6 +77,32 @@ const theme = createTheme({
         input: {
           color: lightColors.text,
         },
+      },
+    },
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: "text-placeholder" },
+          style: {
+            color: lightColors.textSubtitle,
+          },
+        },
+      ],
+    },
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: "outlined-cancel" },
+          style: {
+            border: "1px solid " + lightColors.textSubtitle,
+            color: lightColors.textSubtitle,
+          },
+        },
+      ],
+    },
+    MuiCircularProgress: {
+      styleOverrides: {
+        color: "red",
       },
     },
   },

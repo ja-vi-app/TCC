@@ -46,7 +46,7 @@ function CardMovie({ data }) {
                 borderRadius={"0px 0px 0px 5px"}
                 style={{ background: "#00000073", padding: "0.12rem" }}
               >
-                <Star data={data?.rating}></Star>
+                <Star isSmall={true} data={data?.rating}></Star>
               </Box>
             </div>
           </Grid>
