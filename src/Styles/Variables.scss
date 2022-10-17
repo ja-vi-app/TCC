@@ -43,3 +43,7 @@
 // .svg-default-stroke {
 //   stroke: var(--text) !important;
 // }
+
+.min {
+  min-height: calc(100vh - 341px) !important;
+}
