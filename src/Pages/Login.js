@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
 import Avatar from "@mui/material/Avatar";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -12,10 +10,10 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { HourglassEmpty } from "@mui/icons-material";
 
-import { Copyright } from "../Components/Footer/Copyright";
 import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../Utils/Constants";
 import { firebaseApp } from "../Service/dbConection";
 import { toasterModel } from "../Utils/Functions";
+import { useTheme } from "@mui/material";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -23,6 +21,8 @@ export default function Login() {
   const auth = getAuth(firebaseApp);
 
   const [isLogin, setIsLogin] = useState(false);
+
+  const theme = useTheme();
 
   async function signInGoolgle(event) {
     event.preventDefault();
@@ -54,16 +54,16 @@ export default function Login() {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            marginTop: 8,
+            paddingTop: "8rem",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "primary.main", color: "#fff" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ color: theme.palette.textColor }}>
             Entrar
           </Typography>
           <Box component="form" role="form" sx={{ mt: 1 }}>
@@ -82,21 +82,8 @@ export default function Login() {
                 Login com Google
               </Button>
             )}
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Esqueci minha senha
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Não tem uma conta? Inscrever-se"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </>
   );
