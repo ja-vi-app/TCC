@@ -192,7 +192,6 @@ export default function List() {
   const [selectedEmoji, setSelectedEmoji] = useState("");
 
   function onClickSaveEmoji(emojiData, event) {
-    console.log(emojiData, event);
     setSelectedEmoji(emojiData.unifiedWithoutSkinTone);
     onChange("category", emojiData);
   }
