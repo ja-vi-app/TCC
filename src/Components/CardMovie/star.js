@@ -1,9 +1,12 @@
 import PropTypes, { any } from "prop-types";
 import "./CardMovie.scss";
 
-function Star({ data }) {
+function Star({ data, isSmall }) {
   return (
-    <div className="relative flex justify-center align-center">
+    <div
+      className="relative flex justify-center align-center"
+      style={isSmall ? null : { transform: "scale(2)", marginTop: "1.5rem" }}
+    >
       <svg
         width="35"
         height="32"
@@ -37,10 +40,12 @@ function Star({ data }) {
 
 Star.defaultProps = {
   data: any,
+  isSmall: true,
 };
 
 Star.propTypes = {
   data: PropTypes.number.isRequired,
+  isSmall: PropTypes.bool.isRequired,
 };
 
 export default Star;

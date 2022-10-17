@@ -100,6 +100,11 @@ const theme = createTheme({
         },
       ],
     },
+    MuiCircularProgress: {
+      styleOverrides: {
+        color: "red",
+      },
+    },
   },
 });
 
