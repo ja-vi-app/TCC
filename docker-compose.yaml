@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  javi_api:
+      container_name: javi_api
+      build:
+        context: backend
+        dockerfile: backend/Dockerfile
+      environment:
+        - ENVIRONMENT=PROD
+      ports:
+        - 8080:8080
+      networks:
+        public_net:
+          ipv4_address: 192.0.0.11
+
+
+networks:
+  public_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.0.0.0/24
