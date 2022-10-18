@@ -5,15 +5,19 @@ import { ToastContainer } from "react-toastify";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import "./Styles/GlobalStyles.scss";
+
 import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
 import ResponsiveAppBar from "./Components/AppBar/AppBar";
+import { AppFooter } from "./Components/Footer/AppFooter";
+
 import { CardDetailProvider } from "./Context/CardDetailContext";
 import CustomThemeProvider from "./Context/ThemeMUI";
 import { FormCreateCardProvider } from "./Context/FormCreateCardContext";
+
+import Login from "./Pages/Login";
+
 import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
 import routes from "./Utils/route";
-import Login from "./Pages/Login";
-import { AppFooter } from "./Components/Footer/AppFooter";
 
 function App() {
   const { pathname } = useLocation();

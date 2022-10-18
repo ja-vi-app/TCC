@@ -1,10 +1,11 @@
+import { Emoji } from "emoji-picker-react";
 import PropTypes from "prop-types";
-import "./CardMovie.scss";
 
 import { Box, Card, CardMedia, Grid } from "@mui/material";
+
+import "./CardMovie.scss";
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
 import Star from "./star";
-import { Emoji } from "emoji-picker-react";
 
 function CardMovie({ data }) {
   const changeCardDetail = useCardDetailUpdate();
@@ -39,14 +40,14 @@ function CardMovie({ data }) {
                   alignItems: "center",
                 }}
               >
-                <Emoji unified={data?.category} size={22}></Emoji>
+                <Emoji unified={data?.category} size={22} />
               </Box>
               <Box
                 key="note_img"
                 borderRadius={"0px 0px 0px 5px"}
                 style={{ background: "#00000073", padding: "0.12rem" }}
               >
-                <Star isSmall={true} data={data?.rating}></Star>
+                <Star isSmall={true} data={data?.rating} />
               </Box>
             </div>
           </Grid>

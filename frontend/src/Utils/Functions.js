@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { TOAST_TYPE } from "./Constants";
 
 export function removeAllToaster() {
   toast.dismiss();
@@ -21,11 +22,11 @@ export const toasterModel = (message, type = "default", time = 5000) => {
     return toast(message, {
       ...toastProperties,
     });
-  } else if (type === "error") {
+  } else if (type === TOAST_TYPE.error) {
     toast.error(message, { ...toastProperties });
-  } else if (type === "success") {
+  } else if (type === TOAST_TYPE.success) {
     toast.success(message, { ...toastProperties });
-  } else if (type === "info") {
+  } else if (type === TOAST_TYPE.info) {
     toast.info(message, { ...toastProperties });
   } else if (type === "warning") {
     toast.warning(message, { ...toastProperties });

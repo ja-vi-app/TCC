@@ -17,10 +17,9 @@ function CardDetail() {
         gap: "0.5rem",
       }}
     >
-      <CardDetailBadge></CardDetailBadge>
-
-      <CardDetailYoutubeVideo></CardDetailYoutubeVideo>
-      <CardDetailDescription></CardDetailDescription>
+      <CardDetailBadge />
+      <CardDetailYoutubeVideo />
+      <CardDetailDescription />
     </Card>
   );
 }

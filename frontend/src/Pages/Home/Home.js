@@ -1,22 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { collection } from "firebase/firestore";
-import "./Home.scss";
+import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 
+import { Box } from "@mui/system";
 import { Grid, Card, Container, Typography, IconButton, Popover, Button } from "@mui/material";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
+import "./Home.scss";
 import CardMovie from "../../Components/CardMovie/CardMovie";
-import List from "../List/List";
+import CardDetail from "../../Components/CardDetail/CardDetail";
+
+import { useCardDetail } from "../../Context/CardDetailContext";
 
 import { getDB } from "../../Service/Utils/Functions";
 import { db } from "../../Service/dbConection";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
+
 import { isEmptyArray } from "../../Utils/Functions";
-import { useCardDetail } from "../../Context/CardDetailContext";
-import CardDetail from "../../Components/CardDetail/CardDetail";
-import { Box } from "@mui/system";
-import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+
+import List from "../List/List";
 
 export default function Home() {
   const [cleanRegisteredMovies, setCleanRegisteredMovies] = useState([]);
@@ -92,7 +95,7 @@ export default function Home() {
                           <Emoji unified={selectedEmoji} emojiStyle={EmojiStyle.APPLE} size={20} />
                         </Button>
                         <IconButton onClick={() => setSelectedEmoji(null)}>
-                          <RemoveCircleOutlineIcon></RemoveCircleOutlineIcon>
+                          <RemoveCircleOutlineIcon />
                         </IconButton>
                       </Box>
                     ) : (
@@ -105,7 +108,7 @@ export default function Home() {
                           cursor: "pointer",
                         }}
                         onClick={handleClick}
-                      ></div>
+                      />
                     )}
                     <Popover
                       id={id}
@@ -132,7 +135,7 @@ export default function Home() {
             </Card>
           </Grid>
           <Grid item xs={12} lg={6}>
-            {cardDetail ? <CardDetail></CardDetail> : null}
+            {cardDetail ? <CardDetail /> : null}
           </Grid>
         </Grid>
       </Container>

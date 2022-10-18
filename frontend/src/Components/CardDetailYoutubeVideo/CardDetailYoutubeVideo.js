@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { collection, doc } from "firebase/firestore";
+
 import {
   Button,
   Dialog,
@@ -14,24 +16,24 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { toasterModel } from "../../Utils/Functions";
+import { Edit, ExpandMore, ExpandLess, PlayCircleOutline } from "@mui/icons-material";
+
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
+
 import { updateDB } from "../../Service/Utils/Functions";
-import { collection, doc } from "firebase/firestore";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
 import { db } from "../../Service/dbConection";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
-import EditIcon from "@mui/icons-material/Edit";
+
+import { toasterModel } from "../../Utils/Functions";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "../../Utils/Constants";
+
 import YoutubeEmbed from "../YoutubeVideo/YoutubeVideo";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 
 function CardDetailYoutubeVideo() {
   const [videoUrlForm, setVideoUrlForm] = useState(null);
   const [loadingVideoUrlForm, setloadingVideoUrlForm] = useState(false);
   const [trailerExpanded, setTrailerExpanded] = useState(true);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const CardDetail = useCardDetail();
   const changeCardDetail = useCardDetailUpdate();
@@ -95,7 +97,7 @@ function CardDetailYoutubeVideo() {
         </Grid>
         <Grid item sx={{ display: "flex", gap: "1rem" }}>
           <IconButton aria-label="edit" size="small" onClick={handleClickOpen}>
-            <EditIcon></EditIcon>
+            <Edit />
           </IconButton>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Troque a URL do trailer</DialogTitle>
@@ -118,14 +120,14 @@ function CardDetailYoutubeVideo() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} variant="outlined-cancel">
-                Cancelar
+                {LABEL_BUTTONS.cancel}
               </Button>
               <Button
                 onClick={onChangeFormVideo}
                 disabled={loadingVideoUrlForm}
                 variant="contained"
               >
-                Trocar URL
+                {LABEL_BUTTONS.changeUrl}
               </Button>
             </DialogActions>
           </Dialog>
@@ -134,11 +136,7 @@ function CardDetailYoutubeVideo() {
             size="small"
             onClick={() => setTrailerExpanded(!trailerExpanded)}
           >
-            {trailerExpanded ? (
-              <ExpandLessIcon></ExpandLessIcon>
-            ) : (
-              <ExpandMoreIcon></ExpandMoreIcon>
-            )}
+            {trailerExpanded ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
         </Grid>
       </Grid>
@@ -161,10 +159,7 @@ function CardDetailYoutubeVideo() {
               }}
               className="video-responsive"
             >
-              <PlayCircleOutlineIcon
-                sx={{ fontSize: "500%" }}
-                className="no-video"
-              ></PlayCircleOutlineIcon>
+              <PlayCircleOutline sx={{ fontSize: "500%" }} className="no-video" />
               <Typography sx={{ marginTop: "1rem" }}>
                 Adicione o link do trailer no Youtube
               </Typography>
@@ -177,9 +172,8 @@ function CardDetailYoutubeVideo() {
                   multiline={true}
                   label="URL do trailer*"
                   variant="standard"
-                ></TextField>
+                />
               </FormControl>
-
               <Button
                 variant="contained"
                 onClick={onChangeFormVideo}

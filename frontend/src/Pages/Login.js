@@ -2,18 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import { HourglassEmpty } from "@mui/icons-material";
+import { Typography, Container, Button, Avatar, Box, useTheme } from "@mui/material";
+import { HourglassEmpty, LockOutlined } from "@mui/icons-material";
 
-import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../Utils/Constants";
 import { firebaseApp } from "../Service/dbConection";
+import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../Utils/Constants";
 import { toasterModel } from "../Utils/Functions";
-import { useTheme } from "@mui/material";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -61,7 +55,7 @@ export default function Login() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "primary.main", color: "#fff" }}>
-            <LockOutlinedIcon />
+            <LockOutlined />
           </Avatar>
           <Typography component="h1" variant="h5" sx={{ color: theme.palette.textColor }}>
             Entrar
