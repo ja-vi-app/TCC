@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useContext, useState } from "react";
+import { THEME } from "../Utils/Constants";
 
 const ThemeContext = React.createContext();
 const ThemeUpdateContext = React.createContext();
@@ -13,7 +14,7 @@ export function useThemeUpdate() {
 }
 
 export function ThemeScssProvider({ children }) {
-  const [theme, setTheme] = useState(localStorage.getItem("javi-theme") ?? "light");
+  const [theme, setTheme] = useState(localStorage.getItem("javi-theme") ?? THEME.light);
 
   useEffect(() => {
     localStorage.setItem("javi-theme", theme);
@@ -21,7 +22,7 @@ export function ThemeScssProvider({ children }) {
   }, [theme]);
 
   function changeTheme() {
-    setTheme(theme === "light" ? "dark" : "light");
+    setTheme(theme === THEME.light ? THEME.dark : THEME.light);
   }
 
   return (

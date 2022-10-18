@@ -1,9 +1,9 @@
 import * as React from "react";
-import Rating from "@mui/material/Rating";
-import Box from "@mui/material/Box";
+
+import { Typography, Rating, Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
+
 import { useFormCreateCard, useFormCreateCardUpdate } from "../../../Context/FormCreateCardContext";
-import { Typography } from "@mui/material";
 
 const labels = {
   0: "Insuportável (0)",

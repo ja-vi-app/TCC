@@ -1,8 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
+import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+
 import { collection, doc } from "firebase/firestore";
+
 import {
   Accordion,
   AccordionDetails,
@@ -19,20 +22,29 @@ import {
   Popover,
 } from "@mui/material";
 import { Add, AddPhotoAlternate, Remove } from "@mui/icons-material";
-import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
+
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 import CustomDate from "../../Components/CustomDate/CustomDate";
-import { DEFAULT_MESSAGE, SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../../Utils/Constants";
-import { isEmpty, toasterModel } from "../../Utils/Functions";
+import RatingCustom from "../../Components/CreateCardForm/RatingCustom/RatingCustom";
+
+import { useFormCreateCard, useFormCreateCardUpdate } from "../../Context/FormCreateCardContext";
 
 import { addDB } from "../../Service/Utils/Functions";
 import { db } from "../../Service/dbConection";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import RatingCustom from "../../Components/CreateCardForm/RatingCustom/RatingCustom";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useFormCreateCard, useFormCreateCardUpdate } from "../../Context/FormCreateCardContext";
+
+import {
+  DATE_FORMAT,
+  DEFAULT_MESSAGE,
+  FORM_TYPE,
+  LABEL_BUTTONS,
+  SESSION_STORAGE_ITEM,
+  TOAST_TYPE,
+} from "../../Utils/Constants";
+import { isEmpty, toasterModel } from "../../Utils/Functions";
 
 const initialState = {
   category: null,
@@ -41,17 +53,12 @@ const initialState = {
 };
 
 export default function List() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { pathname } = location;
-
   const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
 
-  // const [{ category, title, file, aditional }, setState] = useState({ ...initialState });
   const [image, setImage] = useState(null);
   const [isLoadingImage, setIsLoadingImage] = useState(false);
   const [isOpenAccordion, setIsOpenAccordion] = useState(false);
-  const [formType, setFormType] = useState("rating");
+  const [formType, setFormType] = useState(FORM_TYPE.rating);
   const [value, setValue] = React.useState(dayjs("2014-08-18T21:11:54"));
 
   const formCreateCard = useFormCreateCard();
@@ -62,15 +69,8 @@ export default function List() {
       setIsOpenAccordion(true);
       return;
     }
-    navigate(URLS.home);
     setIsOpenAccordion(false);
   }
-
-  useEffect(() => {
-    if (pathname === URLS.list) {
-      setIsOpenAccordion(true);
-    }
-  }, [isOpenAccordion, setIsOpenAccordion]);
 
   const prevFile = usePrevious(formCreateCard?.file);
   useEffect(() => {
@@ -168,7 +168,7 @@ export default function List() {
         url_image: image.movie_url,
         owner: sessionStorage.getItem(SESSION_STORAGE_ITEM.userUid),
       })
-        .then((a) => {
+        .then(() => {
           toasterModel(DEFAULT_MESSAGE.successSave, TOAST_TYPE.success);
           changeFormCreateCard(initialState);
           handleExpandAccordion();
@@ -200,11 +200,7 @@ export default function List() {
   const id = open ? "simple-popover" : undefined;
   return (
     <>
-      <Container
-        maxWidth="xl"
-        className="p1 text"
-        // style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop: "2%" }}
-      >
+      <Container maxWidth="xl" className="p1 text">
         <Accordion
           expanded={isOpenAccordion}
           onChange={handleExpandAccordion}
@@ -238,21 +234,23 @@ export default function List() {
               <Grid item xs={12} sm={12} md={6}>
                 <FormControlLabel
                   control={<Switch defaultChecked />}
-                  label={formType === "rating" ? "Avaliação" : "Alerta"}
-                  onClick={() => setFormType(formType === "date" ? "rating" : "date")}
+                  label={formType === FORM_TYPE.rating ? "Avaliação" : "Alerta"}
+                  onClick={() =>
+                    setFormType(formType === FORM_TYPE.date ? FORM_TYPE.rating : FORM_TYPE.date)
+                  }
                   variant="standard"
                   sx={{ marginBottom: "1rem" }}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
-                {formType === "rating" ? (
-                  <RatingCustom></RatingCustom>
+                {formType === FORM_TYPE.rating ? (
+                  <RatingCustom />
                 ) : (
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
                       color="text"
                       label="Date desktop"
-                      inputFormat="MM/DD/YYYY"
+                      inputFormat={DATE_FORMAT.YYYY_MM_DD}
                       value={value}
                       onChange={handleChange}
                       renderInput={(params) => <TextField {...params} />}
@@ -313,7 +311,7 @@ export default function List() {
                     {formCreateCard?.file ? formCreateCard?.file.name : null}
                   </div>
                 ) : (
-                  <CircularProgress></CircularProgress>
+                  <CircularProgress />
                 )}
               </Grid>
               <Grid item xs={12} sm={6} md={2} justifyContent="flex-end">
@@ -329,7 +327,7 @@ export default function List() {
                       (isEmpty(formCreateCard?.rating) && isEmpty(formCreateCard?.date))
                     }
                   >
-                    Adicionar
+                    {LABEL_BUTTONS.add}
                   </Button>
                 </div>
               </Grid>

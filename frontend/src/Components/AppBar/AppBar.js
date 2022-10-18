@@ -14,16 +14,14 @@ import {
   Tooltip,
   MenuItem,
 } from "@mui/material";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import AdbIcon from "@mui/icons-material/Adb";
+import { DarkMode, LightMode, Adb } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { SESSION_STORAGE_ITEM, URLS } from "../../Utils/Constants";
-import { useThemeUpdate } from "../../Context/ThemeContext";
+
+import { SESSION_STORAGE_ITEM, THEME, URLS } from "../../Utils/Constants";
 import { CustomThemeContext } from "../../Context/ThemeMUI";
 
 const pages = [
-  { name: "Lista", url: URLS.list },
+  { name: "Lista", url: "/" },
   { name: "Alertas", url: "/alertas" },
   { name: "Ajuda", url: "/ajuda" },
 ];
@@ -65,19 +63,18 @@ const ResponsiveAppBar = () => {
 
   useEffect(() => {}, [photoUser]);
 
-  // const classes = useStyles();
   const { currentTheme, setTheme } = useContext(CustomThemeContext);
 
   const handleThemeChange = () => {
-    if (currentTheme === "normal") setTheme("dark");
-    else setTheme("normal");
+    if (currentTheme === THEME.normal) setTheme(THEME.dark);
+    else setTheme(THEME.normal);
   };
 
   return (
     <AppBar variant="menu" position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Adb sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -132,7 +129,7 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Adb sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -172,11 +169,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <IconButton onClick={handleThemeChange} style={{ marginRight: "12px" }}>
-            {currentTheme === "dark" ? (
-              <DarkModeIcon></DarkModeIcon>
-            ) : (
-              <LightModeIcon style={{ color: "black" }}></LightModeIcon>
-            )}
+            {currentTheme === THEME.dark ? <DarkMode /> : <LightMode style={{ color: "black" }} />}
           </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>

@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { collection, doc } from "firebase/firestore";
+import { Emoji } from "emoji-picker-react";
+
 import {
   Box,
   Button,
@@ -14,35 +17,30 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { Favorite, Edit, Save, DoDisturb } from "@mui/icons-material";
+
 import { useCardDetail } from "../../Context/CardDetailContext";
-import { Emoji } from "emoji-picker-react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { collection, doc } from "firebase/firestore";
+
 import { db } from "../../Service/dbConection";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
 import { updateDB } from "../../Service/Utils/Functions";
+
 import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "../../Utils/Constants";
+
 import Star from "../CardMovie/star";
-import EditIcon from "@mui/icons-material/Edit";
-import DoDisturbIcon from "@mui/icons-material/DoDisturb";
-import SaveIcon from "@mui/icons-material/Save";
-import axios from "axios";
 
 function CardDetailBadge() {
+  const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
   const CardDetail = useCardDetail();
+  const theme = useTheme();
 
   const [isFavorite, setIsFavorited] = useState();
   const [loadingIsFavorite, setLoadingIsFavorite] = useState();
-
   const [localData, setLocalData] = useState(CardDetail);
   const [isLocalDataEditableToggled, setIsLocalDataEditableToggled] = useState(false);
-  const [loadingLocalData, setLoadingLocalData] = useState();
-  const [open, setOpen] = React.useState(false);
-  const [openImgForm, setOpenImgForm] = React.useState(localData.url_image);
-
-  const theme = useTheme();
-  const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
+  const [open, setOpen] = useState(false);
+  const [openImgForm, setOpenImgForm] = useState(localData.url_image);
 
   async function updateDataFavorite() {
     setIsFavorited(!isFavorite);
@@ -112,7 +110,7 @@ function CardDetailBadge() {
             <div
               style={{ width: "150px", height: "201px", backgroundColor: "gray" }}
               onClick={handleClickOpen}
-            ></div>
+            />
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle>Troque a URL do trailer</DialogTitle>
               <DialogContent>
@@ -134,14 +132,14 @@ function CardDetailBadge() {
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleClose} variant="outlined-cancel">
-                  Cancelar
+                  {LABEL_BUTTONS.cancel}
                 </Button>
                 <Button
                   onClick={handleChangeURL}
                   disabled={!localData?.url_image}
                   variant="contained"
                 >
-                  Trocar URL
+                  {LABEL_BUTTONS.changeUrl}
                 </Button>
               </DialogActions>
             </Dialog>
@@ -176,7 +174,7 @@ function CardDetailBadge() {
               variant="standard"
               value={localData?.title}
               onChange={(e) => setLocalData({ ...localData, title: e.target.value })}
-            ></TextField>
+            />
           ) : (
             <Typography sx={{ textTransform: "uppercase" }}>{CardDetail?.title}</Typography>
           )}
@@ -187,15 +185,15 @@ function CardDetailBadge() {
                 size="small"
                 onClick={() => setIsLocalDataEditableToggled(true)}
               >
-                <EditIcon></EditIcon>
+                <Edit />
               </IconButton>
             ) : (
               <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
                 <IconButton aria-label="edit" size="small" onClick={handleCloseEdit}>
-                  <DoDisturbIcon></DoDisturbIcon>
+                  <DoDisturb />
                 </IconButton>
                 <IconButton aria-label="edit" size="small" onClick={handleSaveEdit}>
-                  <SaveIcon color="primary"></SaveIcon>
+                  <Save color="primary"></Save>
                 </IconButton>
               </Box>
             )}
@@ -222,13 +220,9 @@ function CardDetailBadge() {
                   variant="standard"
                   value={localData?.rating}
                   onChange={(e) => handleEditRating(e)}
-                ></TextField>
+                />
               ) : (
-                <Star
-                  isSmall={false}
-                  data={CardDetail?.rating}
-                  sx={{ transform: "scale(2)" }}
-                ></Star>
+                <Star isSmall={false} data={CardDetail?.rating} sx={{ transform: "scale(2)" }} />
               )}
             </Box>
           </Grid>
@@ -236,12 +230,12 @@ function CardDetailBadge() {
             <Box style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
               <Typography>FAVORITO</Typography>
               {loadingIsFavorite ? (
-                <CircularProgress></CircularProgress>
+                <CircularProgress />
               ) : (
                 <IconButton onClick={updateDataFavorite}>
-                  <FavoriteIcon
+                  <Favorite
                     sx={{ color: isFavorite ? "#D0000B" : theme.palette.textSubtitleColor }}
-                  ></FavoriteIcon>
+                  />
                 </IconButton>
               )}
             </Box>

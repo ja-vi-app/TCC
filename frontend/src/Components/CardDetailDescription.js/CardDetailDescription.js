@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { collection, doc } from "firebase/firestore";
+
 import {
   Button,
   CircularProgress,
@@ -8,14 +10,16 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { toasterModel } from "../../Utils/Functions";
+import { Edit } from "@mui/icons-material";
+
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
+
 import { updateDB } from "../../Service/Utils/Functions";
-import { collection, doc } from "firebase/firestore";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
 import { db } from "../../Service/dbConection";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
-import EditIcon from "@mui/icons-material/Edit";
+
+import { toasterModel } from "../../Utils/Functions";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "../../Utils/Constants";
 
 function CardDetailDescription() {
   const changeCardDetail = useCardDetailUpdate();
@@ -35,7 +39,7 @@ function CardDetailDescription() {
 
   function onChangeLocalData() {
     if (!localData)
-      return toasterModel("Digite alguma descrição para poder salvá-la", "info", 5000);
+      return toasterModel("Digite alguma descrição para poder salvá-la", TOAST_TYPE.info);
 
     changeCardDetail((prevState) => ({ ...prevState, description: localData }));
     updateData(localData);
@@ -89,7 +93,7 @@ function CardDetailDescription() {
         <Grid item sx={{ display: "flex", gap: "1rem" }}>
           {!enableEditLocalData ? (
             <IconButton aria-label="edit" size="small" onClick={() => setEnableEditLocalData(true)}>
-              <EditIcon></EditIcon>
+              <Edit />
             </IconButton>
           ) : null}
         </Grid>
@@ -118,10 +122,10 @@ function CardDetailDescription() {
             ) : (
               <Grid container justifyContent="flex-end" gap="1rem">
                 <Button variant="outlined-cancel" onClick={handleCancelEdit}>
-                  Cancelar
+                  {LABEL_BUTTONS.cancel}
                 </Button>
                 <Button variant="contained" onClick={onChangeLocalData}>
-                  Salvar
+                  {LABEL_BUTTONS.save}
                 </Button>
               </Grid>
             )}{" "}
