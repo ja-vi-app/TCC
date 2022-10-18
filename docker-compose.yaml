@@ -14,6 +14,19 @@ services:
         public_net:
           ipv4_address: 192.0.0.11
 
+  javi_front:
+    container_name: javi_front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ENVIRONMENT=PROD
+    ports:
+      - 3000:3000
+    networks:
+      public_net:
+        ipv4_address: 192.0.0.10
+
 
 networks:
   public_net:
