@@ -9,8 +9,8 @@ export function AppFooter() {
     <Paper
       style={{
         width: "100%",
-
-        padding: "3rem 3rem 1rem 3rem",
+        fontSize: "11px",
+        padding: "1rem",
       }}
       sx={{ color: theme.palette.textColor }}
     >
@@ -21,22 +21,15 @@ export function AppFooter() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "2rem",
+          gap: "1rem",
         }}
       >
-        <Typography textAlign="justify">
-          JA VI é uma aplicação com intuito de auxiliar as pessoas a se lembrar de filmes/series e
-          outros entreterimentos audio/visuais com um layout simples e conciso, em que é
-          possibilitado a configuração de cards de memória ou alertas organizados por categoria e
-          classificados com um sistema de quantidade de estrelas. Nosso objetivo é auxiliar as
-          pessoas a se lembrarem das emoções e lembranças proporcionadas por essas criações
-          audio/visuais
-        </Typography>
-
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
-          <Typography>CRIADO POR:</Typography>
+        <Box
+          sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem" }}
+        >
+          <Typography variant="body3">Created by: </Typography>
           <Box alignItems="center" sx={{ color: theme.palette.textSubtitleColor }}>
-            <Grid container spacing={4}>
+            <Grid container spacing={2} justifyContent="center">
               <Grid item>Daniel Liberato</Grid>
               <Grid item>Felipe Scherer</Grid>
               <Grid item>Jehan Dias</Grid>
@@ -46,15 +39,17 @@ export function AppFooter() {
           </Box>
         </Box>
 
-        <Link target="_blank" href="https://github.com/ja-vi-app/TCC">
-          SEE GITHUB REPOSITORY
-        </Link>
+        <Box sx={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+          <Typography variant="body3" color="text.secondary" align="center">
+            {"Copyright © Já vi "}
+            {new Date().getFullYear()}
+            {"."}
+          </Typography>
 
-        <Typography variant="body2" color="text.secondary" align="center">
-          {"Copyright © Já vi "}
-          {new Date().getFullYear()}
-          {"."}
-        </Typography>
+          <Link variant="body3" target="_blank" href="https://github.com/ja-vi-app/TCC">
+            GITHUB REPOSITORY
+          </Link>
+        </Box>
       </Box>
     </Paper>
   );

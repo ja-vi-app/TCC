@@ -45,5 +45,26 @@
 // }
 
 .min {
-  min-height: calc(100vh - 341px) !important;
+  min-height: calc(100vh - 102px) !important;
+}
+
+
+.hover-effect {
+  &:hover {
+    filter: brightness(0.8);
+    cursor: pointer;
+  }
+}
+
+.hover-effect-img {
+  &:hover {
+    background-color:  #00000018;
+    cursor: pointer;
+  }
+}
+
+.wrapper {
+  max-width: 1500px;
+  margin: auto;
+  padding-bottom: 3rem;
 }

@@ -4,8 +4,9 @@ import { collection } from "firebase/firestore";
 import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 
 import { Box } from "@mui/system";
-import { Grid, Card, Container, Typography, IconButton, Popover, Button } from "@mui/material";
+import { Grid, Card, Container, Typography, IconButton, Popover, useTheme } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 import "./Home.scss";
 import CardMovie from "../../Components/CardMovie/CardMovie";
@@ -54,9 +55,11 @@ export default function Home() {
 
   function onClickSaveEmoji(emojiData, event) {
     setSelectedEmoji(emojiData.unifiedWithoutSkinTone);
+    handleClose();
   }
 
   const cardDetail = useCardDetail();
+  const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -72,11 +75,11 @@ export default function Home() {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div className="wrapper">
+    <>
       <List />
       <Container maxWidth={false} style={{ paddingTop: "1rem" }}>
         <Grid container spacing={2}>
-          <Grid item xs={cardDetail ? 12 : 12} lg={cardDetail ? 6 : 12}>
+          <Grid item xs={cardDetail ? 12 : 12} md={cardDetail ? 6 : 12}>
             <Card>
               {isEmptyArray(cleanRegisteredMovies) ? null : (
                 <>
@@ -88,27 +91,26 @@ export default function Home() {
                       padding: "1rem 1rem 0 1rem ",
                     }}
                   >
-                    <Typography>Filtro de categoria: </Typography>
+                    <Typography variant="">Filtro de categoria: </Typography>
                     {selectedEmoji ? (
                       <Box sx={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
-                        <Button onClick={handleClick} sx={{ cursor: "pointer" }}>
+                        <IconButton onClick={handleClick} sx={{ cursor: "pointer" }}>
                           <Emoji unified={selectedEmoji} emojiStyle={EmojiStyle.APPLE} size={20} />
-                        </Button>
+                        </IconButton>
                         <IconButton onClick={() => setSelectedEmoji(null)}>
                           <RemoveCircleOutlineIcon />
                         </IconButton>
                       </Box>
                     ) : (
-                      <div
-                        style={{
-                          backgroundColor: "gray",
-                          borderRadius: "50%",
-                          width: "25px",
-                          height: "25px",
-                          cursor: "pointer",
-                        }}
+                      <IconButton
                         onClick={handleClick}
-                      />
+                        sx={{
+                          border: `1px solid ${theme.palette.textSubtitleColor}`,
+                          transform: "scale(0.7)",
+                        }}
+                      >
+                        <FilterAltIcon></FilterAltIcon>
+                      </IconButton>
                     )}
                     <Popover
                       id={id}
@@ -120,7 +122,7 @@ export default function Home() {
                         horizontal: "left",
                       }}
                     >
-                      <EmojiPicker onEmojiClick={onClickSaveEmoji} />
+                      <EmojiPicker skinTonesDisabled onEmojiClick={onClickSaveEmoji} />
                     </Popover>
                   </Box>
                   <Grid container p={3} spacing={3} className="bg-foreground sm-center">
@@ -134,11 +136,11 @@ export default function Home() {
               )}
             </Card>
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6}>
             {cardDetail ? <CardDetail /> : null}
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </>
   );
 }

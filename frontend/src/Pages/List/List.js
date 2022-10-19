@@ -20,8 +20,9 @@ import {
   Typography,
   CircularProgress,
   Popover,
+  IconButton,
 } from "@mui/material";
-import { Add, AddPhotoAlternate, Remove } from "@mui/icons-material";
+import { Add, AddPhotoAlternate, EmojiEmotions, Remove } from "@mui/icons-material";
 
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -45,6 +46,7 @@ import {
   TOAST_TYPE,
 } from "../../Utils/Constants";
 import { isEmpty, toasterModel } from "../../Utils/Functions";
+import { Box } from "@mui/system";
 
 const initialState = {
   category: null,
@@ -194,6 +196,7 @@ export default function List() {
   function onClickSaveEmoji(emojiData, event) {
     setSelectedEmoji(emojiData.unifiedWithoutSkinTone);
     onChange("category", emojiData);
+    handleClose();
   }
 
   const open = Boolean(anchorEl);
@@ -273,24 +276,34 @@ export default function List() {
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-                  Escolher categoria
-                </Button>
-                {selectedEmoji ? (
-                  <Emoji unified={selectedEmoji} emojiStyle={EmojiStyle.APPLE} size={12} />
-                ) : null}
-                <Popover
-                  id={id}
-                  open={open}
-                  anchorEl={anchorEl}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "start",
                   }}
                 >
-                  <EmojiPicker onEmojiClick={onClickSaveEmoji} />
-                </Popover>
+                  <Typography>Categoria</Typography>
+                  <IconButton onClick={handleClick}>
+                    {selectedEmoji ? (
+                      <Emoji unified={selectedEmoji} emojiStyle={EmojiStyle.APPLE} size={24} />
+                    ) : (
+                      <EmojiEmotions></EmojiEmotions>
+                    )}
+                  </IconButton>
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                  >
+                    <EmojiPicker skinTonesDisabled onEmojiClick={onClickSaveEmoji} />
+                  </Popover>
+                </Box>
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
                 {!isLoadingImage ? (
