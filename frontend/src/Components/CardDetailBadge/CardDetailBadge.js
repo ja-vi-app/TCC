@@ -17,7 +17,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Favorite, Edit, Save, DoDisturb } from "@mui/icons-material";
+import { Favorite, Edit, Save, DoDisturb, Image } from "@mui/icons-material";
 
 import { useCardDetail } from "../../Context/CardDetailContext";
 
@@ -108,9 +108,20 @@ function CardDetailBadge() {
         {!CardDetail?.url_image || isLocalDataEditableToggled ? (
           <>
             <div
-              style={{ width: "150px", height: "201px", backgroundColor: "gray" }}
+              style={{
+                width: "150px",
+                height: "201px",
+                border: `1px solid ${theme.palette.textSubtitleColor}`,
+                borderRadius: "5px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onClick={handleClickOpen}
-            />
+              className="hover-effect-img"
+            >
+              <Image sx={{ color: theme.palette.textSubtitleColor, fontSize: "50px" }}></Image>
+            </div>
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle>Troque a URL do trailer</DialogTitle>
               <DialogContent>

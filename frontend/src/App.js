@@ -43,7 +43,7 @@ function App() {
       <FormCreateCardProvider>
         <CardDetailProvider>
           <CssBaseline />
-          <div className="bg-background ">
+          <div className="bg-background " sx={{ height: "100vh" }}>
             {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
               <div style={{ position: "relative" }} className="min">
                 <ResponsiveAppBar />

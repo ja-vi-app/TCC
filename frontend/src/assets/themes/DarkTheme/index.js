@@ -9,6 +9,9 @@ const darkColors = {
 
 // Dark theme
 const theme = createTheme({
+  typography: {
+    fontSize: 12,
+  },
   palette: {
     textColor: darkColors.text,
     textSubtitleColor: darkColors.textSubtitle,

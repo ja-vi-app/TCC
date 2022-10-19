@@ -9,6 +9,9 @@ const lightColors = {
 
 // Normal or default theme
 const theme = createTheme({
+  typography: {
+    fontSize: 12,
+  },
   palette: {
     textColor: lightColors.text,
     textSubtitleColor: lightColors.textSubtitle,

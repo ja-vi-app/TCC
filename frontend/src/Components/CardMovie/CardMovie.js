@@ -17,7 +17,7 @@ function CardMovie({ data }) {
   };
 
   return (
-    <div onClick={handleCardDetail}>
+    <div onClick={handleCardDetail} className="hover-effect">
       <Card className="container ">
         <div className="relative">
           <Grid container display="flex">
