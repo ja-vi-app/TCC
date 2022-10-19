@@ -1,67 +1,21 @@
 import React, { useContext, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-  Container,
-  Avatar,
-  Button,
-  Tooltip,
-  MenuItem,
-} from "@mui/material";
-import { DarkMode, LightMode, Adb } from "@mui/icons-material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Box, Toolbar, IconButton, Container, Avatar } from "@mui/material";
+import { DarkMode, LightMode } from "@mui/icons-material";
 
 import { SESSION_STORAGE_ITEM, THEME, URLS } from "../../Utils/Constants";
 import { CustomThemeContext } from "../../Context/ThemeMUI";
 
-const pages = [
-  { name: "Lista", url: "/" },
-  { name: "Alertas", url: "/alertas" },
-  { name: "Ajuda", url: "/ajuda" },
-];
-const settings = [
-  { name: "Minha Conta", url: "/" },
-  { name: "Logout", url: URLS.login },
-];
-
 const ResponsiveAppBar = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { pathname } = location;
+  const session = sessionStorage.getItem(SESSION_STORAGE_ITEM.photoUser);
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const photoUser = sessionStorage.getItem(SESSION_STORAGE_ITEM.photoUser);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  const handleAccountPage = (url) => {
+    navigate(URLS.account);
   };
 
-  const handleCloseNavMenu = (url = URLS.home) => {
-    setAnchorElNav(null);
-
-    navigate(url);
-  };
-
-  const handleCloseUserMenu = (url) => {
-    setAnchorElUser(null);
-
-    if (url === URLS.login) {
-      sessionStorage.clear();
-    }
-    navigate(url);
-  };
-
-  useEffect(() => {}, [photoUser]);
+  useEffect(() => {}, [session]);
 
   const { currentTheme, setTheme } = useContext(CustomThemeContext);
 
@@ -73,133 +27,39 @@ const ResponsiveAppBar = () => {
   return (
     <AppBar variant="menu" position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Adb sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
+        <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box
             component="a"
             href="/"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              display: "flex",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              gap: "1rem",
+              alignItems: "center",
             }}
           >
-            JÁ VI!
-          </Typography>
+            <img
+              src="https://user-images.githubusercontent.com/62115215/196580219-eae5e6dd-db57-48c8-a937-11b3c5e845bb.svg"
+              alt="logo"
+              width={150}
+            />
+          </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton onClick={handleThemeChange} style={{ marginRight: "12px" }}>
+              {currentTheme === THEME.dark ? (
+                <DarkMode />
+              ) : (
+                <LightMode style={{ color: "black" }} />
+              )}
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page.name} onClick={() => handleCloseNavMenu(page.url)}>
-                  <Typography textAlign="center">{page.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Adb sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            JÁ VI!
-          </Typography>
-          <Box
-            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "flex-end" }}
-          >
-            {pages.map((page) => (
-              <Button
-                variant="menu-button"
-                key={page.name}
-                onClick={() => handleCloseNavMenu(page.url)}
-                sx={{ my: 2, display: "block", mr: "5px" }}
-                style={
-                  page.url === pathname
-                    ? { textDecoration: "underline", textUnderlineOffset: "3px" }
-                    : null
-                }
-              >
-                {page.name}
-              </Button>
-            ))}
-          </Box>
-
-          <IconButton onClick={handleThemeChange} style={{ marginRight: "12px" }}>
-            {currentTheme === THEME.dark ? <DarkMode /> : <LightMode style={{ color: "black" }} />}
-          </IconButton>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Configurações">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src={photoUser} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={() => handleCloseUserMenu(setting.url)}>
-                  <Typography textAlign="center">{setting.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <IconButton onClick={handleAccountPage} sx={{ p: 0 }}>
+              <Avatar src={session} />
+            </IconButton>
           </Box>
         </Toolbar>
       </Container>

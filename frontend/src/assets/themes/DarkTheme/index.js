@@ -5,12 +5,25 @@ const darkColors = {
   foreground: "#181818",
   text: "#ffffff",
   textSubtitle: "#ffffff99",
+  red: "#FF0000",
 };
 
 // Dark theme
 const theme = createTheme({
   typography: {
     fontSize: 12,
+    fontFamily: [
+      "Lato",
+      "system-ui",
+      "Segoe UI",
+      "Roboto",
+      "Helvetica",
+      "Arial",
+      "sans-serif",
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+    ].join(","),
   },
   palette: {
     textColor: darkColors.text,
@@ -99,6 +112,13 @@ const theme = createTheme({
             color: darkColors.textSubtitle,
           },
         },
+        {
+          props: { variant: "outlined-delete" },
+          style: {
+            border: "1px solid " + darkColors.red,
+            color: darkColors.red,
+          },
+        },
       ],
     },
     MuiPaper: {
@@ -121,6 +141,13 @@ const theme = createTheme({
           props: { variant: "text-placeholder" },
           style: {
             color: darkColors.textSubtitle,
+          },
+        },
+        {
+          props: { variant: "text-placeholder-small" },
+          style: {
+            color: darkColors.textSubtitle,
+            fontSize: "12px",
           },
         },
       ],

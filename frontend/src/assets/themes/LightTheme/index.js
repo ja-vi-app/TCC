@@ -5,12 +5,25 @@ const lightColors = {
   foreground: "#fff",
   text: "#000",
   textSubtitle: "#00000099",
+  red: "#FF0000",
 };
 
 // Normal or default theme
 const theme = createTheme({
   typography: {
     fontSize: 12,
+    fontFamily: [
+      "Lato",
+      "system-ui",
+      "Segoe UI",
+      "Roboto",
+      "Helvetica",
+      "Arial",
+      "sans-serif",
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+    ].join(","),
   },
   palette: {
     textColor: lightColors.text,
@@ -90,6 +103,13 @@ const theme = createTheme({
             color: lightColors.textSubtitle,
           },
         },
+        {
+          props: { variant: "text-placeholder-small" },
+          style: {
+            color: lightColors.textSubtitle,
+            fontSize: "12px",
+          },
+        },
       ],
     },
     MuiButton: {
@@ -99,6 +119,13 @@ const theme = createTheme({
           style: {
             border: "1px solid " + lightColors.textSubtitle,
             color: lightColors.textSubtitle,
+          },
+        },
+        {
+          props: { variant: "outlined-delete" },
+          style: {
+            border: "1px solid " + lightColors.red,
+            color: lightColors.red,
           },
         },
       ],

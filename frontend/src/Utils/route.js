@@ -1,3 +1,4 @@
+import Account from "../Pages/Account/Account";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login";
 import { URLS } from "./Constants";
@@ -12,6 +13,11 @@ let routes = [
     isPrivate: false,
     route: URLS.login,
     component: <Login />,
+  },
+  {
+    isPrivate: true,
+    route: URLS.account,
+    component: <Account />,
   },
 ];
 

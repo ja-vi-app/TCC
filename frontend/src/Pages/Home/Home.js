@@ -75,7 +75,7 @@ export default function Home() {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <div className="wrapper">
+    <>
       <List />
       <Container maxWidth={false} style={{ paddingTop: "1rem" }}>
         <Grid container spacing={2}>
@@ -141,6 +141,6 @@ export default function Home() {
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </>
   );
 }

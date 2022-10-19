@@ -9,6 +9,7 @@ export const SESSION_STORAGE_ITEM = {
 export const URLS = {
   login: "/login-page",
   home: "/home",
+  account: "/account",
 };
 export const MS = {
   "3s": 3000,

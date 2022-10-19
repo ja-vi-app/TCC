@@ -45,12 +45,14 @@ function App() {
           <CssBaseline />
           <div className="bg-background " sx={{ height: "100vh" }}>
             {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-              <div style={{ position: "relative" }} className="min">
+              <div style={{ position: "relative" }} className="min ">
                 <ResponsiveAppBar />
-                <Routes key="privateRoute">
-                  {getRoutes(routes)}
-                  <Route path="*" element={<Navigate to={URLS.home} />} />
-                </Routes>
+                <div class="wrapper">
+                  <Routes key="privateRoute">
+                    {getRoutes(routes)}
+                    <Route path="*" element={<Navigate to={URLS.home} />} />
+                  </Routes>
+                </div>
               </div>
             ) : (
               <div className="min">
