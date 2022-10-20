@@ -17,23 +17,25 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Favorite, Edit, Save, DoDisturb, Image } from "@mui/icons-material";
+import { Favorite, Edit, Save, DoDisturb, Image, Delete } from "@mui/icons-material";
 
 import { useCardDetail } from "../../Context/CardDetailContext";
 
 import { db } from "../../Service/dbConection";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { updateDB } from "../../Service/Utils/Functions";
+import { deleteDB, updateDB } from "../../Service/Utils/Functions";
 
 import { toasterModel } from "../../Utils/Functions";
 import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "../../Utils/Constants";
 
 import Star from "../CardMovie/star";
+import { useListContextUpdate } from "../../Context/ListContext";
 
 function CardDetailBadge() {
   const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
   const CardDetail = useCardDetail();
   const theme = useTheme();
+  const updateList = useListContextUpdate();
 
   const [isFavorite, setIsFavorited] = useState();
   const [loadingIsFavorite, setLoadingIsFavorite] = useState();
@@ -41,6 +43,27 @@ function CardDetailBadge() {
   const [isLocalDataEditableToggled, setIsLocalDataEditableToggled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openImgForm, setOpenImgForm] = useState(localData.url_image);
+  const [confirmDialog, setConfirmDialog] = useState(false);
+  const [loadingDialog, setLoadingDialog] = useState(false);
+
+  async function deleteCard() {
+    const docRef = doc(recordedMoviesCollectionRef, CardDetail.id);
+    setLoadingDialog(true);
+    await deleteDB(docRef)
+      .then(() => {
+        toasterModel(DEFAULT_MESSAGE.deletedSuccessSave, TOAST_TYPE.success);
+        setLoadingDialog(false);
+        setConfirmDialog(false);
+        updateList();
+      })
+      .catch(() => {
+        toasterModel(DEFAULT_MESSAGE.failedDeletedSuccessSave, TOAST_TYPE.error);
+      });
+  }
+
+  function handleDeleteDialogClose() {
+    if (!loadingDialog) setConfirmDialog(false);
+  }
 
   async function updateDataFavorite() {
     setIsFavorited(!isFavorite);
@@ -50,6 +73,7 @@ function CardDetailBadge() {
       isFavorite: !isFavorite,
     })
       .then(() => {
+        updateList();
         setLoadingIsFavorite(false);
       })
       .catch(() => {
@@ -83,6 +107,7 @@ function CardDetailBadge() {
 
   async function handleSaveEdit() {
     console.log(localData);
+
     // const docRef = doc(recordedMoviesCollectionRef, CardDetail.id);
     // setLoadingLocalData(true);
     // await updateDB(docRef, {
@@ -191,13 +216,50 @@ function CardDetailBadge() {
           )}
           <Box style={{ right: "0", position: "absolute" }}>
             {!isLocalDataEditableToggled ? (
-              <IconButton
-                aria-label="edit"
-                size="small"
-                onClick={() => setIsLocalDataEditableToggled(true)}
-              >
-                <Edit />
-              </IconButton>
+              <>
+                <IconButton
+                  aria-label="edit"
+                  size="small"
+                  onClick={() => setIsLocalDataEditableToggled(true)}
+                >
+                  <Edit />
+                </IconButton>
+                <IconButton onClick={() => setConfirmDialog(true)}>
+                  <Delete></Delete>
+                </IconButton>
+                <Dialog
+                  open={confirmDialog}
+                  onClose={handleDeleteDialogClose}
+                  aria-labelledby="responsive-dialog-title"
+                  disablebackdropclick
+                >
+                  <DialogTitle id="responsive-dialog-title">
+                    {"Deseja excluir esse card?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>Essa ação não pode ser revertida</DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    {loadingDialog ? (
+                      <CircularProgress size={30}></CircularProgress>
+                    ) : (
+                      <>
+                        <Button
+                          variant="outlined"
+                          autoFocus
+                          onClick={() => setConfirmDialog(false)}
+                        >
+                          Cancelar
+                        </Button>
+
+                        <Button variant="outlined-cancel" onClick={deleteCard}>
+                          Sim
+                        </Button>
+                      </>
+                    )}
+                  </DialogActions>
+                </Dialog>
+              </>
             ) : (
               <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
                 <IconButton aria-label="edit" size="small" onClick={handleCloseEdit}>
