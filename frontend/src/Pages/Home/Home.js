@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { collection } from "firebase/firestore";
-import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 
 import { Box } from "@mui/system";
 import { Grid, Card, Container, Typography, IconButton, Popover, useTheme } from "@mui/material";
@@ -14,54 +12,49 @@ import CardDetail from "../../Components/CardDetail/CardDetail";
 
 import { useCardDetail } from "../../Context/CardDetailContext";
 
-import { getDB } from "../../Service/Utils/Functions";
-import { db } from "../../Service/dbConection";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-
 import { isEmptyArray } from "../../Utils/Functions";
 
 import List from "../List/List";
+import { useListContext, useListContextUpdate } from "../../Context/ListContext";
+import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 
 export default function Home() {
-  const [cleanRegisteredMovies, setCleanRegisteredMovies] = useState([]);
   const [registeredMovies, setRegisteredMovies] = useState([]);
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
 
-  const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
+  const useList = useListContext();
+  const updateList = useListContextUpdate();
+  const cardDetail = useCardDetail();
+  const theme = useTheme();
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   useEffect(() => {
-    async function fetchData() {
-      const data = await getDB(recordedMoviesCollectionRef);
-      setCleanRegisteredMovies(data);
-      setRegisteredMovies(data);
-    }
-    fetchData();
+    updateList();
   }, []);
 
-  useEffect(() => {
-    function setFilter() {
-      if (!selectedEmoji) setRegisteredMovies(cleanRegisteredMovies);
-      else {
-        const dataFiltered = cleanRegisteredMovies.filter(
-          (filter) => filter?.category === selectedEmoji
-        );
-        setRegisteredMovies(dataFiltered);
+  useEffect(
+    () => {
+      function setFilter() {
+        if (!selectedEmoji) setRegisteredMovies(useList);
+        else {
+          const dataFiltered = useList.filter((filter) => filter?.category === selectedEmoji);
+          setRegisteredMovies(dataFiltered);
+        }
       }
-    }
 
-    setFilter();
-  }, [selectedEmoji]);
+      setFilter();
+    },
+    [useList],
+    selectedEmoji
+  );
 
   function onClickSaveEmoji(emojiData, event) {
     setSelectedEmoji(emojiData.unifiedWithoutSkinTone);
     handleClose();
   }
-
-  const cardDetail = useCardDetail();
-  const theme = useTheme();
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -71,9 +64,6 @@ export default function Home() {
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-
   return (
     <>
       <List />
@@ -81,7 +71,7 @@ export default function Home() {
         <Grid container spacing={2}>
           <Grid item xs={cardDetail ? 12 : 12} md={cardDetail ? 6 : 12}>
             <Card>
-              {isEmptyArray(cleanRegisteredMovies) ? null : (
+              {isEmptyArray(useList) ? null : (
                 <>
                   <Box
                     sx={{
@@ -126,7 +116,7 @@ export default function Home() {
                     </Popover>
                   </Box>
                   <Grid container p={3} spacing={3} className="bg-foreground sm-center">
-                    {registeredMovies.map((item, index) => (
+                    {registeredMovies?.map((item, index) => (
                       <Grid item key={index}>
                         <CardMovie image={item.url_image} data={item} />
                       </Grid>

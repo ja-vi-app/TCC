@@ -1,6 +1,4 @@
-import { db } from "../dbConection";
-
-import { doc, deleteDoc, getDocs, query, where, setDoc } from "firebase/firestore";
+import { deleteDoc, getDocs, query, where, setDoc } from "firebase/firestore";
 import { SESSION_STORAGE_ITEM } from "../../Utils/Constants";
 
 export async function getDB(
@@ -13,17 +11,6 @@ export async function getDB(
   return data.docs.map((item) => ({ ...item.data(), id: item.id }));
 }
 
-export function testa(embed_id) {
-  const docRef = doc(db, "recorded-movies", "CWSUjs5M4HUoG2FtCiQt");
-  setDoc(docRef, { embed_id }, { merge: true })
-    .then((docRef) => {
-      console.log("Document Field has been updated successfully");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
 export function addDB(collection, data) {
   return setDoc(collection, data);
 }
@@ -32,7 +19,6 @@ export function updateDB(collection, data) {
   return setDoc(collection, data, { merge: true });
 }
 
-export function deleteDB(collection, id) {
-  const deleteData = doc(db, collection, id);
-  return deleteDoc(deleteData);
+export function deleteDB(dataWithId) {
+  return deleteDoc(dataWithId);
 }

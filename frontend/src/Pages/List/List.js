@@ -47,6 +47,7 @@ import {
 } from "../../Utils/Constants";
 import { isEmpty, toasterModel } from "../../Utils/Functions";
 import { Box } from "@mui/system";
+import { useListContextUpdate } from "../../Context/ListContext";
 
 const initialState = {
   category: null,
@@ -65,6 +66,7 @@ export default function List() {
 
   const formCreateCard = useFormCreateCard();
   const changeFormCreateCard = useFormCreateCardUpdate();
+  const updateList = useListContextUpdate();
 
   async function handleExpandAccordion() {
     if (!isOpenAccordion) {
@@ -174,6 +176,7 @@ export default function List() {
           toasterModel(DEFAULT_MESSAGE.successSave, TOAST_TYPE.success);
           changeFormCreateCard(initialState);
           handleExpandAccordion();
+          updateList();
         })
         .catch(() => {
           toasterModel(DEFAULT_MESSAGE.failedSave, TOAST_TYPE.error);

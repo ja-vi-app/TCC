@@ -18,6 +18,7 @@ import Login from "./Pages/Login";
 
 import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
 import routes from "./Utils/route";
+import { ListContextProvider } from "./Context/ListContext";
 
 function App() {
   const { pathname } = useLocation();
@@ -40,34 +41,36 @@ function App() {
 
   return (
     <CustomThemeProvider>
-      <FormCreateCardProvider>
-        <CardDetailProvider>
-          <CssBaseline />
-          <div className="bg-background " sx={{ height: "100vh" }}>
-            {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-              <div style={{ position: "relative" }} className="min ">
-                <ResponsiveAppBar />
-                <div class="wrapper">
-                  <Routes key="privateRoute">
+      <CardDetailProvider>
+        <ListContextProvider>
+          <FormCreateCardProvider>
+            <CssBaseline />
+            <div className="bg-background " sx={{ height: "100vh" }}>
+              {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
+                <div style={{ position: "relative" }} className="min ">
+                  <ResponsiveAppBar />
+                  <div className="wrapper">
+                    <Routes key="privateRoute">
+                      {getRoutes(routes)}
+                      <Route path="*" element={<Navigate to={URLS.home} />} />
+                    </Routes>
+                  </div>
+                </div>
+              ) : (
+                <div className="min">
+                  <Routes key="allRoute">
                     {getRoutes(routes)}
-                    <Route path="*" element={<Navigate to={URLS.home} />} />
+                    <Route path={"login-page"} element={<Login />} />
+                    <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
                   </Routes>
                 </div>
-              </div>
-            ) : (
-              <div className="min">
-                <Routes key="allRoute">
-                  {getRoutes(routes)}
-                  <Route path={"login-page"} element={<Login />} />
-                  <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
-                </Routes>
-              </div>
-            )}
-            <AppFooter></AppFooter>
-            <ToastContainer pauseOnFocusLoss={false} />
-          </div>
-        </CardDetailProvider>
-      </FormCreateCardProvider>
+              )}
+              <AppFooter></AppFooter>
+              <ToastContainer pauseOnFocusLoss={false} />
+            </div>
+          </FormCreateCardProvider>
+        </ListContextProvider>
+      </CardDetailProvider>
     </CustomThemeProvider>
   );
 }
