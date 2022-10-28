@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Link, Paper, Typography, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 
-export function AppFooter() {
+const AppFooter = () => {
   const theme = useTheme();
 
   return (
@@ -53,4 +53,6 @@ export function AppFooter() {
       </Box>
     </Paper>
   );
-}
+};
+
+export default AppFooter;

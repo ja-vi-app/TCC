@@ -4,14 +4,12 @@ import { ThemeProvider } from "@mui/material/styles";
 import getTheme from "../assets/themes";
 import { SESSION_STORAGE_ITEM, THEME } from "../Utils/Constants";
 
-// eslint-disable-next-line no-unused-vars
 export const CustomThemeContext = React.createContext({
   currentTheme: THEME.normal,
   setTheme: null,
 });
 
 const CustomThemeProvider = (props) => {
-  // eslint-disable-next-line react/prop-types
   const { children } = props;
 
   const currentTheme = localStorage.getItem(SESSION_STORAGE_ITEM.appTheme) || THEME.normal;
