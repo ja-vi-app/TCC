@@ -29,7 +29,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import CustomDate from "../../Components/CustomDate/CustomDate";
-import RatingCustom from "../../Components/CreateCardForm/RatingCustom/RatingCustom";
+import RatingCustom from "../../Components/RatingCustom/RatingCustom.js";
 
 import { useFormCreateCard, useFormCreateCardUpdate } from "../../Context/FormCreateCardContext";
 
