@@ -3,22 +3,19 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import CssBaseline from "@mui/material/CssBaseline";
-
-import "./Styles/GlobalStyles.scss";
+import { Container } from "@mui/material";
 
 import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
-import ResponsiveAppBar from "./Components/AppBar/AppBar";
-import { AppFooter } from "./Components/Footer/AppFooter";
 
-import { CardDetailProvider } from "./Context/CardDetailContext";
-import CustomThemeProvider from "./Context/ThemeMUI";
-import { FormCreateCardProvider } from "./Context/FormCreateCardContext";
-
-import Login from "./Pages/Login";
-
-import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
 import routes from "./Utils/route";
-import { ListContextProvider } from "./Context/ListContext";
+import Login from "./Pages/Login";
+import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
+import AppHeader from "./Components/AppHeader/AppHeader";
+import AppFooter from "./Components/AppFooter/AppFooter";
+import { AppContextProvider } from "./Context/GlobalContext";
+
+import "./App.scss";
+import "./Styles/GlobalStyles.scss";
 
 function App() {
   const { pathname } = useLocation();
@@ -40,38 +37,32 @@ function App() {
     });
 
   return (
-    <CustomThemeProvider>
-      <CardDetailProvider>
-        <ListContextProvider>
-          <FormCreateCardProvider>
-            <CssBaseline />
-            <div className="bg-background " sx={{ height: "100vh" }}>
-              {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-                <div style={{ position: "relative" }} className="min ">
-                  <ResponsiveAppBar />
-                  <div className="wrapper">
-                    <Routes key="privateRoute">
-                      {getRoutes(routes)}
-                      <Route path="*" element={<Navigate to={URLS.home} />} />
-                    </Routes>
-                  </div>
-                </div>
-              ) : (
-                <div className="min">
-                  <Routes key="allRoute">
-                    {getRoutes(routes)}
-                    <Route path={"login-page"} element={<Login />} />
-                    <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
-                  </Routes>
-                </div>
-              )}
-              <AppFooter></AppFooter>
-              <ToastContainer pauseOnFocusLoss={false} />
+    <AppContextProvider>
+      <CssBaseline />
+      <div className="bg-background " sx={{ height: "100vh" }}>
+        {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
+          <div style={{ position: "relative" }} className="min ">
+            <AppHeader />
+            <div className="wrapper">
+              <Routes key="privateRoute">
+                {getRoutes(routes)}
+                <Route path="*" element={<Navigate to={URLS.home} />} />
+              </Routes>
             </div>
-          </FormCreateCardProvider>
-        </ListContextProvider>
-      </CardDetailProvider>
-    </CustomThemeProvider>
+          </div>
+        ) : (
+          <div className="min">
+            <Routes key="allRoute">
+              {getRoutes(routes)}
+              <Route path={"login-page"} element={<Login />} />
+              <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
+            </Routes>
+          </div>
+        )}
+        <AppFooter />
+        <ToastContainer pauseOnFocusLoss={false} />
+      </div>
+    </AppContextProvider>
   );
 }
 

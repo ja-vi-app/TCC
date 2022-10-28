@@ -1,21 +1,19 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AppBar, Box, Toolbar, IconButton, Container, Avatar } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
 
 import { SESSION_STORAGE_ITEM, THEME, URLS } from "../../Utils/Constants";
-import { CustomThemeContext } from "../../Context/ThemeMUI";
+import { CustomThemeContext } from "../../Context/Theme";
 
-const ResponsiveAppBar = () => {
+const AppHeader = () => {
   const navigate = useNavigate();
   const session = sessionStorage.getItem(SESSION_STORAGE_ITEM.photoUser);
 
   const handleAccountPage = (url) => {
     navigate(URLS.account);
   };
-
-  useEffect(() => {}, [session]);
 
   const { currentTheme, setTheme } = useContext(CustomThemeContext);
 
@@ -66,4 +64,4 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
+export default AppHeader;
