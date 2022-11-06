@@ -13,6 +13,7 @@ import {
   DialogTitle,
   Grid,
   IconButton,
+  Rating,
   TextField,
   Typography,
   useTheme,
@@ -295,7 +296,19 @@ function CardDetailBadge() {
                   onChange={(e) => handleEditRating(e)}
                 />
               ) : (
-                <Star isSmall={false} data={CardDetail?.rating} sx={{ transform: "scale(2)" }} />
+                // <Rating
+                //   name="hover-feedback"
+                //   max={10}
+                //   precision={0.5}
+                //   onChange={(event, newratingValue) => {
+                //     changeForm(newratingValue);
+                //   }}
+                //   onChangeActive={(event, newHover) => {
+                //     setHover(newHover);
+                //   }}
+                //   emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                // />
+                <span></span>
               )}
             </Box>
           </Grid>
@@ -315,6 +328,28 @@ function CardDetailBadge() {
           </Grid>
         </Grid>
       </Grid>
+      <Dialog open={isLocalDataEditableToggled} onClose={handleClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here. We will send updates
+            occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 }

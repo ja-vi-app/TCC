@@ -5,6 +5,7 @@ import "./CardDetail.scss";
 import CardDetailDescription from "../CardDetailDescription.js/CardDetailDescription";
 import CardDetailYoutubeVideo from "../CardDetailYoutubeVideo/CardDetailYoutubeVideo";
 import CardDetailBadge from "../CardDetailBadge/CardDetailBadge";
+import CardDetailSummary from "../CardDetailSummary/CardDetailSummary";
 
 function CardDetail() {
   return (
@@ -18,6 +19,7 @@ function CardDetail() {
       }}
     >
       <CardDetailBadge />
+      <CardDetailSummary />
       <CardDetailYoutubeVideo />
       <CardDetailDescription />
     </Card>
