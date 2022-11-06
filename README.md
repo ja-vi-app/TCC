@@ -20,10 +20,10 @@
 ## Conceitos em React
 
 - Vantagens do React em relação a outros frameworks;
-- O que é uma SPA;
+- O que é uma SPA; Single Page Application
 - O que são compontes;
 - O que são children;
-- O que é um state;
+- O que é um ciclo de vida;
 - O que são hooks;
 - O que é o useState, useEffect;
 - O que é context;

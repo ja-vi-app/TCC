@@ -29,8 +29,8 @@ const labels = {
   10: "Obra prima (10)",
 };
 
-function getLabelText(value) {
-  return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
+function getLabelText(ratingValue) {
+  return `${ratingValue} Star${ratingValue !== 1 ? "s" : ""}, ${labels[ratingValue]}`;
 }
 
 export default function RatingCustom() {
@@ -39,8 +39,8 @@ export default function RatingCustom() {
   const formCreateCard = useFormCreateCard();
   const changeFormCreateCard = useFormCreateCardUpdate();
 
-  function changeForm(newValue) {
-    changeFormCreateCard((prevState) => ({ ...prevState, rating: newValue }));
+  function changeForm(newratingValue) {
+    changeFormCreateCard((prevState) => ({ ...prevState, rating: newratingValue }));
   }
 
   return (
@@ -59,8 +59,8 @@ export default function RatingCustom() {
         max={10}
         precision={0.5}
         getLabelText={getLabelText}
-        onChange={(event, newValue) => {
-          changeForm(newValue);
+        onChange={(event, newratingValue) => {
+          changeForm(newratingValue);
         }}
         onChangeActive={(event, newHover) => {
           setHover(newHover);
