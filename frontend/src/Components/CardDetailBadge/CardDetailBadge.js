@@ -13,7 +13,6 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-  Rating,
   TextField,
   Typography,
   useTheme,
@@ -29,7 +28,6 @@ import { deleteDB, updateDB } from "../../Service/Utils/Functions";
 import { toasterModel } from "../../Utils/Functions";
 import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "../../Utils/Constants";
 
-import Star from "../CardMovie/star";
 import { useListContextUpdate } from "../../Context/ListContext";
 
 function CardDetailBadge() {
