@@ -3,7 +3,6 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import CssBaseline from "@mui/material/CssBaseline";
-import { Container } from "@mui/material";
 
 import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
 

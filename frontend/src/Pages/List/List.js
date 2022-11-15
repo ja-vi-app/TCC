@@ -134,7 +134,7 @@ export default function List() {
     setIsLoadingImage(true);
     return axios({
       method: "post",
-      url: `http://ec2-44-204-105-222.compute-1.amazonaws.com:8080/movie/image`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/movie/image`,
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
