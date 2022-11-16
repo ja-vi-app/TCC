@@ -4,7 +4,6 @@ import { Card } from "@mui/material";
 import "./CardDetail.scss";
 import CardDetailDescription from "../CardDetailDescription.js/CardDetailDescription";
 import CardDetailYoutubeVideo from "../CardDetailYoutubeVideo/CardDetailYoutubeVideo";
-import CardDetailBadge from "../CardDetailBadge/CardDetailBadge";
 import CardDetailSummary from "../CardDetailSummary/CardDetailSummary";
 
 function CardDetail() {
@@ -18,7 +17,6 @@ function CardDetail() {
         gap: "0.5rem",
       }}
     >
-      <CardDetailBadge />
       <CardDetailSummary />
       <CardDetailYoutubeVideo />
       <CardDetailDescription />
