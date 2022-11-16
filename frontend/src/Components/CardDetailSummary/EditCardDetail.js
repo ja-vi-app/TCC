@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  TextField,
 } from "@mui/material";
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
 import { collection, doc } from "firebase/firestore";
@@ -20,6 +19,8 @@ import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
 import { Box } from "@mui/system";
 import FormImageSelector from "../Form/ImageSelector/FormImageSelector";
 import FormRatingSelector from "../Form/RatingSelector/FormRatingSelector";
+import FormTitleSelector from "../Form/TitleSelector/FormTitleSelector";
+import FormCategorySelector from "../Form/CategorySelector/FormCategorySelector";
 
 export default function EditCardDetail(props) {
   const CardDetail = useCardDetail();
@@ -61,18 +62,10 @@ export default function EditCardDetail(props) {
         <DialogContent>
           <DialogContentText>Edite os dados do seu card</DialogContentText>
           <DialogContent>
-            <TextField
-              margin="dense"
-              id="name"
-              label="Título"
-              type="title"
-              fullWidth
-              variant="standard"
-              value={cardEditInformation.title}
-              onChange={(value) =>
-                setCardEditInformation({ ...cardEditInformation, title: value?.target?.value })
-              }
-            />
+            <FormTitleSelector
+              data={cardEditInformation}
+              setData={setCardEditInformation}
+            ></FormTitleSelector>
           </DialogContent>
           <DialogContent>
             <FormRatingSelector
@@ -88,6 +81,11 @@ export default function EditCardDetail(props) {
                 data={cardEditInformation}
                 setData={setCardEditInformation}
               ></FormImageSelector>
+
+              <FormCategorySelector
+                data={cardEditInformation}
+                setData={setCardEditInformation}
+              ></FormCategorySelector>
             </Box>
           </DialogContent>
         </DialogContent>
