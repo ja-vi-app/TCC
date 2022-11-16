@@ -7,7 +7,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
 
 import routes from "./Utils/route";
-import Login from "./Pages/Login";
 import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
 import AppHeader from "./Components/AppHeader/AppHeader";
 import AppFooter from "./Components/AppFooter/AppFooter";
@@ -15,6 +14,7 @@ import { AppContextProvider } from "./Context/GlobalContext";
 
 import "./App.scss";
 import "./Styles/GlobalStyles.scss";
+import Welcome from "./Pages/Welcome/Welcome";
 
 function App() {
   const { pathname } = useLocation();
@@ -53,8 +53,8 @@ function App() {
           <div className="min">
             <Routes key="allRoute">
               {getRoutes(routes)}
-              <Route path={"login-page"} element={<Login />} />
-              <Route path="/*" element={<Navigate to={URLS.login} replace={true} />} />
+              <Route path={"welcome"} element={<Welcome />} />
+              <Route path="/*" element={<Navigate to={URLS.welcome} replace={true} />} />
             </Routes>
           </div>
         )}

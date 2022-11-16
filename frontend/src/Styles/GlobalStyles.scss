@@ -27,3 +27,9 @@ body {
 .image-selector {
   width: 60px; height: 60px; border-radius: 50% 
 }
+
+.welcome-bg {
+
+  min-height: calc(100vh - 102px) !important;
+  background: linear-gradient(180deg, rgba(79, 181, 255, 0.5) 0%, #FFFFFF 52.08%, rgba(79, 181, 255, 0.5) 100%);
+}
