@@ -22,11 +22,11 @@ export function ListContextProvider({ children }) {
 
   const resetCardDetail = useCardDetailUpdate();
 
-  async function changeListContext() {
+  async function changeListContext(needReset) {
     const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
     const data = await getDB(recordedMoviesCollectionRef);
     setListContext(data);
-    resetCardDetail(null);
+    if (needReset) resetCardDetail(null);
   }
 
   return (
