@@ -40,33 +40,36 @@ export default function Home() {
     updateList();
   }, []);
 
-  useEffect(
-    () => {
-      function setFilter() {
-        if (!selectedEmoji) setRegisteredMovies(useList);
-        else {
-          const dataFiltered = useList.filter((filter) => filter?.category === selectedEmoji);
-          setRegisteredMovies(dataFiltered);
-        }
-      }
+  useEffect(() => {
+    setRegisteredMovies(useList);
+  }, [useList]);
 
-      setFilter();
-    },
-    [useList],
-    selectedEmoji
-  );
+  function setFilter(valueFilter) {
+    if (!valueFilter) {
+      setRegisteredMovies(useList);
+    } else {
+      const dataFiltered = useList.filter((filter) => filter?.category === valueFilter);
+      setRegisteredMovies(dataFiltered);
+    }
+  }
 
-  function onClickSaveEmoji(emojiData, event) {
+  function onClickSaveEmoji(emojiData) {
     setSelectedEmoji(emojiData.unifiedWithoutSkinTone);
+    setFilter(emojiData.unifiedWithoutSkinTone);
     handleClose();
   }
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     setShowEmoji(!showEmoji);
   };
 
   const handleClose = () => {
     setShowEmoji(false);
+  };
+
+  const clearFilters = () => {
+    setRegisteredMovies(useList);
+    setSelectedEmoji(null);
   };
 
   return (
@@ -92,7 +95,7 @@ export default function Home() {
                         <IconButton onClick={handleClick} sx={{ cursor: "pointer" }}>
                           <Emoji unified={selectedEmoji} emojiStyle={EmojiStyle.APPLE} size={20} />
                         </IconButton>
-                        <IconButton onClick={() => setSelectedEmoji(null)}>
+                        <IconButton onClick={clearFilters}>
                           <RemoveCircleOutlineIcon />
                         </IconButton>
                       </Box>
