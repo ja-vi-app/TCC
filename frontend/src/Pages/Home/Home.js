@@ -2,7 +2,15 @@
 import React, { useEffect, useState } from "react";
 
 import { Box } from "@mui/system";
-import { Grid, Card, Container, Typography, IconButton, Popover, useTheme } from "@mui/material";
+import {
+  Grid,
+  Card,
+  Container,
+  Typography,
+  IconButton,
+  useTheme,
+  ClickAwayListener,
+} from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
@@ -20,16 +28,13 @@ import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showEmoji, setShowEmoji] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
 
   const useList = useListContext();
   const updateList = useListContextUpdate();
   const cardDetail = useCardDetail();
   const theme = useTheme();
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
 
   useEffect(() => {
     updateList();
@@ -57,11 +62,11 @@ export default function Home() {
   }
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setShowEmoji(!showEmoji);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setShowEmoji(false);
   };
 
   return (
@@ -69,7 +74,7 @@ export default function Home() {
       <List />
       <Container maxWidth={false} style={{ paddingTop: "1rem" }}>
         <Grid container spacing={2}>
-          <Grid item xs={cardDetail ? 12 : 12} md={cardDetail ? 6 : 12}>
+          <Grid item xs={12} md={cardDetail ? 6 : 12}>
             <Card>
               {isEmptyArray(useList) ? null : (
                 <>
@@ -99,21 +104,21 @@ export default function Home() {
                           transform: "scale(0.7)",
                         }}
                       >
-                        <FilterAltIcon></FilterAltIcon>
+                        <FilterAltIcon />
                       </IconButton>
                     )}
-                    <Popover
-                      id={id}
-                      open={open}
-                      anchorEl={anchorEl}
-                      onClose={handleClose}
-                      anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "left",
-                      }}
-                    >
-                      <EmojiPicker skinTonesDisabled onEmojiClick={onClickSaveEmoji} />
-                    </Popover>
+
+                    {showEmoji ? (
+                      <ClickAwayListener onClickAway={() => setShowEmoji(false)}>
+                        <div className="div-emoji">
+                          <EmojiPicker
+                            skinTonesDisabled
+                            onEmojiClick={onClickSaveEmoji}
+                            lazyLoadEmojis
+                          />
+                        </div>
+                      </ClickAwayListener>
+                    ) : null}
                   </Box>
                   <Grid container p={3} spacing={3} className="bg-foreground sm-center">
                     {registeredMovies?.map((item, index) => (

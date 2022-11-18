@@ -19,8 +19,8 @@ import {
   Grid,
   Typography,
   CircularProgress,
-  Popover,
   IconButton,
+  ClickAwayListener,
 } from "@mui/material";
 import { Add, AddPhotoAlternate, EmojiEmotions, Remove } from "@mui/icons-material";
 
@@ -46,7 +46,6 @@ import {
   TOAST_TYPE,
 } from "../../Utils/Constants";
 import { isEmpty, toasterModel } from "../../Utils/Functions";
-import { Box } from "@mui/system";
 import { useListContextUpdate } from "../../Context/ListContext";
 
 const initialState = {
@@ -62,11 +61,15 @@ export default function List() {
   const [isLoadingImage, setIsLoadingImage] = useState(false);
   const [isOpenAccordion, setIsOpenAccordion] = useState(false);
   const [formType, setFormType] = useState(FORM_TYPE.rating);
-  const [value, setValue] = React.useState(dayjs("2014-08-18T21:11:54"));
+  const [value, setValue] = useState(dayjs("2014-08-18T21:11:54"));
+  const [selectedEmoji, setSelectedEmoji] = useState("");
+  const [isOpenPopover, setIsOpenPopover] = useState(false);
 
   const formCreateCard = useFormCreateCard();
   const changeFormCreateCard = useFormCreateCardUpdate();
   const updateList = useListContextUpdate();
+
+  const prevFile = usePrevious(formCreateCard?.file);
 
   async function handleExpandAccordion() {
     if (!isOpenAccordion) {
@@ -76,7 +79,6 @@ export default function List() {
     setIsOpenAccordion(false);
   }
 
-  const prevFile = usePrevious(formCreateCard?.file);
   useEffect(() => {
     if (formCreateCard?.file && prevFile !== formCreateCard?.file) {
       const fetchData = async () => {
@@ -103,22 +105,18 @@ export default function List() {
     fileExtension = fileName.replace(/^.*\./, "");
     return fileExtension;
   }
+
   function isIMage(fileName) {
     let fileExt = getFileExtension(fileName);
     let imagesExtension = ["png", "jpg", "jpeg"];
-    if (imagesExtension.indexOf(fileExt) !== -1) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return imagesExtension.indexOf(fileExt) !== -1;
   }
 
   async function handleUploadClick(event) {
     const fileUpload = event.target.files[0];
     if (isIMage(fileUpload.name)) {
       changeFormCreateCard((prevState) => ({ ...prevState, file: fileUpload }));
-
-      return;
     } else {
       toasterModel(DEFAULT_MESSAGE.fileNotImage, TOAST_TYPE.info);
     }
@@ -184,17 +182,13 @@ export default function List() {
     }
   }
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = async (event) => {
+    setIsOpenPopover(true);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setIsOpenPopover(false);
   };
-
-  const [selectedEmoji, setSelectedEmoji] = useState("");
 
   function onClickSaveEmoji(emojiData, event) {
     setSelectedEmoji(emojiData.unifiedWithoutSkinTone);
@@ -202,8 +196,6 @@ export default function List() {
     handleClose();
   }
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
   return (
     <>
       <Container maxWidth="xl" className="p1 text">
@@ -278,37 +270,42 @@ export default function List() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <Box
+              <Grid
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Grid
+                  item
                   sx={{
                     display: "flex",
+                    alignItems: "center",
                     flexDirection: "column",
-                    alignItems: "start",
                   }}
+                  p={2}
                 >
                   <Typography>Categoria</Typography>
-                  <IconButton onClick={handleClick}>
+                  <IconButton aria-describedby="simple-popover" onClick={handleClick}>
                     {selectedEmoji ? (
                       <Emoji unified={selectedEmoji} emojiStyle={EmojiStyle.APPLE} size={24} />
                     ) : (
-                      <EmojiEmotions></EmojiEmotions>
+                      <EmojiEmotions />
                     )}
                   </IconButton>
-                  <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
-                    }}
-                  >
-                    <EmojiPicker skinTonesDisabled onEmojiClick={onClickSaveEmoji} />
-                  </Popover>
-                </Box>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+                </Grid>
+                {isOpenPopover ? (
+                  <ClickAwayListener onClickAway={() => setIsOpenPopover(false)}>
+                    <div className="div-emoji">
+                      <EmojiPicker
+                        id="simple-popover"
+                        skinTonesDisabled
+                        onEmojiClick={onClickSaveEmoji}
+                        lazyLoadEmojis
+                      />
+                    </div>
+                  </ClickAwayListener>
+                ) : null}
                 {!isLoadingImage ? (
                   <div>
                     <input

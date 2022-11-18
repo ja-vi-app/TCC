@@ -31,7 +31,7 @@ import YoutubeEmbed from "../YoutubeVideo/YoutubeVideo";
 
 function CardDetailYoutubeVideo() {
   const [videoUrlForm, setVideoUrlForm] = useState(null);
-  const [loadingVideoUrlForm, setloadingVideoUrlForm] = useState(false);
+  const [loadingVideoUrlForm, setLoadingVideoUrlForm] = useState(false);
   const [trailerExpanded, setTrailerExpanded] = useState(true);
   const [open, setOpen] = useState(false);
 
@@ -65,14 +65,14 @@ function CardDetailYoutubeVideo() {
 
   async function updateData(value) {
     const docRef = doc(recordedMoviesCollectionRef, CardDetail.id);
-    setloadingVideoUrlForm(true);
+    setLoadingVideoUrlForm(true);
     await updateDB(docRef, {
       embed_id: value,
     })
       .then(() => {
         toasterModel(DEFAULT_MESSAGE.updatedSuccessSave, TOAST_TYPE.success);
         setOpen(false);
-        setloadingVideoUrlForm(false);
+        setLoadingVideoUrlForm(false);
       })
       .catch(() => {
         toasterModel(DEFAULT_MESSAGE.failedUpdatedSuccessSave, TOAST_TYPE.error);
