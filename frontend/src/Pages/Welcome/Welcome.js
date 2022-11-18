@@ -92,17 +92,44 @@ export default function Welcome() {
         </Box>
       </Box>
 
-      <Box className="flex-collum-center-05" sx={{ maxWidth: "1500px", margin: "auto" }}>
-        <Box>CRIE SEU CARD</Box>
-        <Box sx={{ display: "flex", gap: "1rem" }}>
-          <span>img</span>
-          <Box sx={{ backgroundColor: "#8980E8" }}>
-            <Typography>Salve seus filmes</Typography>
+      <Box
+        className="flex-collum-center-05"
+        sx={{ maxWidth: "1500px", margin: "auto", width: "100%" }}
+      >
+        <Box className="flex-center-center-100">CRIE SEU CARD</Box>
+        <Box className="flex-center-center-100">
+          <Typography sx={{ width: "50%" }}>img</Typography>
+          <Box
+            sx={{
+              width: "50%",
+              padding: ".5rem 0",
+              display: "flex",
+            }}
+          >
+            <Typography
+              sx={{
+                backgroundColor: "#8980E8",
+                padding: "5% 20%",
+                borderRadius: "50px 0 0 50px ",
+              }}
+            >
+              Salve seus filmes
+              <br />
+              <span>
+                Não consegue lembrar aquele filme que assistiu a uns anos atrás? Crie um card e
+                tenha a lembrança sempre disponível
+              </span>
+              <br />
+              <button>Saiba mais</button>
+            </Typography>
           </Box>
+          <Box
+            sx={{ width: "7px", height: "170px", background: "#8980E8", borderRadius: "6px" }}
+          ></Box>
         </Box>
-        <Box>Organize</Box>
-        <Box>Salve detalhes</Box>
-        <Box>Economize tempo</Box>
+        <Box className="flex-center-center-100">Organize</Box>
+        <Box className="flex-center-center-100">Salve detalhes</Box>
+        <Box className="flex-center-center-100"> Economize tempo</Box>
 
         <Box>
           {isLogin ? (
