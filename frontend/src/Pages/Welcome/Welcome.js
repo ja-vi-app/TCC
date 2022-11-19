@@ -9,7 +9,6 @@ import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../../Utils/Constants";
 import { toasterModel } from "../../Utils/Functions";
 import WelcomePart from "../../Components/Welcome/WelcomePart";
 import { welcomeData } from "./WelcomeData";
-import WelcomePartLeft from "../../Components/Welcome/WelcomePartLeft";
 import AppFooter from "../../Components/AppFooter/AppFooter";
 
 export default function Welcome() {
@@ -132,15 +131,11 @@ export default function Welcome() {
           sx={{ maxWidth: "1500px", margin: "auto", width: "100%", gap: "1rem" }}
         >
           <Box className="flex-center-center-100">CRIE SEU CARD</Box>
-          {welcomeData.map((data) =>
-            data?.id % 2 === 0 ? (
-              <WelcomePartLeft data={data} key={data.id}></WelcomePartLeft>
-            ) : (
-              <WelcomePart data={data} key={data.id}></WelcomePart>
-            )
-          )}
+          {welcomeData.map((data) => (
+            <WelcomePart data={data} key={data.id}></WelcomePart>
+          ))}
 
-          <Box sx={{ padding: "5rem 0", width: "25rem" }}>
+          <Box sx={{ padding: "5rem 0", width: "25rem" }} id="crie-seu-primeiro-card">
             {isLogin ? (
               <Button
                 disabled={true}
