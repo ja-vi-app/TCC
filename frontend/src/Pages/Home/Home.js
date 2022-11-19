@@ -22,9 +22,9 @@ import { useCardDetail } from "../../Context/CardDetailContext";
 
 import { isEmptyArray } from "../../Utils/Functions";
 
-import List from "../List/List";
 import { useListContext, useListContextUpdate } from "../../Context/ListContext";
 import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
+import CardCreatorForm from "../../Components/CardCreatorForm/CardCreatorForm";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);
@@ -74,7 +74,7 @@ export default function Home() {
 
   return (
     <>
-      <List />
+      <CardCreatorForm></CardCreatorForm>
       <Container maxWidth={false} style={{ paddingTop: "1rem" }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={cardDetail ? 6 : 12}>
