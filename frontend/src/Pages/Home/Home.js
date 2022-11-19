@@ -25,11 +25,14 @@ import { isEmptyArray } from "../../Utils/Functions";
 import { useListContext, useListContextUpdate } from "../../Context/ListContext";
 import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 import CardCreatorForm from "../../Components/CardCreatorForm/CardCreatorForm";
+import { Favorite } from "@mui/icons-material";
+import FavoriteIconDetail from "../../Components/CardDetailSummary/FavoriteIconDetail";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);
   const [showEmoji, setShowEmoji] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
+  const [isFavoriteFilterEnable, setIsFavoriteFilterEnable] = React.useState(false);
 
   const useList = useListContext();
   const updateList = useListContextUpdate();
@@ -44,18 +47,19 @@ export default function Home() {
     setRegisteredMovies(useList);
   }, [useList]);
 
-  function setFilter(valueFilter) {
-    if (!valueFilter) {
-      setRegisteredMovies(useList);
-    } else {
-      const dataFiltered = useList.filter((filter) => filter?.category === valueFilter);
-      setRegisteredMovies(dataFiltered);
-    }
+  function setFilter(emojiValue, favoriteValue) {
+    if (!emojiValue && !favoriteValue) return setRegisteredMovies(useList);
+
+    let dataFiltered = useList;
+    if (emojiValue) dataFiltered = dataFiltered.filter((filter) => filter?.category === emojiValue);
+    if (favoriteValue) dataFiltered = dataFiltered.filter((filter) => filter?.isFavorite);
+
+    setRegisteredMovies(dataFiltered);
   }
 
   function onClickSaveEmoji(emojiData) {
     setSelectedEmoji(emojiData.unifiedWithoutSkinTone);
-    setFilter(emojiData.unifiedWithoutSkinTone);
+    setFilter(emojiData.unifiedWithoutSkinTone, isFavoriteFilterEnable);
     handleClose();
   }
 
@@ -68,8 +72,13 @@ export default function Home() {
   };
 
   const clearFilters = () => {
-    setRegisteredMovies(useList);
     setSelectedEmoji(null);
+    setFilter(null, isFavoriteFilterEnable);
+  };
+
+  const updateFavoriteFilter = () => {
+    setIsFavoriteFilterEnable(!isFavoriteFilterEnable);
+    setFilter(selectedEmoji, !isFavoriteFilterEnable);
   };
 
   return (
@@ -84,44 +93,65 @@ export default function Home() {
                   <Box
                     sx={{
                       display: "flex",
+                      justifyContent: "space-between",
                       alignItems: "center",
-                      gap: "1rem",
                       padding: "1rem 1rem 0 1rem ",
                     }}
                   >
-                    <Typography variant="">Filtro de categoria: </Typography>
-                    {selectedEmoji ? (
-                      <Box sx={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
-                        <IconButton onClick={handleClick} sx={{ cursor: "pointer" }}>
-                          <Emoji unified={selectedEmoji} emojiStyle={EmojiStyle.APPLE} size={20} />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "1rem",
+                      }}
+                    >
+                      <Typography variant="">Filtro de categoria: </Typography>
+                      {selectedEmoji ? (
+                        <Box sx={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
+                          <IconButton onClick={handleClick} sx={{ cursor: "pointer" }}>
+                            <Emoji
+                              unified={selectedEmoji}
+                              emojiStyle={EmojiStyle.APPLE}
+                              size={20}
+                            />
+                          </IconButton>
+                          <IconButton onClick={clearFilters}>
+                            <RemoveCircleOutlineIcon />
+                          </IconButton>
+                        </Box>
+                      ) : (
+                        <IconButton
+                          onClick={handleClick}
+                          sx={{
+                            border: `1px solid ${theme.palette.textSubtitleColor}`,
+                            transform: "scale(0.7)",
+                          }}
+                        >
+                          <FilterAltIcon />
                         </IconButton>
-                        <IconButton onClick={clearFilters}>
-                          <RemoveCircleOutlineIcon />
-                        </IconButton>
-                      </Box>
-                    ) : (
-                      <IconButton
-                        onClick={handleClick}
-                        sx={{
-                          border: `1px solid ${theme.palette.textSubtitleColor}`,
-                          transform: "scale(0.7)",
-                        }}
-                      >
-                        <FilterAltIcon />
-                      </IconButton>
-                    )}
+                      )}
 
-                    {showEmoji ? (
-                      <ClickAwayListener onClickAway={() => setShowEmoji(false)}>
-                        <div className="div-emoji">
-                          <EmojiPicker
-                            skinTonesDisabled
-                            onEmojiClick={onClickSaveEmoji}
-                            lazyLoadEmojis
-                          />
-                        </div>
-                      </ClickAwayListener>
-                    ) : null}
+                      {showEmoji ? (
+                        <ClickAwayListener onClickAway={() => setShowEmoji(false)}>
+                          <div className="div-emoji">
+                            <EmojiPicker
+                              skinTonesDisabled
+                              onEmojiClick={onClickSaveEmoji}
+                              lazyLoadEmojis
+                            />
+                          </div>
+                        </ClickAwayListener>
+                      ) : null}
+                    </Box>
+                    <IconButton onClick={updateFavoriteFilter}>
+                      <Favorite
+                        sx={{
+                          color: isFavoriteFilterEnable
+                            ? "#D0000B"
+                            : theme.palette.textSubtitleColor,
+                        }}
+                      />
+                    </IconButton>
                   </Box>
                   <Grid container p={3} spacing={3} className="bg-foreground sm-center">
                     {registeredMovies?.map((item, index) => (
