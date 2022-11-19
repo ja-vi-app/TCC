@@ -2,8 +2,12 @@ import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 
 export default function WelcomePart(props) {
+  function onAnchor(id) {
+    window.location.href = `#${id}`;
+  }
+
   return (
-    <Box className="flex-center-center-100">
+    <Box className="flex-center-center-100" id={props.data.id}>
       <Box sx={{ display: "flex", width: "50%", justifyContent: "center", alignItems: "center" }}>
         <img width={220} height={220} src={props.data.url} alt={props.data.title} />
       </Box>
@@ -43,7 +47,9 @@ export default function WelcomePart(props) {
               <Typography sx={{ maxWidth: "70%", textAlign: "center" }}>
                 {props.data.desc}
               </Typography>
-              <Button className="btn-more-anchor">Saiba mais</Button>
+              <Button onClick={() => onAnchor(props.data.id + 1)} className="btn-more-anchor">
+                Saiba mais
+              </Button>
             </Box>
           </Box>
         </Box>

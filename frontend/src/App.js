@@ -40,14 +40,15 @@ function App() {
       <CssBaseline />
       <div className="bg-background " sx={{ height: "100vh" }}>
         {sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) ? (
-          <div style={{ position: "relative" }} className="min ">
+          <div style={{ position: "relative" }} className=" ">
             <AppHeader />
-            <div className="wrapper">
+            <div className="wrapper min">
               <Routes key="privateRoute">
                 {getRoutes(routes)}
                 <Route path="*" element={<Navigate to={URLS.home} />} />
               </Routes>
             </div>
+            <AppFooter />
           </div>
         ) : (
           <div className="min">
@@ -58,7 +59,7 @@ function App() {
             </Routes>
           </div>
         )}
-        <AppFooter />
+
         <ToastContainer pauseOnFocusLoss={false} />
       </div>
     </AppContextProvider>

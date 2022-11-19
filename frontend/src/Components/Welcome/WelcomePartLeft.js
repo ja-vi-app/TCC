@@ -2,8 +2,11 @@ import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 
 export default function WelcomePartLeft(props) {
+  function onAnchor(id) {
+    window.location.href = `#${id}`;
+  }
   return (
-    <Box className="flex-center-center-100">
+    <Box className="flex-center-center-100" id={props.data.id}>
       <Box
         sx={{
           width: "50%",
@@ -45,7 +48,9 @@ export default function WelcomePartLeft(props) {
                 {props.data.desc}
               </Typography>
 
-              <Button className="btn-more-anchor">Saiba mais</Button>
+              <Button onClick={() => onAnchor(props.data.id + 1)} className="btn-more-anchor">
+                Saiba mais
+              </Button>
             </Box>
           </Box>
         </Box>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
-import { Button, Box } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import { HourglassEmpty } from "@mui/icons-material";
 import { firebaseApp } from "../../Service/dbConection";
 import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../../Utils/Constants";
@@ -10,6 +10,7 @@ import { toasterModel } from "../../Utils/Functions";
 import WelcomePart from "../../Components/Welcome/WelcomePart";
 import { welcomeData } from "./WelcomeData";
 import WelcomePartLeft from "../../Components/Welcome/WelcomePartLeft";
+import AppFooter from "../../Components/AppFooter/AppFooter";
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -43,124 +44,128 @@ export default function Welcome() {
       });
   }
 
+  function onAnchor(id) {
+    window.location.href = `#${id}`;
+  }
+
   return (
     <div className="welcome-bg">
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          maxWidth: "1500px",
-          margin: "auto",
-          padding: "0 1rem",
-        }}
-      >
-        <Box
-          component="a"
-          href="/"
-          sx={{
-            mr: 2,
-            display: "flex",
-            fontWeight: 700,
-            letterSpacing: ".3rem",
-            color: "inherit",
-            textDecoration: "none",
-            gap: "1rem",
-            alignItems: "center",
-          }}
-        >
-          <img
-            src="https://user-images.githubusercontent.com/62115215/196580219-eae5e6dd-db57-48c8-a937-11b3c5e845bb.svg"
-            alt="logo"
-            width={150}
-          />
-        </Box>
-
-        <Box component="form" role="form" sx={{ mt: 1 }}>
-          {isLogin ? (
-            <Button disabled={true} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              <HourglassEmpty /> Logando...
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              onClick={signInGoolgle}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Login com Google
-            </Button>
-          )}
-        </Box>
-      </Box>
-
-      <Box
-        className="flex-collum-center-05"
-        sx={{ maxWidth: "1500px", margin: "auto", width: "100%", gap: "1rem" }}
-      >
-        <Box className="flex-center-center-100">CRIE SEU CARD</Box>
-        {welcomeData.map((data) =>
-          data?.id % 2 === 0 ? (
-            <WelcomePartLeft data={data} key={data.id}></WelcomePartLeft>
-          ) : (
-            <WelcomePart data={data} key={data.id}></WelcomePart>
-          )
-        )}
-
-        <Box sx={{ padding: "5rem 0", width: "25rem" }}>
-          {isLogin ? (
-            <Button disabled={true} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              <HourglassEmpty /> Logando...
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              onClick={signInGoolgle}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, height: "5rem", fontSize: "1rem" }}
-            >
-              Crie seu primeiro card
-            </Button>
-          )}
-        </Box>
-      </Box>
-
-      {/* <Container component="main" maxWidth="xs">
+      <Box className="min">
         <Box
           sx={{
-            paddingTop: "8rem",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            maxWidth: "1500px",
+            margin: "auto",
+            padding: "0 1rem",
+            minHeight: "730px",
+            backgroundImage:
+              "url(https://user-images.githubusercontent.com/62115215/202863039-3e0f7845-bcfe-438a-99bd-78428d24dc47.png)",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "primary.main", color: "#fff" }}>
-            <LockOutlined />
-          </Avatar>
-          <Typography component="h1" variant="h5" sx={{ color: theme.palette.textColor }}>
-            Entrar
-          </Typography>
-          <Box component="form" role="form" sx={{ mt: 1 }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between", padding: "2rem 0" }}>
+            <Box
+              component="a"
+              href="/"
+              sx={{
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+                gap: "1rem",
+              }}
+            >
+              <img
+                src="https://user-images.githubusercontent.com/62115215/196580219-eae5e6dd-db57-48c8-a937-11b3c5e845bb.svg"
+                alt="logo"
+                width={150}
+              />
+            </Box>
+            <Box component="form" role="form">
+              {isLogin ? (
+                <Button disabled={true} fullWidth variant="contained">
+                  <HourglassEmpty /> Logando...
+                </Button>
+              ) : (
+                <Button type="submit" onClick={signInGoolgle} fullWidth className="btn-more-anchor">
+                  Login com Google
+                </Button>
+              )}
+            </Box>
+          </Box>
+
+          <Box sx={{ marginTop: "12rem", display: "flex", justifyContent: "space-around" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                maxWidth: "50%",
+                alignItems: "center",
+                gap: "1rem",
+              }}
+            >
+              <Typography sx={{ fontSize: "2.5rem" }}>CRIE SEUS CARDS</Typography>
+              <Typography sx={{ fontSize: "1rem" }}>
+                LEMBRE-SE DE SEUS FILMES E SÉRIES FAVORITOS
+              </Typography>
+              <Button
+                sx={{ width: "15rem", height: "3rem" }}
+                onClick={() => onAnchor(1)}
+                className="btn-more-anchor"
+              >
+                Saiba mais
+              </Button>
+            </Box>
+            <Box>
+              <img
+                width="260px"
+                height="260px"
+                src={
+                  "https://user-images.githubusercontent.com/62115215/202863106-8a289a8a-9662-4530-821e-3969911cba69.png"
+                }
+                alt={"cards"}
+              />
+            </Box>
+          </Box>
+        </Box>
+
+        <Box
+          className="flex-collum-center-05"
+          sx={{ maxWidth: "1500px", margin: "auto", width: "100%", gap: "1rem" }}
+        >
+          <Box className="flex-center-center-100">CRIE SEU CARD</Box>
+          {welcomeData.map((data) =>
+            data?.id % 2 === 0 ? (
+              <WelcomePartLeft data={data} key={data.id}></WelcomePartLeft>
+            ) : (
+              <WelcomePart data={data} key={data.id}></WelcomePart>
+            )
+          )}
+
+          <Box sx={{ padding: "5rem 0", width: "25rem" }}>
             {isLogin ? (
-              <Button disabled={true} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <Button
+                disabled={true}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, height: "5rem", fontSize: "1rem" }}
+              >
                 <HourglassEmpty /> Logando...
               </Button>
             ) : (
               <Button
+                id="organize"
                 type="submit"
                 onClick={signInGoolgle}
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, height: "5rem", fontSize: "1rem" }}
               >
-                Login com Google
+                Crie seu primeiro card
               </Button>
             )}
           </Box>
         </Box>
-      </Container> */}
+      </Box>
+      <AppFooter color={true} />
     </div>
   );
 }
