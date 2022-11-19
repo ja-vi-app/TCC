@@ -49,6 +49,11 @@ body {
   animation: spin 1s linear infinite;
 }
 
+.div-emoji {
+  z-index: 9999;
+   position: absolute
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
