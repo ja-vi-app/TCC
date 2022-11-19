@@ -17,6 +17,7 @@ body {
   gap: 0.5rem;
 }
 
+
 .hover-effect {
   cursor: pointer;
   &:hover {
@@ -40,4 +41,22 @@ body {
   align-items: center;
   width: 100%;
   padding: 0 1rem;
+}
+
+.flex-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.btn-more-anchor {
+  color: #8980E8;
+  background-color: #fff !important;
+
+  &:hover {
+    background-color: #8980E8 !important;
+    color: #fff;
+  }
 }

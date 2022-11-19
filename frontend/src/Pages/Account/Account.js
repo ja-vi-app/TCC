@@ -14,7 +14,7 @@ export default function Account() {
 
   function handleLogout() {
     sessionStorage.clear();
-    navigate(URLS.login);
+    navigate(URLS.welcome);
   }
   return (
     <Box sx={{ width: "600px", margin: "auto", marginTop: "2rem" }}>

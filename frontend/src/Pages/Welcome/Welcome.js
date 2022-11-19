@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
-import { Typography, Button, Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import { HourglassEmpty } from "@mui/icons-material";
 import { firebaseApp } from "../../Service/dbConection";
 import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../../Utils/Constants";
 import { toasterModel } from "../../Utils/Functions";
+import WelcomePart from "../../Components/Welcome/WelcomePart";
+import { welcomeData } from "./WelcomeData";
+import WelcomePartLeft from "../../Components/Welcome/WelcomePartLeft";
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -41,7 +44,7 @@ export default function Welcome() {
   }
 
   return (
-    <div class="welcome-bg">
+    <div className="welcome-bg">
       <Box
         sx={{
           display: "flex",
@@ -94,44 +97,18 @@ export default function Welcome() {
 
       <Box
         className="flex-collum-center-05"
-        sx={{ maxWidth: "1500px", margin: "auto", width: "100%" }}
+        sx={{ maxWidth: "1500px", margin: "auto", width: "100%", gap: "1rem" }}
       >
         <Box className="flex-center-center-100">CRIE SEU CARD</Box>
-        <Box className="flex-center-center-100">
-          <Typography sx={{ width: "50%" }}>img</Typography>
-          <Box
-            sx={{
-              width: "50%",
-              padding: ".5rem 0",
-              display: "flex",
-            }}
-          >
-            <Typography
-              sx={{
-                backgroundColor: "#8980E8",
-                padding: "5% 20%",
-                borderRadius: "50px 0 0 50px ",
-              }}
-            >
-              Salve seus filmes
-              <br />
-              <span>
-                Não consegue lembrar aquele filme que assistiu a uns anos atrás? Crie um card e
-                tenha a lembrança sempre disponível
-              </span>
-              <br />
-              <button>Saiba mais</button>
-            </Typography>
-          </Box>
-          <Box
-            sx={{ width: "7px", height: "170px", background: "#8980E8", borderRadius: "6px" }}
-          ></Box>
-        </Box>
-        <Box className="flex-center-center-100">Organize</Box>
-        <Box className="flex-center-center-100">Salve detalhes</Box>
-        <Box className="flex-center-center-100"> Economize tempo</Box>
+        {welcomeData.map((data) =>
+          data?.id % 2 === 0 ? (
+            <WelcomePartLeft data={data} key={data.id}></WelcomePartLeft>
+          ) : (
+            <WelcomePart data={data} key={data.id}></WelcomePart>
+          )
+        )}
 
-        <Box>
+        <Box sx={{ padding: "5rem 0", width: "25rem" }}>
           {isLogin ? (
             <Button disabled={true} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               <HourglassEmpty /> Logando...
@@ -142,7 +119,7 @@ export default function Welcome() {
               onClick={signInGoolgle}
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, height: "5rem", fontSize: "1rem" }}
             >
               Crie seu primeiro card
             </Button>
