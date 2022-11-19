@@ -2,12 +2,15 @@
 @import 'Helper';
 @import 'Variables';
 
+* {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
-
 
 .flex-collum-center-05 {
   display: flex;
@@ -16,6 +19,7 @@ body {
   justify-content: center;
   gap: 0.5rem;
 }
+
 
 .hover-effect {
   cursor: pointer;
@@ -27,3 +31,35 @@ body {
 .image-selector {
   width: 60px; height: 60px; border-radius: 50% 
 }
+
+.welcome-bg {
+  min-height: calc(100vh - 102px) !important;
+  background: linear-gradient(180deg, #84CBFF 0%, #FFFFFF 50%, #84CBFF 100%);
+}
+
+.flex-center-center-100 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.flex-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.btn-more-anchor {
+  color: #8980E8;
+  background-color: #fff !important;
+
+  &:hover {
+    background-color: #8980E8 !important;
+    color: #fff;
+  }
+}
+

@@ -7,7 +7,7 @@ export const SESSION_STORAGE_ITEM = {
   appTheme: "appTheme",
 };
 export const URLS = {
-  login: "/login-page",
+  welcome: "/welcome",
   home: "/home",
   account: "/account",
 };

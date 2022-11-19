@@ -1,6 +1,6 @@
 import Account from "../Pages/Account/Account";
 import Home from "../Pages/Home/Home";
-import Login from "../Pages/Login";
+import Welcome from "../Pages/Welcome/Welcome";
 import { URLS } from "./Constants";
 
 let routes = [
@@ -12,7 +12,7 @@ let routes = [
   {
     isPrivate: false,
     route: URLS.login,
-    component: <Login />,
+    component: <Welcome />,
   },
   {
     isPrivate: true,

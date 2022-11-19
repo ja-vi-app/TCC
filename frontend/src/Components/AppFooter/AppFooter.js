@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Link, Paper, Typography, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 
-const AppFooter = () => {
+const AppFooter = (props) => {
   const theme = useTheme();
 
   return (
@@ -12,7 +12,10 @@ const AppFooter = () => {
         fontSize: "11px",
         padding: "1rem",
       }}
-      sx={{ color: theme.palette.textColor }}
+      sx={{
+        color: props.color ? "#fff" : theme.palette.textColor,
+        background: props.color ? "#8980e8" : "",
+      }}
     >
       <Box
         sx={{
@@ -28,7 +31,10 @@ const AppFooter = () => {
           sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem" }}
         >
           <Typography variant="body3">Created by: </Typography>
-          <Box alignItems="center" sx={{ color: theme.palette.textSubtitleColor }}>
+          <Box
+            alignItems="center"
+            sx={{ color: props.color ? "#fff" : theme.palette.textSubtitleColor }}
+          >
             <Grid container spacing={2} justifyContent="center">
               <Grid item>Daniel Liberato</Grid>
               <Grid item>Felipe Scherer</Grid>
@@ -40,13 +46,21 @@ const AppFooter = () => {
         </Box>
 
         <Box sx={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-          <Typography variant="body3" color="text.secondary" align="center">
+          <Typography
+            variant="body3"
+            color={props.color ? "#fff" : "text.secondary"}
+            align="center"
+          >
             {"Copyright © Já vi "}
             {new Date().getFullYear()}
             {"."}
           </Typography>
 
-          <Link variant="body3" target="_blank" href="https://github.com/ja-vi-app/TCC">
+          <Link
+            sx={{ color: props.color ? "#fff" : "" }}
+            target="_blank"
+            href="https://github.com/ja-vi-app/TCC"
+          >
             GITHUB REPOSITORY
           </Link>
         </Box>
