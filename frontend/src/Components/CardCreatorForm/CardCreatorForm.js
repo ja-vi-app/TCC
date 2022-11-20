@@ -112,6 +112,7 @@ export default function CardCreatorForm(props) {
                 selectorId={"contained-button-file-form"}
                 data={cardCreated}
                 setData={setCardCreated}
+                sugestions={true}
               ></FormImageSelector>
             </Grid>
             <Grid item xs={12} sm={6}>

@@ -26,7 +26,6 @@ import { useListContext, useListContextUpdate } from "../../Context/ListContext"
 import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 import CardCreatorForm from "../../Components/CardCreatorForm/CardCreatorForm";
 import { Favorite } from "@mui/icons-material";
-import FavoriteIconDetail from "../../Components/CardDetailSummary/FavoriteIconDetail";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);

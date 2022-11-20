@@ -48,7 +48,9 @@ export default function FormRatingSelector(props) {
         flexWrap: "nowrap",
       }}
     >
-      <Typography sx={{ whiteSpace: "nowrap" }}>Nota:</Typography>
+      <Typography color="textSubtitleColor" sx={{ whiteSpace: "nowrap" }}>
+        Nota:
+      </Typography>
       <Rating
         name="hover-feedback"
         max={10}

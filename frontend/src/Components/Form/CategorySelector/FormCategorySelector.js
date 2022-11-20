@@ -29,11 +29,11 @@ export default function FormCategorySelector(props) {
         display: "flex",
         flexDirection: "column",
         gap: "0.5rem",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "center",
       }}
     >
-      <Typography>Categoria</Typography>
+      <Typography color="textSubtitleColor">Categoria</Typography>
       <IconButton aria-describedby="simple-popover" onClick={handleClick}>
         {props.data.category ? (
           <Emoji unified={props.data.category} emojiStyle={EmojiStyle.APPLE} size={24} />

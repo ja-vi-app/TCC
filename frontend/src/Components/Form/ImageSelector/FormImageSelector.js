@@ -1,19 +1,27 @@
 import * as React from "react";
-import { CircularProgress, Fab } from "@mui/material";
+import { CircularProgress, Fab, Typography } from "@mui/material";
 
 import { AddPhotoAlternate } from "@mui/icons-material";
 import axios from "axios";
 import { toasterModel } from "../../../Utils/Functions";
 import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../../Utils/Constants";
 import { Box } from "@mui/system";
+import { defaultImages } from "./defaultImages";
 
 export default function FormImageSelector(props) {
   const [isImageLoading, setIsImageLoading] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState(props.data.url_image);
+
+  React.useEffect(() => {
+    if (!props.data.url_image) setSelectedImage(null);
+  }, [props.data.url_image]);
 
   async function handleUploadClick(event) {
     const fileUpload = event.target.files[0];
     if (isImage(fileUpload.name)) {
       const url_image = await handleUploadImage(fileUpload);
+      handleSaveImage(url_image);
+      setSelectedImage(url_image);
       props.setData({ ...props.data, url_image });
       return;
     } else {
@@ -53,35 +61,67 @@ export default function FormImageSelector(props) {
     } else return false;
   }
 
+  function handleSaveImage(image) {
+    props.setData({ ...props.data, url_image: image });
+  }
+
   return (
-    <>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "flex-start" }}>
+      <Typography color="textSubtitleColor">Imagem da capa</Typography>
       {!isImageLoading ? (
-        <Box className="hover-effect">
-          <input
-            accept="image/*"
-            style={{ display: "none" }}
-            id={props.selectorId}
-            multiple={false}
-            type="file"
-            onChange={handleUploadClick}
-          />
-          <label htmlFor={props.selectorId}>
-            {props.data.url_image ? (
-              <img
-                className="image-selector hover-effect"
-                src={props.data.url_image}
-                alt={props.selectorId + "-alt-image"}
-              />
-            ) : (
-              <Fab component="span">
-                <AddPhotoAlternate />
-              </Fab>
-            )}
-          </label>
+        <Box sx={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          {props.sugestions
+            ? defaultImages.map((image) => (
+                <Box
+                  key={image.id}
+                  className="hover-effect"
+                  onClick={() => handleSaveImage(image.url)}
+                >
+                  <img
+                    className={
+                      props.data.url_image === image.url
+                        ? "image-selector-border image-selector-small"
+                        : "image-selector-small"
+                    }
+                    src={image.url}
+                    alt={image.alt}
+                  />
+                </Box>
+              ))
+            : null}
+          <Box className="hover-effect">
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id={props.selectorId}
+              multiple={false}
+              type="file"
+              onChange={handleUploadClick}
+            />
+            <label htmlFor={props.selectorId}>
+              {selectedImage ? (
+                <img
+                  className={
+                    props.sugestions
+                      ? props.data.url_image === selectedImage
+                        ? "image-selector-small image-selector-border hover-effect"
+                        : "image-selector-small hover-effect"
+                      : "image-selector hover-effect"
+                  }
+                  src={selectedImage}
+                  alt={props.selectorId + "-alt-image"}
+                />
+              ) : (
+                <Fab component="span" size={props.sugestions ? "small" : "large"}>
+                  <AddPhotoAlternate />
+                </Fab>
+              )}
+            </label>
+          </Box>
         </Box>
       ) : (
         <CircularProgress />
       )}
-    </>
+    </Box>
   );
 }
