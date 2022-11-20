@@ -33,7 +33,9 @@ export default function CardDetailSummary() {
         </Grid>
         <Grid item xs={12} sm={8}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography sx={{ textTransform: "uppercase" }}>{CardDetail?.title}</Typography>
+            <Typography sx={{ textTransform: "uppercase", maxWidth: "300px", textAlign: "center" }}>
+              {CardDetail?.title}
+            </Typography>
             <Box>
               <IconButton aria-label="edit" size="small" onClick={handleEditDialog}>
                 <Edit />

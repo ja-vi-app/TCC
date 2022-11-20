@@ -53,7 +53,9 @@ export default function RatingCustom() {
         flexWrap: "nowrap",
       }}
     >
-      <Typography sx={{ whiteSpace: "nowrap" }}>Nota:</Typography>
+      <Typography sx={{ whiteSpace: "nowrap" }} color="textSubtitleColor">
+        Nota:
+      </Typography>
       <Rating
         name="hover-feedback"
         max={10}
@@ -68,7 +70,7 @@ export default function RatingCustom() {
         emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
       />
       {formCreateCard?.rating !== null && (
-        <Typography sx={{ whiteSpace: "nowrap" }}>
+        <Typography color="textSubtitleColor" sx={{ whiteSpace: "nowrap" }}>
           {labels[hover !== -1 ? hover : formCreateCard?.rating ?? 0]}
         </Typography>
       )}

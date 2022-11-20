@@ -1,7 +1,7 @@
 import { Emoji } from "emoji-picker-react";
 import PropTypes from "prop-types";
 
-import { Box, Card, CardMedia, Grid } from "@mui/material";
+import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
 
 import "./CardMovie.scss";
 import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
@@ -20,6 +20,9 @@ function CardMovie({ data }) {
     <div onClick={handleCardDetail} className="hover-effect">
       <Card className="container ">
         <div className="relative">
+          <Typography sx={{ maxWidth: "125px", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {data?.title}
+          </Typography>
           <Grid container display="flex">
             <div
               style={{
