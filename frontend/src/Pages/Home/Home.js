@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-
+import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 import { Box } from "@mui/system";
 import {
   Grid,
@@ -13,22 +13,16 @@ import {
 } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-
-import "./Home.scss";
-import CardMovie from "../../Components/CardMovie/CardMovie";
-import CardDetail from "../../Components/CardDetail/CardDetail";
-
-import { useCardDetail } from "../../Context/CardDetailContext";
-
-import { isEmptyArray } from "../../Utils/Functions";
-
-import {
-  useListContext,
-  useListContextUpdate,
-} from "../../Context/ListContext";
-import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
-import CardCreatorForm from "../../Components/CardCreatorForm/CardCreatorForm";
 import { Favorite } from "@mui/icons-material";
+
+import CardMovie from "Components/CardMovie/CardMovie";
+import CardDetail from "Components/CardDetail/CardDetail";
+import CardCreatorForm from "Components/CardCreatorForm/CardCreatorForm";
+
+import { useCardDetail } from "Context/CardDetailContext";
+import { useListContext, useListContextUpdate } from "Context/ListContext";
+import { isEmptyArray } from "Utils/Functions";
+import "./Home.scss";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);

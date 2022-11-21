@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 
 import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
 
+import { useCardDetail, useCardDetailUpdate } from "Context/CardDetailContext";
 import "./CardMovie.scss";
-import {
-  useCardDetail,
-  useCardDetailUpdate,
-} from "../../Context/CardDetailContext";
 import Star from "./star";
 
 function CardMovie({ data }) {

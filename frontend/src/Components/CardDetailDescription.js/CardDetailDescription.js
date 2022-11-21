@@ -12,21 +12,14 @@ import {
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 
-import {
-  useCardDetail,
-  useCardDetailUpdate,
-} from "../../Context/CardDetailContext";
+import { useCardDetail, useCardDetailUpdate } from "Context/CardDetailContext";
 
-import { updateDB } from "../../Service/Utils/Functions";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { db } from "../../Service/dbConection";
+import { updateDB } from "Service/Utils/Functions";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { db } from "Service/dbConection";
 
-import { toasterModel } from "../../Utils/Functions";
-import {
-  DEFAULT_MESSAGE,
-  LABEL_BUTTONS,
-  TOAST_TYPE,
-} from "../../Utils/Constants";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "Utils/Constants";
 
 function CardDetailDescription() {
   const changeCardDetail = useCardDetailUpdate();

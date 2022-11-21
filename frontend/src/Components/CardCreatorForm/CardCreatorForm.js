@@ -10,22 +10,22 @@ import {
   Typography,
 } from "@mui/material";
 import { collection, doc } from "firebase/firestore";
-import { db } from "../../Service/dbConection";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { addDB } from "../../Service/Utils/Functions";
-import { useListContextUpdate } from "../../Context/ListContext";
-import { toasterModel } from "../../Utils/Functions";
+import { db } from "Service/dbConection";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { addDB } from "Service/Utils/Functions";
+import { useListContextUpdate } from "Context/ListContext";
+import { toasterModel } from "Utils/Functions";
 import {
   DEFAULT_MESSAGE,
   SESSION_STORAGE_ITEM,
   TOAST_TYPE,
-} from "../../Utils/Constants";
-import FormImageSelector from "../Form/ImageSelector/FormImageSelector";
-import FormRatingSelector from "../Form/RatingSelector/FormRatingSelector";
-import FormTitleSelector from "../Form/TitleSelector/FormTitleSelector";
+} from "Utils/Constants";
+import FormImageSelector from "Components/Form/ImageSelector/FormImageSelector";
+import FormRatingSelector from "Components/Form/RatingSelector/FormRatingSelector";
+import FormTitleSelector from "Components/Form/TitleSelector/FormTitleSelector";
 import { Add, Remove } from "@mui/icons-material";
-import CustomDate from "../CustomDate/CustomDate";
-import FormCategorySelector from "../Form/CategorySelector/FormCategorySelector";
+import CustomDate from "Components/CustomDate/CustomDate";
+import FormCategorySelector from "Components/Form/CategorySelector/FormCategorySelector";
 
 export default function CardCreatorForm(props) {
   const [cardSavingLoading, setCardSavingLoading] = React.useState(false);

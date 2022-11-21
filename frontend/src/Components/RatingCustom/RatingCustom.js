@@ -6,7 +6,7 @@ import StarIcon from "@mui/icons-material/Star";
 import {
   useFormCreateCard,
   useFormCreateCardUpdate,
-} from "../../Context/FormCreateCardContext";
+} from "Context/FormCreateCardContext";
 
 const labels = {
   0: "Insuportável (0)",

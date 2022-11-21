@@ -1,9 +1,9 @@
 import { collection } from "firebase/firestore";
 import React from "react";
 import { useContext, useState } from "react";
-import { db } from "../Service/dbConection";
-import { getDB } from "../Service/Utils/Functions";
-import { RECORDED_MOVIES } from "../Service/Utils/Tables";
+import { db } from "Service/dbConection";
+import { getDB } from "Service/Utils/Functions";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
 import { useCardDetailUpdate } from "./CardDetailContext";
 
 const ListContextContext = React.createContext();

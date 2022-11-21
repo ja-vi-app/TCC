@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
-import { useCardDetail } from "../../Context/CardDetailContext";
-import Star from "../CardMovie/star";
+import { useCardDetail } from "Context/CardDetailContext";
+import Star from "Components/CardMovie/star";
 import { Emoji } from "emoji-picker-react";
 import FavoriteIconDetail from "./FavoriteIconDetail";
 import EditCardDetail from "./EditCardDetail";

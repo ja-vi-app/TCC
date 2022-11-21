@@ -26,20 +26,16 @@ import {
   Delete,
 } from "@mui/icons-material";
 
-import { useCardDetail } from "../../Context/CardDetailContext";
+import { useCardDetail } from "Context/CardDetailContext";
 
-import { db } from "../../Service/dbConection";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { deleteDB, updateDB } from "../../Service/Utils/Functions";
+import { db } from "Service/dbConection";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { deleteDB, updateDB } from "Service/Utils/Functions";
 
-import { toasterModel } from "../../Utils/Functions";
-import {
-  DEFAULT_MESSAGE,
-  LABEL_BUTTONS,
-  TOAST_TYPE,
-} from "../../Utils/Constants";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "Utils/Constants";
 
-import { useListContextUpdate } from "../../Context/ListContext";
+import { useListContextUpdate } from "Context/ListContext";
 
 function CardDetailBadge() {
   const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);

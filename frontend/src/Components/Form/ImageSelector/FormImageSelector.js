@@ -3,8 +3,8 @@ import { CircularProgress, Fab, Typography } from "@mui/material";
 
 import { AddPhotoAlternate } from "@mui/icons-material";
 import axios from "axios";
-import { toasterModel } from "../../../Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../../Utils/Constants";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, TOAST_TYPE } from "Utils/Constants";
 import { Box } from "@mui/system";
 import { defaultImages } from "./defaultImages";
 

@@ -9,12 +9,12 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { collection, doc } from "firebase/firestore";
-import { db } from "../../Service/dbConection";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { deleteDB } from "../../Service/Utils/Functions";
-import { useListContextUpdate } from "../../Context/ListContext";
-import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
+import { db } from "Service/dbConection";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { deleteDB } from "Service/Utils/Functions";
+import { useListContextUpdate } from "Context/ListContext";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, TOAST_TYPE } from "Utils/Constants";
 
 export default function DeleteDialog(props) {
   const [loadingDeleteDialog, setLoadingDeleteDialog] = React.useState(false);

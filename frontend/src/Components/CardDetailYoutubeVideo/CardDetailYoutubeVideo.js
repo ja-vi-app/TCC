@@ -23,23 +23,16 @@ import {
   PlayCircleOutline,
 } from "@mui/icons-material";
 
-import {
-  useCardDetail,
-  useCardDetailUpdate,
-} from "../../Context/CardDetailContext";
+import { useCardDetail, useCardDetailUpdate } from "Context/CardDetailContext";
 
-import { updateDB } from "../../Service/Utils/Functions";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { db } from "../../Service/dbConection";
+import { updateDB } from "Service/Utils/Functions";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { db } from "Service/dbConection";
 
-import { toasterModel } from "../../Utils/Functions";
-import {
-  DEFAULT_MESSAGE,
-  LABEL_BUTTONS,
-  TOAST_TYPE,
-} from "../../Utils/Constants";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "Utils/Constants";
 
-import YoutubeEmbed from "../YoutubeVideo/YoutubeVideo";
+import YoutubeEmbed from "Components/YoutubeVideo/YoutubeVideo";
 
 function CardDetailYoutubeVideo() {
   const [videoUrlForm, setVideoUrlForm] = useState(null);

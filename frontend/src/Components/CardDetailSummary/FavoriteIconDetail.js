@@ -1,15 +1,16 @@
 import * as React from "react";
 import { CircularProgress, IconButton } from "@mui/material";
 import { Favorite } from "@mui/icons-material";
-import { useCardDetail } from "../../Context/CardDetailContext";
-import { collection, doc } from "firebase/firestore";
-import { db } from "../../Service/dbConection";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { updateDB } from "../../Service/Utils/Functions";
-import { useListContextUpdate } from "../../Context/ListContext";
-import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
 import { useTheme } from "@emotion/react";
+
+import { collection, doc } from "firebase/firestore";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { db } from "Service/dbConection";
+import { updateDB } from "Service/Utils/Functions";
+import { useCardDetail } from "Context/CardDetailContext";
+import { useListContextUpdate } from "Context/ListContext";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, TOAST_TYPE } from "Utils/Constants";
 
 export default function FavoriteIconDetail() {
   const [isFavorite, setIsFavorited] = React.useState();

@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
 
-import { SESSION_STORAGE_ITEM, THEME, URLS } from "../../Utils/Constants";
-import { CustomThemeContext } from "../../Context/Theme";
+import { SESSION_STORAGE_ITEM, THEME, URLS } from "Utils/Constants";
+import { CustomThemeContext } from "Context/Theme";
 
 const AppHeader = () => {
   const navigate = useNavigate();

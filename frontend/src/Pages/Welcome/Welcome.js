@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-
-import { Button, Box, Typography } from "@mui/material";
 import { HourglassEmpty } from "@mui/icons-material";
-import { firebaseApp } from "../../Service/dbConection";
-import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../../Utils/Constants";
-import { toasterModel } from "../../Utils/Functions";
-import WelcomePart from "../../Components/Welcome/WelcomePart";
+import { Button, Box, Typography } from "@mui/material";
+
+import WelcomePart from "Components/Welcome/WelcomePart";
+import AppFooter from "Components/AppFooter/AppFooter";
+import { firebaseApp } from "Service/dbConection";
+import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "Utils/Constants";
+import { toasterModel } from "Utils/Functions";
 import { welcomeData } from "./WelcomeData";
-import AppFooter from "../../Components/AppFooter/AppFooter";
 
 export default function Welcome() {
   const navigate = useNavigate();

@@ -8,22 +8,19 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import {
-  useCardDetail,
-  useCardDetailUpdate,
-} from "../../Context/CardDetailContext";
+import { useCardDetail, useCardDetailUpdate } from "Context/CardDetailContext";
 import { collection, doc } from "firebase/firestore";
-import { db } from "../../Service/dbConection";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { updateDB } from "../../Service/Utils/Functions";
-import { useListContextUpdate } from "../../Context/ListContext";
-import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
+import { db } from "Service/dbConection";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { updateDB } from "Service/Utils/Functions";
+import { useListContextUpdate } from "Context/ListContext";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, TOAST_TYPE } from "Utils/Constants";
 import { Box } from "@mui/system";
-import FormImageSelector from "../Form/ImageSelector/FormImageSelector";
-import FormRatingSelector from "../Form/RatingSelector/FormRatingSelector";
-import FormTitleSelector from "../Form/TitleSelector/FormTitleSelector";
-import FormCategorySelector from "../Form/CategorySelector/FormCategorySelector";
+import FormImageSelector from "Components/Form/ImageSelector/FormImageSelector";
+import FormRatingSelector from "Components/Form/RatingSelector/FormRatingSelector";
+import FormTitleSelector from "Components/Form/TitleSelector/FormTitleSelector";
+import FormCategorySelector from "Components/Form/CategorySelector/FormCategorySelector";
 
 export default function EditCardDetail(props) {
   const CardDetail = useCardDetail();
