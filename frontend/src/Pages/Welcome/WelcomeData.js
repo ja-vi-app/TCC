@@ -24,10 +24,3 @@ export const welcomeData = [
     url: "https://user-images.githubusercontent.com/62115215/202823901-92b3b624-4231-4eda-acb6-115be6e778c9.png",
   },
 ];
-
-// {
-//   id: 5,
-//   title: "CRIE CARDS",
-//   desc: "LEMBRE-SE DE SEUS FILMES E SÉRIES FAVORITOS",
-//   url: "https://user-images.githubusercontent.com/62115215/202823905-475e446b-ea47-469e-a216-1499f2858c46.png",
-// },

@@ -12,14 +12,14 @@ import {
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 
-import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
+import { useCardDetail, useCardDetailUpdate } from "Context/CardDetailContext";
 
-import { updateDB } from "../../Service/Utils/Functions";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { db } from "../../Service/dbConection";
+import { updateDB } from "Service/Utils/Functions";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { db } from "Service/dbConection";
 
-import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "../../Utils/Constants";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "Utils/Constants";
 
 function CardDetailDescription() {
   const changeCardDetail = useCardDetailUpdate();
@@ -39,7 +39,10 @@ function CardDetailDescription() {
 
   function onChangeLocalData() {
     if (!localData)
-      return toasterModel("Digite alguma descrição para poder salvá-la", TOAST_TYPE.info);
+      return toasterModel(
+        "Digite alguma descrição para poder salvá-la",
+        TOAST_TYPE.info
+      );
 
     changeCardDetail((prevState) => ({ ...prevState, description: localData }));
     updateData(localData);
@@ -57,7 +60,10 @@ function CardDetailDescription() {
         setLoadingLocalData(false);
       })
       .catch(() => {
-        toasterModel(DEFAULT_MESSAGE.failedUpdatedSuccessSave, TOAST_TYPE.error);
+        toasterModel(
+          DEFAULT_MESSAGE.failedUpdatedSuccessSave,
+          TOAST_TYPE.error
+        );
       });
   }
 
@@ -68,8 +74,12 @@ function CardDetailDescription() {
     padding: "0.5rem",
     resize: "none",
     borderRadius: "3px",
-    outline: isLocalDataInFocus ? "1px solid " + theme.palette.primary.main : "0",
-    border: enableEditLocalData ? "2px solid " + theme.palette.primary.main : "0",
+    outline: isLocalDataInFocus
+      ? "1px solid " + theme.palette.primary.main
+      : "0",
+    border: enableEditLocalData
+      ? "2px solid " + theme.palette.primary.main
+      : "0",
     backgroundColor: theme.palette.background.foreground,
     color: theme.palette.textColor,
   };
@@ -92,7 +102,11 @@ function CardDetailDescription() {
         </Grid>
         <Grid item sx={{ display: "flex", gap: "1rem" }}>
           {!enableEditLocalData ? (
-            <IconButton aria-label="edit" size="small" onClick={() => setEnableEditLocalData(true)}>
+            <IconButton
+              aria-label="edit"
+              size="small"
+              onClick={() => setEnableEditLocalData(true)}
+            >
               <Edit />
             </IconButton>
           ) : null}

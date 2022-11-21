@@ -2,9 +2,9 @@ import React from "react";
 import { Card } from "@mui/material";
 
 import "./CardDetail.scss";
-import CardDetailDescription from "../CardDetailDescription.js/CardDetailDescription";
-import CardDetailYoutubeVideo from "../CardDetailYoutubeVideo/CardDetailYoutubeVideo";
-import CardDetailSummary from "../CardDetailSummary/CardDetailSummary";
+import CardDetailDescription from "Components/CardDetailDescription.js/CardDetailDescription";
+import CardDetailYoutubeVideo from "Components/CardDetailYoutubeVideo/CardDetailYoutubeVideo";
+import CardDetailSummary from "Components/CardDetailSummary/CardDetailSummary";
 
 function CardDetail() {
   return (

@@ -1,5 +1,5 @@
 import { deleteDoc, getDocs, query, where, setDoc } from "firebase/firestore";
-import { SESSION_STORAGE_ITEM } from "../../Utils/Constants";
+import { SESSION_STORAGE_ITEM } from "Utils/Constants";
 
 export async function getDB(
   collection,

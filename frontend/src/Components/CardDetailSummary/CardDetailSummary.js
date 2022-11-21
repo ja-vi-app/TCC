@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
-import { useCardDetail } from "../../Context/CardDetailContext";
-import Star from "../CardMovie/star";
+import { useCardDetail } from "Context/CardDetailContext";
+import Star from "Components/CardMovie/star";
 import { Emoji } from "emoji-picker-react";
 import FavoriteIconDetail from "./FavoriteIconDetail";
 import EditCardDetail from "./EditCardDetail";
@@ -33,11 +33,21 @@ export default function CardDetailSummary() {
         </Grid>
         <Grid item xs={12} sm={8}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography sx={{ textTransform: "uppercase", maxWidth: "300px", textAlign: "center" }}>
+            <Typography
+              sx={{
+                textTransform: "uppercase",
+                maxWidth: "300px",
+                textAlign: "center",
+              }}
+            >
               {CardDetail?.title}
             </Typography>
             <Box>
-              <IconButton aria-label="edit" size="small" onClick={handleEditDialog}>
+              <IconButton
+                aria-label="edit"
+                size="small"
+                onClick={handleEditDialog}
+              >
                 <Edit />
               </IconButton>
               <IconButton onClick={handleDeleteDialog}>
@@ -59,7 +69,11 @@ export default function CardDetailSummary() {
             </Box>
             <Box className="flex-collum-center-05">
               <Typography>NOTA</Typography>
-              <Star isSmall={false} data={CardDetail?.rating} sx={{ transform: "scale(2)" }} />
+              <Star
+                isSmall={false}
+                data={CardDetail?.rating}
+                sx={{ transform: "scale(2)" }}
+              />
             </Box>
             <Box className="flex-collum-center-05">
               <Typography>FAVORITO</Typography>

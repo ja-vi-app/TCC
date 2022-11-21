@@ -28,7 +28,9 @@ const labels = {
 };
 
 function getLabelText(ratingValue) {
-  return `${ratingValue} Star${ratingValue !== 1 ? "s" : ""}, ${labels[ratingValue]}`;
+  return `${ratingValue} Star${ratingValue !== 1 ? "s" : ""}, ${
+    labels[ratingValue]
+  }`;
 }
 
 export default function FormRatingSelector(props) {

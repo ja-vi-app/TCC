@@ -16,18 +16,23 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Edit, ExpandMore, ExpandLess, PlayCircleOutline } from "@mui/icons-material";
+import {
+  Edit,
+  ExpandMore,
+  ExpandLess,
+  PlayCircleOutline,
+} from "@mui/icons-material";
 
-import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
+import { useCardDetail, useCardDetailUpdate } from "Context/CardDetailContext";
 
-import { updateDB } from "../../Service/Utils/Functions";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { db } from "../../Service/dbConection";
+import { updateDB } from "Service/Utils/Functions";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { db } from "Service/dbConection";
 
-import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "../../Utils/Constants";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "Utils/Constants";
 
-import YoutubeEmbed from "../YoutubeVideo/YoutubeVideo";
+import YoutubeEmbed from "Components/YoutubeVideo/YoutubeVideo";
 
 function CardDetailYoutubeVideo() {
   const [videoUrlForm, setVideoUrlForm] = useState(null);
@@ -49,7 +54,12 @@ function CardDetailYoutubeVideo() {
   };
 
   function onChangeFormVideo() {
-    if (!videoUrlForm) return toasterModel("Passe a url do vídeo antes de continuar", "info", 5000);
+    if (!videoUrlForm)
+      return toasterModel(
+        "Passe a url do vídeo antes de continuar",
+        "info",
+        5000
+      );
 
     const videoId = videoUrlForm.match(/([a-z0-9_-]{11})/gim);
     if (!videoId)
@@ -75,7 +85,10 @@ function CardDetailYoutubeVideo() {
         setLoadingVideoUrlForm(false);
       })
       .catch(() => {
-        toasterModel(DEFAULT_MESSAGE.failedUpdatedSuccessSave, TOAST_TYPE.error);
+        toasterModel(
+          DEFAULT_MESSAGE.failedUpdatedSuccessSave,
+          TOAST_TYPE.error
+        );
       });
   }
 
@@ -103,8 +116,9 @@ function CardDetailYoutubeVideo() {
             <DialogTitle>Troque a URL do trailer</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                Para a URL do youtube ser considerada válida é necessária que tenha o id do vídeo
-                nela, esse é um número exclusivo que troca a cada vídeo e tem 8 caracteres
+                Para a URL do youtube ser considerada válida é necessária que
+                tenha o id do vídeo nela, esse é um número exclusivo que troca a
+                cada vídeo e tem 8 caracteres
               </DialogContentText>
               <TextField
                 autoFocus
@@ -159,7 +173,10 @@ function CardDetailYoutubeVideo() {
               }}
               className="video-responsive"
             >
-              <PlayCircleOutline sx={{ fontSize: "500%" }} className="no-video" />
+              <PlayCircleOutline
+                sx={{ fontSize: "500%" }}
+                className="no-video"
+              />
               <Typography sx={{ marginTop: "1rem" }}>
                 Adicione o link do trailer no Youtube
               </Typography>

@@ -55,7 +55,10 @@ function App() {
             <Routes key="allRoute">
               {getRoutes(routes)}
               <Route path={"welcome"} element={<Welcome />} />
-              <Route path="/*" element={<Navigate to={URLS.welcome} replace={true} />} />
+              <Route
+                path="/*"
+                element={<Navigate to={URLS.welcome} replace={true} />}
+              />
             </Routes>
           </div>
         )}

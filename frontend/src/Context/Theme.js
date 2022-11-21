@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 
-import getTheme from "../assets/themes";
-import { SESSION_STORAGE_ITEM, THEME } from "../Utils/Constants";
+import getTheme from "assets/themes";
+import { SESSION_STORAGE_ITEM, THEME } from "Utils/Constants";
 
 export const CustomThemeContext = React.createContext({
   currentTheme: THEME.normal,
@@ -12,7 +12,8 @@ export const CustomThemeContext = React.createContext({
 const CustomThemeProvider = (props) => {
   const { children } = props;
 
-  const currentTheme = localStorage.getItem(SESSION_STORAGE_ITEM.appTheme) || THEME.normal;
+  const currentTheme =
+    localStorage.getItem(SESSION_STORAGE_ITEM.appTheme) || THEME.normal;
 
   const [themeName, _setThemeName] = useState(currentTheme);
 

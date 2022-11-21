@@ -2,7 +2,7 @@ import { Avatar, Button, Card, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SESSION_STORAGE_ITEM, URLS } from "../../Utils/Constants";
+import { SESSION_STORAGE_ITEM, URLS } from "Utils/Constants";
 
 export default function Account() {
   const navigate = useNavigate();
@@ -32,21 +32,35 @@ export default function Account() {
         <Avatar src={photoUser} />
 
         <Box
-          sx={{ padding: "1rem", display: "flex", alignItems: "center", flexDirection: "column" }}
+          sx={{
+            padding: "1rem",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
         >
           <Typography variant="text-placeholder-small">Nome:</Typography>
           <Typography>{name}</Typography>
         </Box>
 
         <Box
-          sx={{ padding: "1rem", display: "flex", alignItems: "center", flexDirection: "column" }}
+          sx={{
+            padding: "1rem",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
         >
           <Typography variant="text-placeholder-small">Email:</Typography>
           <Typography>{email}</Typography>
         </Box>
 
         <Box sx={{ display: "flex", gap: "1rem" }}>
-          <Button sx={{ width: "130px" }} variant="outlined-cancel" onClick={handleLogout}>
+          <Button
+            sx={{ width: "130px" }}
+            variant="outlined-cancel"
+            onClick={handleLogout}
+          >
             Sair
           </Button>
           <Button sx={{ width: "130px" }} variant="outlined-delete">

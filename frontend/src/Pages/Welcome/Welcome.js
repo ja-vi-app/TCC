@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-
-import { Button, Box, Typography } from "@mui/material";
 import { HourglassEmpty } from "@mui/icons-material";
-import { firebaseApp } from "../../Service/dbConection";
-import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../../Utils/Constants";
-import { toasterModel } from "../../Utils/Functions";
-import WelcomePart from "../../Components/Welcome/WelcomePart";
+import { Button, Box, Typography } from "@mui/material";
+
+import WelcomePart from "Components/Welcome/WelcomePart";
+import AppFooter from "Components/AppFooter/AppFooter";
+import { firebaseApp } from "Service/dbConection";
+import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "Utils/Constants";
+import { toasterModel } from "Utils/Functions";
 import { welcomeData } from "./WelcomeData";
-import AppFooter from "../../Components/AppFooter/AppFooter";
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -60,7 +60,13 @@ export default function Welcome() {
               "url(https://user-images.githubusercontent.com/62115215/202863039-3e0f7845-bcfe-438a-99bd-78428d24dc47.png)",
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "space-between", padding: "2rem 0" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "2rem 0",
+            }}
+          >
             <Box
               component="a"
               href="/"
@@ -84,14 +90,25 @@ export default function Welcome() {
                   <HourglassEmpty /> Logando...
                 </Button>
               ) : (
-                <Button type="submit" onClick={signInGoolgle} fullWidth className="btn-more-anchor">
+                <Button
+                  type="submit"
+                  onClick={signInGoolgle}
+                  fullWidth
+                  className="btn-more-anchor"
+                >
                   Login com Google
                 </Button>
               )}
             </Box>
           </Box>
 
-          <Box sx={{ marginTop: "12rem", display: "flex", justifyContent: "space-around" }}>
+          <Box
+            sx={{
+              marginTop: "12rem",
+              display: "flex",
+              justifyContent: "space-around",
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -101,7 +118,9 @@ export default function Welcome() {
                 gap: "1rem",
               }}
             >
-              <Typography sx={{ fontSize: "2.5rem" }}>CRIE SEUS CARDS</Typography>
+              <Typography sx={{ fontSize: "2.5rem" }}>
+                CRIE SEUS CARDS
+              </Typography>
               <Typography sx={{ fontSize: "1rem" }}>
                 LEMBRE-SE DE SEUS FILMES E SÉRIES FAVORITOS
               </Typography>
@@ -128,14 +147,22 @@ export default function Welcome() {
 
         <Box
           className="flex-collum-center-05"
-          sx={{ maxWidth: "1500px", margin: "auto", width: "100%", gap: "1rem" }}
+          sx={{
+            maxWidth: "1500px",
+            margin: "auto",
+            width: "100%",
+            gap: "1rem",
+          }}
         >
           <Box className="flex-center-center-100">CRIE SEU CARD</Box>
           {welcomeData.map((data) => (
             <WelcomePart data={data} key={data.id}></WelcomePart>
           ))}
 
-          <Box sx={{ padding: "5rem 0", width: "25rem" }} id="crie-seu-primeiro-card">
+          <Box
+            sx={{ padding: "5rem 0", width: "25rem" }}
+            id="crie-seu-primeiro-card"
+          >
             {isLogin ? (
               <Button
                 disabled={true}

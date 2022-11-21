@@ -9,12 +9,12 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { collection, doc } from "firebase/firestore";
-import { db } from "../../Service/dbConection";
-import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
-import { deleteDB } from "../../Service/Utils/Functions";
-import { useListContextUpdate } from "../../Context/ListContext";
-import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
+import { db } from "Service/dbConection";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
+import { deleteDB } from "Service/Utils/Functions";
+import { useListContextUpdate } from "Context/ListContext";
+import { toasterModel } from "Utils/Functions";
+import { DEFAULT_MESSAGE, TOAST_TYPE } from "Utils/Constants";
 
 export default function DeleteDialog(props) {
   const [loadingDeleteDialog, setLoadingDeleteDialog] = React.useState(false);
@@ -31,7 +31,10 @@ export default function DeleteDialog(props) {
         updateList(true);
       })
       .catch(() => {
-        toasterModel(DEFAULT_MESSAGE.failedDeletedSuccessSave, TOAST_TYPE.error);
+        toasterModel(
+          DEFAULT_MESSAGE.failedDeletedSuccessSave,
+          TOAST_TYPE.error
+        );
       });
   }
 
@@ -46,16 +49,24 @@ export default function DeleteDialog(props) {
         onClose={handleDeleteDialogClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">{"Deseja excluir esse card?"}</DialogTitle>
+        <DialogTitle id="responsive-dialog-title">
+          {"Deseja excluir esse card?"}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>Essa ação não pode ser revertida</DialogContentText>
+          <DialogContentText>
+            Essa ação não pode ser revertida
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           {loadingDeleteDialog ? (
             <CircularProgress size={30}></CircularProgress>
           ) : (
             <>
-              <Button variant="outlined" autoFocus onClick={handleDeleteDialogClose}>
+              <Button
+                variant="outlined"
+                autoFocus
+                onClick={handleDeleteDialogClose}
+              >
                 Cancelar
               </Button>
 
