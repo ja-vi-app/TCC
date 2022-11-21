@@ -12,7 +12,8 @@ export const CustomThemeContext = React.createContext({
 const CustomThemeProvider = (props) => {
   const { children } = props;
 
-  const currentTheme = localStorage.getItem(SESSION_STORAGE_ITEM.appTheme) || THEME.normal;
+  const currentTheme =
+    localStorage.getItem(SESSION_STORAGE_ITEM.appTheme) || THEME.normal;
 
   const [themeName, _setThemeName] = useState(currentTheme);
 

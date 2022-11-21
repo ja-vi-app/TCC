@@ -3,7 +3,10 @@ import * as React from "react";
 import { Typography, Rating, Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 
-import { useFormCreateCard, useFormCreateCardUpdate } from "../../Context/FormCreateCardContext";
+import {
+  useFormCreateCard,
+  useFormCreateCardUpdate,
+} from "../../Context/FormCreateCardContext";
 
 const labels = {
   0: "Insuportável (0)",
@@ -30,7 +33,9 @@ const labels = {
 };
 
 function getLabelText(ratingValue) {
-  return `${ratingValue} Star${ratingValue !== 1 ? "s" : ""}, ${labels[ratingValue]}`;
+  return `${ratingValue} Star${ratingValue !== 1 ? "s" : ""}, ${
+    labels[ratingValue]
+  }`;
 }
 
 export default function RatingCustom() {
@@ -40,7 +45,10 @@ export default function RatingCustom() {
   const changeFormCreateCard = useFormCreateCardUpdate();
 
   function changeForm(newratingValue) {
-    changeFormCreateCard((prevState) => ({ ...prevState, rating: newratingValue }));
+    changeFormCreateCard((prevState) => ({
+      ...prevState,
+      rating: newratingValue,
+    }));
   }
 
   return (

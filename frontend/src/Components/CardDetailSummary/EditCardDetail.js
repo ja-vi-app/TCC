@@ -8,7 +8,10 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
+import {
+  useCardDetail,
+  useCardDetailUpdate,
+} from "../../Context/CardDetailContext";
 import { collection, doc } from "firebase/firestore";
 import { db } from "../../Service/dbConection";
 import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
@@ -51,7 +54,10 @@ export default function EditCardDetail(props) {
         updateList();
       })
       .catch(() => {
-        toasterModel(DEFAULT_MESSAGE.failedUpdatedSuccessSave, TOAST_TYPE.error);
+        toasterModel(
+          DEFAULT_MESSAGE.failedUpdatedSuccessSave,
+          TOAST_TYPE.error
+        );
       });
   }
 
@@ -75,7 +81,13 @@ export default function EditCardDetail(props) {
           </DialogContent>
 
           <DialogContent>
-            <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
               <FormImageSelector
                 selectorId={"contained-button-file-form-edit"}
                 data={cardEditInformation}

@@ -36,7 +36,11 @@ export default function FormCategorySelector(props) {
       <Typography color="textSubtitleColor">Categoria</Typography>
       <IconButton aria-describedby="simple-popover" onClick={handleClick}>
         {props.data.category ? (
-          <Emoji unified={props.data.category} emojiStyle={EmojiStyle.APPLE} size={24} />
+          <Emoji
+            unified={props.data.category}
+            emojiStyle={EmojiStyle.APPLE}
+            size={24}
+          />
         ) : (
           <EmojiEmotions />
         )}

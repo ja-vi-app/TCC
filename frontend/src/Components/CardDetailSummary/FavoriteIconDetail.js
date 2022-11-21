@@ -35,7 +35,10 @@ export default function FavoriteIconDetail() {
         setLoadingIsFavorite(false);
       })
       .catch(() => {
-        toasterModel(DEFAULT_MESSAGE.failedUpdatedSuccessSave, TOAST_TYPE.error);
+        toasterModel(
+          DEFAULT_MESSAGE.failedUpdatedSuccessSave,
+          TOAST_TYPE.error
+        );
       });
   }
 
@@ -45,7 +48,11 @@ export default function FavoriteIconDetail() {
         <CircularProgress />
       ) : (
         <IconButton onClick={updateDataFavorite}>
-          <Favorite sx={{ color: isFavorite ? "#D0000B" : theme.palette.textSubtitleColor }} />
+          <Favorite
+            sx={{
+              color: isFavorite ? "#D0000B" : theme.palette.textSubtitleColor,
+            }}
+          />
         </IconButton>
       )}
     </>

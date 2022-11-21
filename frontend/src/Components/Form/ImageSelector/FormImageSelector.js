@@ -10,7 +10,9 @@ import { defaultImages } from "./defaultImages";
 
 export default function FormImageSelector(props) {
   const [isImageLoading, setIsImageLoading] = React.useState(false);
-  const [selectedImage, setSelectedImage] = React.useState(props.data.url_image);
+  const [selectedImage, setSelectedImage] = React.useState(
+    props.data.url_image
+  );
 
   React.useEffect(() => {
     if (!props.data.url_image) setSelectedImage(null);
@@ -66,7 +68,14 @@ export default function FormImageSelector(props) {
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "flex-start" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        alignItems: "flex-start",
+      }}
+    >
       <Typography color="textSubtitleColor">Imagem da capa</Typography>
       {!isImageLoading ? (
         <Box sx={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
@@ -112,7 +121,10 @@ export default function FormImageSelector(props) {
                   alt={props.selectorId + "-alt-image"}
                 />
               ) : (
-                <Fab component="span" size={props.sugestions ? "small" : "large"}>
+                <Fab
+                  component="span"
+                  size={props.sugestions ? "small" : "large"}
+                >
                   <AddPhotoAlternate />
                 </Fab>
               )}

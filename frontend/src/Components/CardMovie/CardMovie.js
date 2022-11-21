@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
 
 import "./CardMovie.scss";
-import { useCardDetail, useCardDetailUpdate } from "../../Context/CardDetailContext";
+import {
+  useCardDetail,
+  useCardDetailUpdate,
+} from "../../Context/CardDetailContext";
 import Star from "./star";
 
 function CardMovie({ data }) {
@@ -20,7 +23,13 @@ function CardMovie({ data }) {
     <div onClick={handleCardDetail} className="hover-effect">
       <Card className="container ">
         <div className="relative">
-          <Typography sx={{ maxWidth: "125px", overflow: "hidden", textOverflow: "ellipsis" }}>
+          <Typography
+            sx={{
+              maxWidth: "125px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
             {data?.title}
           </Typography>
           <Grid container display="flex">
@@ -54,7 +63,12 @@ function CardMovie({ data }) {
               </Box>
             </div>
           </Grid>
-          <CardMedia component="img" height="100%" image={data?.url_image} alt="teste" />
+          <CardMedia
+            component="img"
+            height="100%"
+            image={data?.url_image}
+            alt="teste"
+          />
         </div>
         <CardMedia
           className="blur"

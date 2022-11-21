@@ -15,7 +15,11 @@ import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
 import { addDB } from "../../Service/Utils/Functions";
 import { useListContextUpdate } from "../../Context/ListContext";
 import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, SESSION_STORAGE_ITEM, TOAST_TYPE } from "../../Utils/Constants";
+import {
+  DEFAULT_MESSAGE,
+  SESSION_STORAGE_ITEM,
+  TOAST_TYPE,
+} from "../../Utils/Constants";
 import FormImageSelector from "../Form/ImageSelector/FormImageSelector";
 import FormRatingSelector from "../Form/RatingSelector/FormRatingSelector";
 import FormTitleSelector from "../Form/TitleSelector/FormTitleSelector";
@@ -93,7 +97,10 @@ export default function CardCreatorForm(props) {
           style={{ height: "100px" }}
         >
           <div style={{ display: "grid" }}>
-            <span style={{ fontSize: "20px", fontWeight: "bold" }}> CRIAR </span>
+            <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+              {" "}
+              CRIAR{" "}
+            </span>
             <Typography color="textSubtitleColor" style={{ fontSize: "13px" }}>
               Crie um card pra se lembrar de seu filme favorito!
             </Typography>
@@ -102,10 +109,16 @@ export default function CardCreatorForm(props) {
         <AccordionDetails>
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6}>
-              <FormTitleSelector data={cardCreated} setData={setCardCreated}></FormTitleSelector>
+              <FormTitleSelector
+                data={cardCreated}
+                setData={setCardCreated}
+              ></FormTitleSelector>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormRatingSelector data={cardCreated} setData={setCardCreated}></FormRatingSelector>
+              <FormRatingSelector
+                data={cardCreated}
+                setData={setCardCreated}
+              ></FormRatingSelector>
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormImageSelector
@@ -124,7 +137,11 @@ export default function CardCreatorForm(props) {
             <Grid
               item
               xs={12}
-              sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              }}
             >
               {cardSavingLoading ? (
                 <CircularProgress size={30}></CircularProgress>
