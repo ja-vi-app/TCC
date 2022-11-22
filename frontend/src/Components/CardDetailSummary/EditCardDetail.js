@@ -15,7 +15,7 @@ import { RECORDED_MOVIES } from "Service/Utils/Tables";
 import { updateDB } from "Service/Utils/Functions";
 import { useListContextUpdate } from "Context/ListContext";
 import { toasterModel } from "Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "Utils/Constants";
+import { DEFAULT_MESSAGE, TOAST_TYPE, LABEL_BUTTONS } from "Utils/Constants";
 import { Box } from "@mui/system";
 import FormImageSelector from "Components/Form/ImageSelector/FormImageSelector";
 import FormRatingSelector from "Components/Form/RatingSelector/FormRatingSelector";
@@ -74,9 +74,8 @@ export default function EditCardDetail(props) {
             <FormRatingSelector
               data={cardEditInformation}
               setData={setCardEditInformation}
-            ></FormRatingSelector>
+            />
           </DialogContent>
-
           <DialogContent>
             <Box
               sx={{
@@ -89,12 +88,12 @@ export default function EditCardDetail(props) {
                 selectorId={"contained-button-file-form-edit"}
                 data={cardEditInformation}
                 setData={setCardEditInformation}
-              ></FormImageSelector>
+              />
 
               <FormCategorySelector
                 data={cardEditInformation}
                 setData={setCardEditInformation}
-              ></FormCategorySelector>
+              />
             </Box>
           </DialogContent>
         </DialogContent>
@@ -104,7 +103,7 @@ export default function EditCardDetail(props) {
           ) : (
             <>
               <Button variant="outlined-cancel" onClick={handleDialogClose}>
-                Cancelar
+                {LABEL_BUTTONS.cancel}
               </Button>
               <Button variant="contained" onClick={handleSaveEdit}>
                 Salvar edições

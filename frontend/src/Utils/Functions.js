@@ -1,10 +1,6 @@
 import { toast } from "react-toastify";
 import { TOAST_TYPE } from "./Constants";
 
-export function removeAllToaster() {
-  toast.dismiss();
-}
-
 export const toasterModel = (message, type = "default", time = 5000) => {
   const toastProperties = {
     position: "top-center",
@@ -32,14 +28,6 @@ export const toasterModel = (message, type = "default", time = 5000) => {
     toast.warning(message, { ...toastProperties });
   }
 };
-
-export async function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-export function isEmpty(value) {
-  return value === "" || value === null || value === undefined;
-}
 
 export function isEmptyArray(array) {
   return !(Array.isArray(array) && array.length > 0);

@@ -24,7 +24,6 @@ export default function FormImageSelector(props) {
       const url_image = await handleUploadImage(fileUpload);
       handleSaveImage(url_image);
       setSelectedImage(url_image);
-      props.setData({ ...props.data, url_image });
       return;
     } else {
       toasterModel(DEFAULT_MESSAGE.fileNotImage, TOAST_TYPE.info);
@@ -64,6 +63,7 @@ export default function FormImageSelector(props) {
   }
 
   function handleSaveImage(image) {
+    console.log("aqui");
     props.setData({ ...props.data, url_image: image });
   }
 

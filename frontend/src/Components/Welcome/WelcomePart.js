@@ -49,7 +49,7 @@ export default function WelcomePart(props) {
                 background: "#8980E8",
                 borderRadius: "6px",
               }}
-            ></Box>
+            />
           ) : null}
           <Box
             sx={{
@@ -103,7 +103,7 @@ export default function WelcomePart(props) {
               background: "#8980E8",
               borderRadius: "6px",
             }}
-          ></Box>
+          />
         )}
       </Box>
       {props.data.id % 2 === 0 ? (

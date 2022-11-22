@@ -1,7 +1,16 @@
-import { Avatar, Button, Card, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { collection } from "firebase/firestore";
+import { Avatar, Button, Card, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+
+import { db } from "Service/dbConection";
+import {
+  deleteAllDataByUser,
+  deleteCurrentUser,
+} from "Service/Utils/Functions";
+import { RECORDED_MOVIES } from "Service/Utils/Tables";
 import { SESSION_STORAGE_ITEM, URLS } from "Utils/Constants";
 
 export default function Account() {
@@ -16,6 +25,20 @@ export default function Account() {
     sessionStorage.clear();
     navigate(URLS.welcome);
   }
+
+  async function handleDeleteUser() {
+    const isDelete = await deleteCurrentUser();
+
+    if (isDelete) {
+      const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
+      await deleteAllDataByUser(
+        recordedMoviesCollectionRef,
+        sessionStorage.getItem(SESSION_STORAGE_ITEM.userUid)
+      );
+      handleLogout();
+    }
+  }
+
   return (
     <Box sx={{ width: "600px", margin: "auto", marginTop: "2rem" }}>
       <Card
@@ -28,9 +51,7 @@ export default function Account() {
         }}
       >
         <Typography align="center">SUA CONTA</Typography>
-
         <Avatar src={photoUser} />
-
         <Box
           sx={{
             padding: "1rem",
@@ -42,7 +63,6 @@ export default function Account() {
           <Typography variant="text-placeholder-small">Nome:</Typography>
           <Typography>{name}</Typography>
         </Box>
-
         <Box
           sx={{
             padding: "1rem",
@@ -63,7 +83,11 @@ export default function Account() {
           >
             Sair
           </Button>
-          <Button sx={{ width: "130px" }} variant="outlined-delete">
+          <Button
+            sx={{ width: "130px" }}
+            variant="outlined-delete"
+            onClick={handleDeleteUser}
+          >
             DELETAR CONTA
           </Button>
         </Box>

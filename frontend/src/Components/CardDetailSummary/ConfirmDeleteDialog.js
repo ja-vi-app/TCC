@@ -14,7 +14,7 @@ import { RECORDED_MOVIES } from "Service/Utils/Tables";
 import { deleteDB } from "Service/Utils/Functions";
 import { useListContextUpdate } from "Context/ListContext";
 import { toasterModel } from "Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "Utils/Constants";
+import { DEFAULT_MESSAGE, TOAST_TYPE, LABEL_BUTTONS } from "Utils/Constants";
 
 export default function DeleteDialog(props) {
   const [loadingDeleteDialog, setLoadingDeleteDialog] = React.useState(false);
@@ -67,9 +67,8 @@ export default function DeleteDialog(props) {
                 autoFocus
                 onClick={handleDeleteDialogClose}
               >
-                Cancelar
+                {LABEL_BUTTONS.cancel}
               </Button>
-
               <Button variant="outlined-cancel" onClick={deleteCard}>
                 Sim
               </Button>

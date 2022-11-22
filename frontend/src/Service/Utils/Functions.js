@@ -1,5 +1,14 @@
-import { deleteDoc, getDocs, query, where, setDoc } from "firebase/firestore";
-import { SESSION_STORAGE_ITEM } from "Utils/Constants";
+import { deleteUser, getAuth } from "firebase/auth";
+import {
+  deleteDoc,
+  getDocs,
+  query,
+  where,
+  setDoc,
+  doc,
+} from "firebase/firestore";
+import { toasterModel } from "Utils/Functions";
+import { SESSION_STORAGE_ITEM, TOAST_TYPE } from "Utils/Constants";
 
 export async function getDB(
   collection,
@@ -21,4 +30,27 @@ export function updateDB(collection, data) {
 
 export function deleteDB(dataWithId) {
   return deleteDoc(dataWithId);
+}
+
+export async function deleteCurrentUser() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  return deleteUser(user)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      toasterModel(
+        "Falha ao deletar usuário tente novamente mais tarde",
+        TOAST_TYPE.error
+      );
+      return false;
+    });
+}
+
+export async function deleteAllDataByUser(collection, currentUserId) {
+  const docRef = doc(collection, currentUserId);
+
+  await deleteDB(docRef);
 }

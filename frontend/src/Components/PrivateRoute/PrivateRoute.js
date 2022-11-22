@@ -7,4 +7,4 @@ const isAuthenticated = () =>
   sessionStorage.getItem(SESSION_STORAGE_ITEM.isLoggedIn) !== null;
 
 export const PrivateRoute = ({ children }) =>
-  isAuthenticated() ? children : <Navigate to={URLS.login} />;
+  isAuthenticated() ? children : <Navigate to={URLS.welcome} />;

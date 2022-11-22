@@ -4,10 +4,9 @@ import { ToastContainer } from "react-toastify";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
-
 import routes from "./Utils/route";
 import { SESSION_STORAGE_ITEM, URLS } from "./Utils/Constants";
+import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
 import AppHeader from "./Components/AppHeader/AppHeader";
 import AppFooter from "./Components/AppFooter/AppFooter";
 import { AppContextProvider } from "./Context/GlobalContext";

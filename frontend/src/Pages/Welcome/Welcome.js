@@ -154,7 +154,6 @@ export default function Welcome() {
             gap: "1rem",
           }}
         >
-          <Box className="flex-center-center-100">CRIE SEU CARD</Box>
           {welcomeData.map((data) => (
             <WelcomePart data={data} key={data.id}></WelcomePart>
           ))}
