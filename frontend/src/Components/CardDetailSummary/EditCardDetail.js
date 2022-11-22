@@ -15,7 +15,7 @@ import { RECORDED_MOVIES } from "../../Service/Utils/Tables";
 import { updateDB } from "../../Service/Utils/Functions";
 import { useListContextUpdate } from "../../Context/ListContext";
 import { toasterModel } from "../../Utils/Functions";
-import { DEFAULT_MESSAGE, TOAST_TYPE } from "../../Utils/Constants";
+import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "../../Utils/Constants";
 import { Box } from "@mui/system";
 import FormImageSelector from "../Form/ImageSelector/FormImageSelector";
 import FormRatingSelector from "../Form/RatingSelector/FormRatingSelector";
@@ -68,24 +68,17 @@ export default function EditCardDetail(props) {
             ></FormTitleSelector>
           </DialogContent>
           <DialogContent>
-            <FormRatingSelector
-              data={cardEditInformation}
-              setData={setCardEditInformation}
-            ></FormRatingSelector>
+            <FormRatingSelector data={cardEditInformation} setData={setCardEditInformation} />
           </DialogContent>
-
           <DialogContent>
             <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
               <FormImageSelector
                 selectorId={"contained-button-file-form-edit"}
                 data={cardEditInformation}
                 setData={setCardEditInformation}
-              ></FormImageSelector>
+              />
 
-              <FormCategorySelector
-                data={cardEditInformation}
-                setData={setCardEditInformation}
-              ></FormCategorySelector>
+              <FormCategorySelector data={cardEditInformation} setData={setCardEditInformation} />
             </Box>
           </DialogContent>
         </DialogContent>
@@ -95,7 +88,7 @@ export default function EditCardDetail(props) {
           ) : (
             <>
               <Button variant="outlined-cancel" onClick={handleDialogClose}>
-                Cancelar
+                {LABEL_BUTTONS.cancel}
               </Button>
               <Button variant="contained" onClick={handleSaveEdit}>
                 Salvar edições

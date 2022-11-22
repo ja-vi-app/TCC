@@ -113,13 +113,10 @@ export default function CardCreatorForm(props) {
                 data={cardCreated}
                 setData={setCardCreated}
                 sugestions={true}
-              ></FormImageSelector>
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormCategorySelector
-                data={cardCreated}
-                setData={setCardCreated}
-              ></FormCategorySelector>
+              <FormCategorySelector data={cardCreated} setData={setCardCreated} />
             </Grid>
             <Grid
               item
@@ -127,7 +124,7 @@ export default function CardCreatorForm(props) {
               sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}
             >
               {cardSavingLoading ? (
-                <CircularProgress size={30}></CircularProgress>
+                <CircularProgress size={30} />
               ) : (
                 <Button
                   variant="contained"

@@ -11,9 +11,6 @@ export const URLS = {
   home: "/home",
   account: "/account",
 };
-export const MS = {
-  "3s": 3000,
-};
 export const TOAST_TYPE = {
   error: "error",
   info: "info",
@@ -21,7 +18,6 @@ export const TOAST_TYPE = {
 };
 export const DATE_FORMAT = {
   DEFAULT_DATE: "DD/MM/YYYY",
-  YYYY_MM_DD: "MM/DD/YYYY",
 };
 export const DEFAULT_MESSAGE = {
   successSave: "Filme salvo com sucesso!",
@@ -42,9 +38,4 @@ export const LABEL_BUTTONS = {
 export const THEME = {
   normal: "normal",
   dark: "dark",
-  light: "light",
-};
-export const FORM_TYPE = {
-  rating: "rating",
-  date: "date",
 };

@@ -30,7 +30,7 @@ export default function WelcomePart(props) {
           {props.data.id % 2 === 0 ? (
             <Box
               sx={{ width: "7px", height: "320px", background: "#8980E8", borderRadius: "6px" }}
-            ></Box>
+            />
           ) : null}
           <Box
             sx={{
@@ -66,9 +66,7 @@ export default function WelcomePart(props) {
           </Box>
         </Box>
         {props.data.id % 2 === 0 ? null : (
-          <Box
-            sx={{ width: "7px", height: "320px", background: "#8980E8", borderRadius: "6px" }}
-          ></Box>
+          <Box sx={{ width: "7px", height: "320px", background: "#8980E8", borderRadius: "6px" }} />
         )}
       </Box>
       {props.data.id % 2 === 0 ? (

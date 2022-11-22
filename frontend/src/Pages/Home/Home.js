@@ -82,7 +82,7 @@ export default function Home() {
 
   return (
     <>
-      <CardCreatorForm></CardCreatorForm>
+      <CardCreatorForm />
       <Container maxWidth={false} style={{ paddingTop: "1rem" }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={cardDetail ? 6 : 12}>

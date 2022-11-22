@@ -5,14 +5,14 @@ import { URLS } from "./Constants";
 
 let routes = [
   {
+    isPrivate: false,
+    route: URLS.welcome,
+    component: <Welcome />,
+  },
+  {
     isPrivate: true,
     route: URLS.home,
     component: <Home />,
-  },
-  {
-    isPrivate: false,
-    route: URLS.login,
-    component: <Welcome />,
   },
   {
     isPrivate: true,

@@ -4,12 +4,13 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
 import { Button, Box, Typography } from "@mui/material";
 import { HourglassEmpty } from "@mui/icons-material";
+
 import { firebaseApp } from "../../Service/dbConection";
 import { SESSION_STORAGE_ITEM, TOAST_TYPE, URLS } from "../../Utils/Constants";
-import { toasterModel } from "../../Utils/Functions";
 import WelcomePart from "../../Components/Welcome/WelcomePart";
-import { welcomeData } from "./WelcomeData";
 import AppFooter from "../../Components/AppFooter/AppFooter";
+import { toasterModel } from "../../Utils/Functions";
+import { welcomeData } from "./WelcomeData";
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -130,7 +131,6 @@ export default function Welcome() {
           className="flex-collum-center-05"
           sx={{ maxWidth: "1500px", margin: "auto", width: "100%", gap: "1rem" }}
         >
-          <Box className="flex-center-center-100">CRIE SEU CARD</Box>
           {welcomeData.map((data) => (
             <WelcomePart data={data} key={data.id}></WelcomePart>
           ))}

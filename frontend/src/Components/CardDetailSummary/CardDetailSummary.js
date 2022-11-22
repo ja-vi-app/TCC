@@ -41,14 +41,13 @@ export default function CardDetailSummary() {
                 <Edit />
               </IconButton>
               <IconButton onClick={handleDeleteDialog}>
-                <Delete></Delete>
+                <Delete />
               </IconButton>
-
               <DeleteDialog
                 id={CardDetail?.id}
                 setDeleteDialog={setDeleteDialog}
                 deleteDialog={deleteDialog}
-              ></DeleteDialog>
+              />
             </Box>
           </Box>
 
@@ -69,10 +68,7 @@ export default function CardDetailSummary() {
         </Grid>
       </Grid>
 
-      <EditCardDetail
-        editDialogOpen={editDialogOpen}
-        setEditDialogOpen={setEditDialogOpen}
-      ></EditCardDetail>
+      <EditCardDetail editDialogOpen={editDialogOpen} setEditDialogOpen={setEditDialogOpen} />
     </>
   );
 }
