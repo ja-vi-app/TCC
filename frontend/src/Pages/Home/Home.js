@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-
+import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
 import { Box } from "@mui/system";
 import {
   Grid,
@@ -13,25 +13,23 @@ import {
 } from "@mui/material";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-
-import "./Home.scss";
-import CardMovie from "../../Components/CardMovie/CardMovie";
-import CardDetail from "../../Components/CardDetail/CardDetail";
-
-import { useCardDetail } from "../../Context/CardDetailContext";
-
-import { isEmptyArray } from "../../Utils/Functions";
-
-import { useListContext, useListContextUpdate } from "../../Context/ListContext";
-import EmojiPicker, { Emoji, EmojiStyle } from "emoji-picker-react";
-import CardCreatorForm from "../../Components/CardCreatorForm/CardCreatorForm";
 import { Favorite } from "@mui/icons-material";
+
+import CardMovie from "Components/CardMovie/CardMovie";
+import CardDetail from "Components/CardDetail/CardDetail";
+import CardCreatorForm from "Components/CardCreatorForm/CardCreatorForm";
+
+import { useCardDetail } from "Context/CardDetailContext";
+import { useListContext, useListContextUpdate } from "Context/ListContext";
+import { isEmptyArray } from "Utils/Functions";
+import "./Home.scss";
 
 export default function Home() {
   const [registeredMovies, setRegisteredMovies] = useState([]);
   const [showEmoji, setShowEmoji] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
-  const [isFavoriteFilterEnable, setIsFavoriteFilterEnable] = React.useState(false);
+  const [isFavoriteFilterEnable, setIsFavoriteFilterEnable] =
+    React.useState(false);
 
   const useList = useListContext();
   const updateList = useListContextUpdate();
@@ -50,8 +48,12 @@ export default function Home() {
     if (!emojiValue && !favoriteValue) return setRegisteredMovies(useList);
 
     let dataFiltered = useList;
-    if (emojiValue) dataFiltered = dataFiltered.filter((filter) => filter?.category === emojiValue);
-    if (favoriteValue) dataFiltered = dataFiltered.filter((filter) => filter?.isFavorite);
+    if (emojiValue)
+      dataFiltered = dataFiltered.filter(
+        (filter) => filter?.category === emojiValue
+      );
+    if (favoriteValue)
+      dataFiltered = dataFiltered.filter((filter) => filter?.isFavorite);
 
     setRegisteredMovies(dataFiltered);
   }
@@ -106,8 +108,17 @@ export default function Home() {
                     >
                       <Typography variant="">Filtro de categoria: </Typography>
                       {selectedEmoji ? (
-                        <Box sx={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
-                          <IconButton onClick={handleClick} sx={{ cursor: "pointer" }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            gap: "0.25rem",
+                            alignItems: "center",
+                          }}
+                        >
+                          <IconButton
+                            onClick={handleClick}
+                            sx={{ cursor: "pointer" }}
+                          >
                             <Emoji
                               unified={selectedEmoji}
                               emojiStyle={EmojiStyle.APPLE}
@@ -131,7 +142,9 @@ export default function Home() {
                       )}
 
                       {showEmoji ? (
-                        <ClickAwayListener onClickAway={() => setShowEmoji(false)}>
+                        <ClickAwayListener
+                          onClickAway={() => setShowEmoji(false)}
+                        >
                           <div className="div-emoji">
                             <EmojiPicker
                               skinTonesDisabled
@@ -152,7 +165,12 @@ export default function Home() {
                       />
                     </IconButton>
                   </Box>
-                  <Grid container p={3} spacing={3} className="bg-foreground sm-center">
+                  <Grid
+                    container
+                    p={3}
+                    spacing={3}
+                    className="bg-foreground sm-center"
+                  >
                     {registeredMovies?.map((item, index) => (
                       <Grid item key={index}>
                         <CardMovie image={item.url_image} data={item} />

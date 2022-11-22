@@ -1,8 +1,8 @@
 import React from "react";
-import { CardDetailProvider } from "./CardDetailContext";
-import { FormCreateCardProvider } from "./FormCreateCardContext";
-import { ListContextProvider } from "./ListContext";
-import CustomThemeProvider from "./Theme";
+import { CardDetailProvider } from "Context/CardDetailContext";
+import { FormCreateCardProvider } from "Context/FormCreateCardContext";
+import { ListContextProvider } from "Context/ListContext";
+import CustomThemeProvider from "Context/Theme";
 
 export const combineComponents = (...components) => {
   return components.reduce(

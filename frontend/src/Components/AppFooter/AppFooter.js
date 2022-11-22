@@ -28,12 +28,19 @@ const AppFooter = (props) => {
         }}
       >
         <Box
-          sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.25rem",
+          }}
         >
           <Typography variant="body3">Created by: </Typography>
           <Box
             alignItems="center"
-            sx={{ color: props.color ? "#fff" : theme.palette.textSubtitleColor }}
+            sx={{
+              color: props.color ? "#fff" : theme.palette.textSubtitleColor,
+            }}
           >
             <Grid container spacing={2} justifyContent="center">
               <Grid item>Daniel Liberato</Grid>

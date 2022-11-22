@@ -1,11 +1,18 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { AppBar, Box, Toolbar, IconButton, Container, Avatar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Container,
+  Avatar,
+} from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
 
-import { SESSION_STORAGE_ITEM, THEME, URLS } from "../../Utils/Constants";
-import { CustomThemeContext } from "../../Context/Theme";
+import { SESSION_STORAGE_ITEM, THEME, URLS } from "Utils/Constants";
+import { CustomThemeContext } from "Context/Theme";
 
 const AppHeader = () => {
   const navigate = useNavigate();
@@ -25,7 +32,10 @@ const AppHeader = () => {
   return (
     <AppBar variant="menu" position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Toolbar
+          disableGutters
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
           <Box
             component="a"
             href="/"
@@ -48,7 +58,10 @@ const AppHeader = () => {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <IconButton onClick={handleThemeChange} style={{ marginRight: "12px" }}>
+            <IconButton
+              onClick={handleThemeChange}
+              style={{ marginRight: "12px" }}
+            >
               {currentTheme === THEME.dark ? (
                 <DarkMode />
               ) : (
