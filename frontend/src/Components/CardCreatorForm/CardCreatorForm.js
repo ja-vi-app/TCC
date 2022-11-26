@@ -26,6 +26,7 @@ import FormTitleSelector from "Components/Form/TitleSelector/FormTitleSelector";
 import { Add, Remove } from "@mui/icons-material";
 import CustomDate from "Components/CustomDate/CustomDate";
 import FormCategorySelector from "Components/Form/CategorySelector/FormCategorySelector";
+import { useCardDetailUpdate } from "Context/CardDetailContext";
 
 export default function CardCreatorForm(props) {
   const [cardSavingLoading, setCardSavingLoading] = React.useState(false);
@@ -39,6 +40,7 @@ export default function CardCreatorForm(props) {
 
   const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
   const updateList = useListContextUpdate();
+  const cardDetailUpdate = useCardDetailUpdate();
 
   async function handleCreateCard() {
     const docRef = doc(recordedMoviesCollectionRef);
@@ -71,13 +73,16 @@ export default function CardCreatorForm(props) {
       });
   }
 
+  function handleOpenForm() {
+    setIsOpenAccordion(!isOpenAccordion);
+    cardDetailUpdate(null);
+  }
+
   return (
     <Container maxWidth="xl" className="p1 text">
       <Accordion
         expanded={isOpenAccordion}
-        onChange={() => {
-          setIsOpenAccordion(!isOpenAccordion);
-        }}
+        onChange={handleOpenForm}
         style={{
           borderRadius: "15px",
         }}
@@ -129,7 +134,10 @@ export default function CardCreatorForm(props) {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormCategorySelector data={cardCreated} setData={setCardCreated} />
+              <FormCategorySelector
+                data={cardCreated}
+                setData={setCardCreated}
+              />
             </Grid>
             <Grid
               item

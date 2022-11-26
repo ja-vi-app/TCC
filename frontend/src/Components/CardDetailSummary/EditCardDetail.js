@@ -8,7 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { useCardDetail, useCardDetailUpdate } from "Context/CardDetailContext";
+import { useCardDetailUpdate } from "Context/CardDetailContext";
 import { collection, doc } from "firebase/firestore";
 import { db } from "Service/dbConection";
 import { RECORDED_MOVIES } from "Service/Utils/Tables";
@@ -23,10 +23,8 @@ import FormTitleSelector from "Components/Form/TitleSelector/FormTitleSelector";
 import FormCategorySelector from "Components/Form/CategorySelector/FormCategorySelector";
 
 export default function EditCardDetail(props) {
-  const CardDetail = useCardDetail();
-
   const [cardEditInformation, setCardEditInformation] = React.useState({
-    ...CardDetail,
+    ...props.CardDetail,
   });
   const [isCardEditLoading, setIsCardEditLoading] = React.useState(false);
   const recordedMoviesCollectionRef = collection(db, RECORDED_MOVIES);
@@ -38,16 +36,20 @@ export default function EditCardDetail(props) {
     props.setEditDialogOpen(!props.editDialogOpen);
   }
 
+  React.useEffect(() => {
+    setCardEditInformation(props.CardDetail);
+  }, [props.CardDetail]);
+
   async function handleSaveEdit() {
     setIsCardEditLoading(true);
-    const docRef = doc(recordedMoviesCollectionRef, CardDetail.id);
+    const docRef = doc(recordedMoviesCollectionRef, props.CardDetail.id);
     await updateDB(docRef, {
       ...cardEditInformation,
     })
       .then(() => {
         setIsCardEditLoading(false);
         props.setEditDialogOpen(!props.editDialogOpen);
-        changeCardDetail({ ...CardDetail, ...cardEditInformation });
+        changeCardDetail({ ...props.CardDetail, ...cardEditInformation });
         updateList();
       })
       .catch(() => {

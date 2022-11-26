@@ -20,10 +20,12 @@ import { db } from "Service/dbConection";
 
 import { toasterModel } from "Utils/Functions";
 import { DEFAULT_MESSAGE, LABEL_BUTTONS, TOAST_TYPE } from "Utils/Constants";
+import { useListContextUpdate } from "Context/ListContext";
 
 function CardDetailDescription() {
   const changeCardDetail = useCardDetailUpdate();
   const CardDetail = useCardDetail();
+  const updateList = useListContextUpdate();
   const [localData, setLocalData] = useState(CardDetail?.description ?? "");
   const [isLocalDataInFocus, setIsLocalDataInFocus] = useState(false);
   const [loadingLocalData, setLoadingLocalData] = useState(false);
@@ -48,6 +50,10 @@ function CardDetailDescription() {
     updateData(localData);
   }
 
+  React.useEffect(() => {
+    setLocalData(CardDetail?.description ?? "");
+  }, [CardDetail]);
+
   async function updateData(value) {
     const docRef = doc(recordedMoviesCollectionRef, CardDetail.id);
     setLoadingLocalData(true);
@@ -58,6 +64,7 @@ function CardDetailDescription() {
         toasterModel(DEFAULT_MESSAGE.updatedSuccessSave, TOAST_TYPE.success);
         setEnableEditLocalData(false);
         setLoadingLocalData(false);
+        updateList();
       })
       .catch(() => {
         toasterModel(

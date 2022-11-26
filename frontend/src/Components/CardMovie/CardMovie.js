@@ -25,6 +25,7 @@ function CardMovie({ data }) {
               maxWidth: "125px",
               overflow: "hidden",
               textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
             }}
           >
             {data?.title}

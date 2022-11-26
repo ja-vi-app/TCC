@@ -82,7 +82,11 @@ export default function CardDetailSummary() {
         </Grid>
       </Grid>
 
-      <EditCardDetail editDialogOpen={editDialogOpen} setEditDialogOpen={setEditDialogOpen} />
+      <EditCardDetail
+        editDialogOpen={editDialogOpen}
+        setEditDialogOpen={setEditDialogOpen}
+        CardDetail={CardDetail}
+      />
     </>
   );
 }
