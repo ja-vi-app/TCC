@@ -1,8 +1,11 @@
 #!/bin/bash
-cd /home/ec2-user/frontend-server
-echo "Moved to frontend-server folder"
+cd /home/ec2-user/server
+echo "Successfully in server folder"
 
-# python3 -m pip install --upgrade pip
+cd /home/ec2-user/server/backend
+echo "Successfully in backend folder"
+
+python3 -m pip install --upgrade pip
 # python3 -m pip install --no-cache-dir -r requirements.txt
 
 
