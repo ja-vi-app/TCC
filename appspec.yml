@@ -7,7 +7,7 @@ files:
   - source: /frontend
     destination: /home/ec2-user/frontend-server
 
-file_exists_behavior: OVERRIDE
+file_exists_behavior: OVERWRITE
 
 permissions:
   - object: /
