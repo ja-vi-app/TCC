@@ -5,7 +5,7 @@ os: linux
 
 files:
   - source: /frontend
-    destination: /home/ec2-user/frontend-server
+    destination: /home/ec2-user/server
 
 file_exists_behavior: OVERWRITE
 
