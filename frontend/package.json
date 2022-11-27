@@ -21,7 +21,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8"
   },
-  "homepage": "http://ec2-44-204-105-222.compute-1.amazonaws.com",
+  "homepage": "javi.app.br",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
