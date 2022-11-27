@@ -1,0 +1,35 @@
+# This is an appspec.yml template file for use with an EC2/On-Premises deployment in CodeDeploy.
+
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ec2-user/server
+file_exists_behavior: OVERWRITE
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+
+hooks:
+
+  BeforeInstall:
+    - location: deployment/scripts/before_install.sh
+      timeout: 60
+      # runas: root
+      runas: ec2-user
+  
+  AfterInstall:
+    - location: deployment/scripts/after_install.sh
+      timeout: 120
+      runas: root
+      # runas: ec2-user
+
+  ApplicationStart:
+    - location: deployment/scripts/app_start.sh
+      timeout: 120
+      # runas: root
+      runas: ec2-user
