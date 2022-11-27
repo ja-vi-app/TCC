@@ -7,6 +7,8 @@ files:
   - source: /frontend
     destination: /home/ec2-user/frontend-server
 
+file_exists_behavior: OVERRIDE
+
 permissions:
   - object: /
     pattern: "**"
