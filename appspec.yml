@@ -26,8 +26,8 @@ hooks:
   AfterInstall:
     - location: deployment/scripts/after_install.sh
       timeout: 120
-      # runas: root
-      runas: ec2-user
+      runas: root
+      # runas: ec2-user
 
   ApplicationStart:
     - location: deployment/scripts/app_start.sh
