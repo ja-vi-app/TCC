@@ -12,11 +12,5 @@ else
   echo "$BACKEND_PID_FILE does NOT exist."
 fi
 
-python3 -m pip install --upgrade pip
-python3 -m pip install --no-cache-dir -r requirements.txt
-
-
-
-# curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
-# yum -y install nodejs npm
-
+# python3 -m pip install --upgrade pip
+# python3 -m pip install --no-cache-dir -r requirements.txt
