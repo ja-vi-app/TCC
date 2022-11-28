@@ -113,7 +113,7 @@ export default function Welcome() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                maxWidth: "50%",
+                width: { xs: "100%", sm: "50%" },
                 alignItems: "center",
                 gap: "1rem",
               }}
@@ -132,7 +132,7 @@ export default function Welcome() {
                 Saiba mais
               </Button>
             </Box>
-            <Box>
+            <Box sx={{ display: { xs: "none", sm: "flex" } }}>
               <img
                 width="260px"
                 height="260px"
