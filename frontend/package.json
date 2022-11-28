@@ -1,5 +1,6 @@
 {
   "name": "ja_vi",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,7 +22,6 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8"
   },
-  "homepage": "http://javi.app.br",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
