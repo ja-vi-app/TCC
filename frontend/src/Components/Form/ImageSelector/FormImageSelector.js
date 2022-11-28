@@ -63,7 +63,6 @@ export default function FormImageSelector(props) {
   }
 
   function handleSaveImage(image) {
-    console.log("aqui");
     props.setData({ ...props.data, url_image: image });
   }
 

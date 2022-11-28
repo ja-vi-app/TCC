@@ -40,7 +40,7 @@ export default function Account() {
   }
 
   return (
-    <Box sx={{ width: "600px", margin: "auto", marginTop: "2rem" }}>
+    <Box sx={{ maxWidth: "600px", margin: "auto", marginTop: "2rem" }}>
       <Card
         sx={{
           padding: "1rem",

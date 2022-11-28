@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box, Button } from "@mui/material";
+import { Typography, Box, Button, Grid } from "@mui/material";
 
 export default function WelcomePart(props) {
   function onAnchor(id) {
@@ -15,7 +15,7 @@ export default function WelcomePart(props) {
       {props.data.id % 2 === 0 ? null : (
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", sm: "flex" },
             width: "50%",
             justifyContent: "center",
             alignItems: "center",
@@ -32,7 +32,7 @@ export default function WelcomePart(props) {
 
       <Box
         sx={{
-          width: "50%",
+          width: { xs: "100%", sm: "50%" },
           padding: ".5rem 0",
           display: "flex",
           justifyContent: `${
@@ -109,10 +109,10 @@ export default function WelcomePart(props) {
       {props.data.id % 2 === 0 ? (
         <Box
           sx={{
-            display: "flex",
             width: "50%",
             justifyContent: "center",
             alignItems: "center",
+            display: { xs: "none", sm: "flex" },
           }}
         >
           <img
