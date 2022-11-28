@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/TCC/static/css/main.9eeafe00.css",
-    "main.js": "/TCC/static/js/main.2df52a91.js",
+    "main.js": "/TCC/static/js/main.9e3396f4.js",
     "index.html": "/TCC/index.html",
     "main.9eeafe00.css.map": "/TCC/static/css/main.9eeafe00.css.map",
-    "main.2df52a91.js.map": "/TCC/static/js/main.2df52a91.js.map"
+    "main.9e3396f4.js.map": "/TCC/static/js/main.9e3396f4.js.map"
   },
   "entrypoints": [
     "static/css/main.9eeafe00.css",
-    "static/js/main.2df52a91.js"
+    "static/js/main.9e3396f4.js"
   ]
 }
