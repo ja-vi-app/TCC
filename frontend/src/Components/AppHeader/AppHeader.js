@@ -29,6 +29,10 @@ const AppHeader = () => {
     else setTheme(THEME.normal);
   };
 
+  const handleClick = () => {
+    navigate(URLS.home);
+  };
+
   return (
     <AppBar variant="menu" position="static">
       <Container maxWidth="xl">
@@ -38,7 +42,7 @@ const AppHeader = () => {
         >
           <Box
             component="a"
-            href="/"
+            onClick={handleClick}
             sx={{
               mr: 2,
               display: "flex",
@@ -48,6 +52,7 @@ const AppHeader = () => {
               textDecoration: "none",
               gap: "1rem",
               alignItems: "center",
+              cursor: "pointer",
             }}
           >
             <img
