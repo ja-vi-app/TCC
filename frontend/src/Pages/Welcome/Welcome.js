@@ -16,6 +16,11 @@ export default function Welcome() {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(firebaseApp);
 
+  const card2 = React.useRef();
+  const card3 = React.useRef();
+  const card4 = React.useRef();
+  const card5 = React.useRef();
+
   const [isLogin, setIsLogin] = useState(false);
 
   async function signInGoolgle(event) {
@@ -43,8 +48,8 @@ export default function Welcome() {
       });
   }
 
-  function onAnchor(id) {
-    window.location.href = `#${id}`;
+  function onAnchor(ref) {
+    ref.current.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
@@ -126,7 +131,7 @@ export default function Welcome() {
               </Typography>
               <Button
                 sx={{ width: "15rem", height: "3rem" }}
-                onClick={() => onAnchor(1)}
+                onClick={() => onAnchor(card2)}
                 className="btn-more-anchor"
               >
                 Saiba mais
@@ -154,9 +159,44 @@ export default function Welcome() {
             gap: "1rem",
           }}
         >
-          {welcomeData.map((data) => (
-            <WelcomePart data={data} key={data.id}></WelcomePart>
-          ))}
+          <Box ref={card2} sx={{ display: "flex", width: "100%" }}>
+            <WelcomePart data={welcomeData[0]}>
+              <Button
+                onClick={() => onAnchor(card3)}
+                className="btn-more-anchor"
+              >
+                Saiba mais
+              </Button>
+            </WelcomePart>
+          </Box>
+
+          <Box ref={card3} sx={{ display: "flex", width: "100%" }}>
+            <WelcomePart data={welcomeData[1]}>
+              <Button
+                onClick={() => onAnchor(card4)}
+                className="btn-more-anchor"
+              >
+                Saiba mais
+              </Button>
+            </WelcomePart>
+          </Box>
+
+          <Box ref={card4} sx={{ display: "flex", width: "100%" }}>
+            <WelcomePart data={welcomeData[2]}>
+              <Button
+                onClick={() => onAnchor(card5)}
+                className="btn-more-anchor"
+              >
+                Saiba mais
+              </Button>
+            </WelcomePart>
+          </Box>
+
+          <Box ref={card5} sx={{ display: "flex", width: "100%" }}>
+            <WelcomePart data={welcomeData[3]}>
+              <Button className="btn-more-anchor">Saiba mais</Button>
+            </WelcomePart>
+          </Box>
 
           <Box
             sx={{ padding: "5rem 0", width: "25rem" }}

@@ -1,15 +1,7 @@
 import React from "react";
-import { Typography, Box, Button, Grid } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 export default function WelcomePart(props) {
-  function onAnchor(id) {
-    if (id === 5) {
-      window.location.href = `#crie-seu-primeiro-card`;
-      return;
-    }
-    window.location.href = `#${id}`;
-  }
-
   return (
     <Box className="flex-center-center-100" id={props.data.id}>
       {props.data.id % 2 === 0 ? null : (
@@ -86,12 +78,7 @@ export default function WelcomePart(props) {
               <Typography sx={{ maxWidth: "70%", textAlign: "center" }}>
                 {props.data.desc}
               </Typography>
-              <Button
-                onClick={() => onAnchor(props.data.id + 1)}
-                className="btn-more-anchor"
-              >
-                Saiba mais
-              </Button>
+              {props.children}
             </Box>
           </Box>
         </Box>
